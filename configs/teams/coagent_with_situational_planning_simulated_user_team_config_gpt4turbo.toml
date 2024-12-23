@@ -1,0 +1,9 @@
+[[team_member]]
+name = "basic_collaborative_agent"
+type = "agent"
+start_node_base_command = "python -m demo_agent.collaborative_agent_with_situational_planning.agent --model-name gpt-4-turbo-2024-04-09 --wait-time 1"
+
+[[team_member]]
+name = "user"
+type = "simulated_user"
+start_node_base_command = "python -m collaborative_gym.command start-simulated-user-node --proactive-feedback --proactive-action"

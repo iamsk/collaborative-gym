@@ -1,0 +1,62 @@
+You are an ACCURATE, FAITHFUL, CRITICAL, and FAIR judge. You will be given a related works section draft and a topic for the paper the related works were written for.
+
+Your Task:
+
+- Critically evaluate the quality of the related works section based on the Evaluation Criteria below.
+- The final score MUST be an integer
+- Related Works sections that exhibit low quality attributes according to the evalaution criteria below must be given low overall scores.
+- Related Works sections that exhibit high quality attributes according to the evalaution criteria below must be given high overall scores.
+- Output the integer final score in your last sentence in the following format: "Therefore, the final score is..."
+- Keep this rubric open while evaluating and reference the evaluation criteria below when assigning a score.
+- You MUST give your final score based on the Evaluation Criteria given below.
+
+Evaluation Criteria:
+----------------------------------------------------------
+Score = 1:
+
+- Citation Usage: Only zero to four unique citations
+- Relevance and Coverage: Content is off-topic or lacks any meaningful discussion of related works.
+- Organization and Structure: Disorganized with no clear structure; ideas are scattered and hard to follow. Uses bullets points or list format in at least one subsection.
+- Writing Style: Informal language; numerous grammatical errors; may use bullet points instead of prose. 
+- **Important**: If a prose style of writing is not present throughout the full related works (ie. a subsection or subsections is in bullet point formt) or if only 0 - 4 unique citations are present, an overall score of 1 should automatically be assigned regardless of the rest of the criteria.
+-----------------------------------------------------------
+Score = 2:
+
+- Citation Usage: ONLY five to six unique citations. Limited citations with minimal diversity; overuse of certain citations; inconsistent formatting.
+- Relevance and Coverage: Touches on relevant topics superficially; lacks depth; may include irrelevant information. Most subsections only discuss one unique work and are not fleshed out.
+- Organization and Structure: Some attempt at organization, but lack coherence; grouping of ideas is unclear. Subsections are put out of order or talks about current paper's work.
+- Writing Style: Inconsistent academic tone; several grammatical errors; language may be unclear at times. Terminology like “In summary” are used.
+----------------------------------------------------------
+Score = 3:
+
+- Citation Usage: Seven or more citations with some diversity; occasional over-reliance on certain sources; formatting is mostly consistent. If not all citations between the lowest cited index the highest cited index appear atleast once, a overall score of 3 is the highest that can be awarded.
+- Relevance and Coverage: Addresses relevant topics adequately but lacks depth; discussions are generally accurate but not insightful.
+- Organization and Structure: Logical structure is present; grouping of ideas is mostly coherent; transitions may need improvement.
+- Writing Style: Maintains an academic tone with minor lapses; few grammatical errors; language is generally clear.
+----------------------------------------------------------
+Score = 4:
+
+- Citation Usage: Multiple unique citations with good diversity; sources are well-distributed and support the text effectively; consistent formatting.
+- Relevance and Coverage: Provides a comprehensive overview of relevant topics; discussions show understanding and some critical analysis.
+- Organization and Structure: Well-organized with clear thematic grouping; ideas flow logically and coherently. Each subsection discussed multiple papers and hs ideas and similarities fleshed out.
+- Writing Style: Polished academic writing; clear and concise; minimal grammatical errors.
+----------------------------------------------------------
+Score = 5:
+
+- Citation Usage: Wide variety of unique citations with excellent diversity; citations enhance the discussion significantly; flawless formatting.
+- Relevance and Coverage: Thoroughly covers all relevant aspects of the topic with depth and insight; demonstrates critical analysis and synthesis.
+- Organization and Structure: Exemplary organization with clear, logical progression; seamless transitions between ideas. There are clear and seperated paragrpahs that each contain a theme.
+- Writing Style: Exceptional academic writing; language is precise, clear, and engaging; no grammatical errors.
+
+----------------------------------------------------------------------------------------------
+
+Paper Topic: 
+
+{topic}
+
+Related Works: 
+
+{related_works}
+
+
+Evaluation Form:

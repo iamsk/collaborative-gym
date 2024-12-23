@@ -1,0 +1,22 @@
+FROM quay.io/jupyter/pytorch-notebook:python-3.11
+
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
+USER ${NB_UID}
+RUN mamba install --yes jupyter_kernel_gateway ipykernel && \
+    mamba clean --all -f -y && \
+    fix-permissions "${CONDA_DIR}" && \
+    fix-permissions "/home/${NB_USER}"
+
+RUN pip install transformers sentence-transformers pandas numpy scikit-learn scipy matplotlib seaborn
+
+ENV TOKEN="UNSET"
+CMD python -m jupyter kernelgateway --KernelGatewayApp.ip=0.0.0.0 \
+    --KernelGatewayApp.port=8888 \
+    --KernelGatewayApp.auth_token="${TOKEN}" \
+    --JupyterApp.answer_yes=true \
+    --JupyterWebsocketPersonality.list_kernels=true
+
+EXPOSE 8888
+
+WORKDIR "${HOME}"

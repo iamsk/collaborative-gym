@@ -1,0 +1,3302 @@
+[
+    {
+        "domain": "DSA",
+        "topic": "Push Relabel",
+        "title": "Warm-starting Push-Relabel",
+        "conference": "Neurips",
+        "paper_link": "https://arxiv.org/pdf/2405.18568",
+        "hidden_requirements": [
+            [
+                "PS",
+                "Two notable heuristics for Push-Relabel are the global relabeling heuristic and gap relabeling heuristic. The global relabeling heuristic occasionally updates the heights to be a node's distance from t in the current residual graph. Interestingly, these heuristics are more effective together than separately in practice."
+            ],
+            [
+                "NS",
+                0
+            ],
+            [
+                "NC",
+                9
+            ]
+        ]
+    },
+    {
+        "domain": "Robotics",
+        "topic": "Path Planning in a Constant Wind for Uncrewed Aerial Vehicles",
+        "title": "Time-Optimal Path Planning in a Constant Wind for Uncrewed Aerial Vehicles using Dubins Set Classification",
+        "conference": "ICRA",
+        "paper_link": "https://arxiv.org/pdf/2306.11845",
+        "hidden_requirements": [
+            [
+                "PS",
+                "Another optimal control approach was also proposed by [10] wherein it tries to solve the Markov-Dubins problem and the Zermelo\u2019s navigation problem (which was also formulated in [9]) in order to find the time-optimal path to a target while avoiding obstacles and respecting the kinematic constraints of the vehicle."
+            ],
+            [
+                "NS",
+                0
+            ],
+            [
+                "NC",
+                6
+            ]
+        ]
+    },
+    {
+        "domain": "Hardware",
+        "topic": "Graph traversal based approximate nearest neighbor search",
+        "title": "NDSEARCH: Accelerating Graph-Traversal-Based Approximate Nearest Neighbor Search through Near Data Processing",
+        "conference": "ISCA",
+        "paper_link": "https://arxiv.org/pdf/2312.03141",
+        "hidden_requirements": [
+            [
+                "RP",
+                "Recssd: near data processing for solid state drive based recommendation inference"
+            ],
+            [
+                "NS",
+                0
+            ],
+            [
+                "NC",
+                11
+            ]
+        ]
+    },
+    {
+        "domain": "Constraint Satisfaction and Optimization",
+        "topic": "Rainbow Path",
+        "title": "Locally Rainbow Paths",
+        "conference": "AAAI",
+        "paper_link": "https://arxiv.org/pdf/2402.12905",
+        "hidden_requirements": [
+            [
+                "PS",
+                "Our rainbowness constraint is similar in that it \"replenishes\" any colors that were visited more than r steps ago."
+            ],
+            [
+                "NC",
+                8
+            ],
+            [
+                "NS",
+                3
+            ]
+        ]
+    },
+    {
+        "domain": "Quantum Physics",
+        "topic": "Correlated noise in Quantum Computers",
+        "title": "Suppressing Correlated Noise in Quantum Computers via Context-Aware Compiling",
+        "conference": "ISCA",
+        "paper_link": "https://arxiv.org/pdf/2403.06852",
+        "hidden_requirements": [
+            [
+                "PS",
+                "The idea of adapting DD sequences to different parts of the circuit has gained traction recently [71\u201374] but these often require tuning the placements via many additional circuit executions and are not informed by the physical properties of the noise. Suppressing crosstalk by changing the circuit schedule or tuning qubit frequencies have also been studied in Ref. [75, 76], though with limited experimental evaluation and non-scalable compilation via exact solvers."
+            ],
+            [
+                "NS",
+                0
+            ],
+            [
+                "NC",
+                19
+            ]
+        ]
+    },
+    {
+        "domain": "Constraint Satisfaction and Optimization",
+        "topic": "Approximate integer solution counting problem",
+        "title": "Approximate Integer Solution Counts over Linear Arithmetic Constraints",
+        "conference": "AAAI",
+        "paper_link": "https://arxiv.org/pdf/2312.08776",
+        "hidden_requirements": [
+            [
+                "PS",
+                "Also note that P \u2032 computed by our approach is tighter than P\u2032\u2032. Thus the probability of rejection by sampling in P\u2032 is lower than in P\u2032\u2032."
+            ],
+            [
+                "NC",
+                2
+            ],
+            [
+                "NS",
+                2
+            ]
+        ]
+    },
+    {
+        "domain": "Robotics",
+        "topic": "Multi-agent systems with task deadlines",
+        "title": "Online Multi-Agent Pickup and Delivery with Task Deadlines",
+        "conference": "IROS",
+        "paper_link": "https://arxiv.org/pdf/2403.12377",
+        "hidden_requirements": [
+            [
+                "PS",
+                "To address online MAPD, Ma et al. [9] employed the token passing (TP) algorithm. Tokens are a type of shared memory that stores all agent paths as well as the task set and agent assignments. Agents sequentially access the token, are assigned tasks, and find paths without colliding with already reserved paths. The token is updated after identifying a path."
+            ],
+            [
+                "NS",
+                0
+            ],
+            [
+                "NC",
+                12
+            ]
+        ]
+    },
+    {
+        "domain": "ML",
+        "topic": "Optimization routines and boosting",
+        "title": "How to Boost Any Loss Function",
+        "conference": "Neurips",
+        "paper_link": "https://arxiv.org/pdf/2407.02279",
+        "hidden_requirements": [
+            [
+                "PS",
+                "Boosting is however a natural candidate for such investigations, for two reasons. First, the most widely used boosting algorithms are first-order information hungry: they require access to derivatives to compute examples' weights and classifiers' leveraging coefficients. Second and perhaps most importantly, unlike other optimization techniques like gradient descent, the original boosting model does not mandate the access to a first-order information oracle to learn, but rather to a weak learning oracle which supplies classifiers performing slightly differently from random guessing."
+            ],
+            [
+                "NS",
+                0
+            ],
+            [
+                "NC",
+                33
+            ]
+        ]
+    },
+    {
+        "domain": "Agents and Game Theory",
+        "topic": "multi-agent reinforcement learning",
+        "title": "Paths to Equilibrium in Games",
+        "conference": "Neurips",
+        "paper_link": "https://arxiv.org/pdf/2403.18079v2",
+        "hidden_requirements": [
+            [
+                "PS",
+                "A game is said to have the satisficing paths property if every initial strategy profile is connected to some equilibrium by a satisficing path. As we discuss in the next section, satisficing paths can be interpreted as a natural generalization of best response paths."
+            ],
+            [
+                "NS",
+                0
+            ],
+            [
+                "NC",
+                24
+            ]
+        ]
+    },
+    {
+        "domain": "Constraint Satisfaction and Optimization",
+        "topic": "Quantifier-free Algebraic data types",
+        "title": "An Eager Satisfiability Modulo Theories Solver for Algebraic Datatypes",
+        "conference": "AAAI",
+        "paper_link": "https://arxiv.org/pdf/2310.12234",
+        "hidden_requirements": [
+            [
+                "PS",
+                "Princess (Hojjat and R\u00fcmmer 2017) also takes an eager approach. However, Princess reduces queries to UF and Linear Integer Arithmetic (LIA). LIA makes keeping track of the depth of ADT terms easy, but their reduction results in queries that are more difficult to solve (see Sec. 5)."
+            ],
+            [
+                "NC",
+                10
+            ],
+            [
+                "NS",
+                0
+            ]
+        ]
+    },
+    {
+        "domain": "Constraint Satisfaction and Optimization",
+        "topic": "Alternating Direction Method of Multipliers",
+        "title": "Optimizing ADMM and Over-Relaxed ADMM Parameters for Linear Quadratic Problems",
+        "conference": "AAAI",
+        "paper_link": "https://arxiv.org/pdf/2401.00657",
+        "hidden_requirements": [
+            [
+                "PS",
+                "Their approach involves the computation of absolute values from the admittance matrix and the Hessian matrix in each ADMM iteration. These values are then used to recalibrate the penalty parameters, aiming to refine the accuracy of parameter estimation."
+            ],
+            [
+                "NC",
+                12
+            ],
+            [
+                "NS",
+                0
+            ]
+        ]
+    },
+    {
+        "domain": "DSA",
+        "topic": "0-1 Knapsack",
+        "title": "0-1 Knapsack",
+        "conference": "STOC",
+        "paper_link": "https://arxiv.org/pdf/2308.04093",
+        "hidden_requirements": [
+            [
+                "PS",
+                "In contrast to the 0-1 setting, the unbounded setting has been widely studied, leading to several advancements in Knapsack and Subset Sum algorithms."
+            ],
+            [
+                "NS",
+                0
+            ],
+            [
+                "NC",
+                19
+            ]
+        ]
+    },
+    {
+        "domain": "Constraint Satisfaction and Optimization",
+        "topic": "Skolem Functions",
+        "title": "An Approximate Skolem Function Counter",
+        "conference": "AAAI",
+        "paper_link": "https://arxiv.org/pdf/2312.12026",
+        "hidden_requirements": [
+            [
+                "PS",
+                "In more recent work, [PMS23] investigated the problem of level-2 solution counting for QBF formulas and developed an enumeration-based approach for counting the number of level-2 solutions for \u2200\u2203-QBFs. In this work, the solutions are expressed as tree models, and for true formulas, the number of different tree models is the same as the number of Skolem functions."
+            ],
+            [
+                "NC",
+                21
+            ],
+            [
+                "NS",
+                0
+            ]
+        ]
+    },
+    {
+        "domain": "Robotics",
+        "topic": "Optimization of flight structures in UAVs",
+        "title": "Flight Structure Optimization of Modular Reconfigurable UAVs",
+        "conference": "IROS",
+        "paper_link": "https://arxiv.org/pdf/2407.03724",
+        "hidden_requirements": [
+            [
+                "PS",
+                "Developing aerial modular robots that can adapt to various mission settings flexibly through reconfiguration has attracted a lot of research attention, and progress has been made in modular UAV system hardware design [2,3,5,21,22], dynamics modelling [20,23,24], formation control [5], control allocation [19,25,26], and docking trajectory planning [27,28]. In the above cases, both the structure and module configurations of the system are designed and fixed. More recent work sought to find the optimal/suboptimal flight structure for modular UAVs. Specifically, Gandhi et al. formulated a mixed integer linear programming to reconfigure the flight structure under propeller faults on some modules [15]. Gabrich et al. proposed a heuristic-based subgroup search algorithm that achieved better computation efficiency than enumerating different types of modules at each module location [12]. Xu et al. evaluated a structure\u2019s actuation capability by solving an optimization problem [16]. However, the dynamic discrepancy between different modules in terms of weight and inertia parameters is still not considered by these works, prohibiting the fly structure from achieving superior dynamic properties in different task environments."
+            ],
+            [
+                "NS",
+                0
+            ],
+            [
+                "NC",
+                22
+            ]
+        ]
+    },
+    {
+        "domain": "Constraint Satisfaction and Optimization",
+        "topic": "Pivot rules in simplex methods",
+        "title": "LEARNING TO PIVOT AS A SMART EXPERT",
+        "conference": "AAAI",
+        "paper_link": "https://arxiv.org/pdf/2308.08171",
+        "hidden_requirements": [
+            [
+                "PS",
+                "The primal simplex method uses Phase I to achieve a basic primal feasible solution and maintains primal feasibility during Phase II to solve the LP instance. The dual simplex method solves the LP in the view of duality, which gets a basic dual feasible solution and improves primal feasibility during Phase II."
+            ],
+            [
+                "NC",
+                23
+            ],
+            [
+                "NS",
+                2
+            ]
+        ]
+    },
+    {
+        "domain": "ML",
+        "topic": "Universal Time Series Forecasting Transformers",
+        "title": "Unified Training of Universal Time Series Forecasting Transformers",
+        "conference": "ICML",
+        "paper_link": "https://arxiv.org/pdf/2402.02592",
+        "hidden_requirements": [
+            [
+                "RP",
+                "ForecastPFN: Synthetically-trained zero-shot forecasting"
+            ],
+            [
+                "NS",
+                2
+            ],
+            [
+                "NC",
+                13
+            ]
+        ]
+    },
+    {
+        "domain": "Cognitive Modeling and Cognitive Systems",
+        "topic": "Image-to-image translation for racial expression recognition",
+        "title": "Multi-Energy Guided Image Translation with Stochastic Differential Equations for Near-Infrared Facial Expression Recognition",
+        "conference": "AAAI",
+        "paper_link": "https://arxiv.org/pdf/2312.05908",
+        "hidden_requirements": [
+            [
+                "PS",
+                "NIR images provide a low-cost and effective solution to enhance the performance of VIS FER systems in uncontrolled or non-visible light conditions. In this paper, we present the first approach that transforms face expression appearance between heterogeneous modalities for NIR FER in extreme light conditions."
+            ],
+            [
+                "NS",
+                2
+            ],
+            [
+                "NC",
+                10
+            ]
+        ]
+    },
+    {
+        "domain": "ML",
+        "topic": "Injecting structural biases into dense attention",
+        "title": "Replicable Uniformity Testing",
+        "conference": "Neurips",
+        "paper_link": "https://arxiv.org/pdf/2312.16045",
+        "hidden_requirements": [
+            [
+                "PS",
+                "We must point out that the concept of positional encodings as sequence homomorphisms has already been hinted at, first by Wang et al. [2020] and later by Su et al. [2023], even if not explicitly formulated as such. Despite approaching the problem from different angles, both approaches interpret positions as multiplicative, norm-preserving (rotation-like) operations."
+            ],
+            [
+                "NS",
+                0
+            ],
+            [
+                "NC",
+                8
+            ]
+        ]
+    },
+    {
+        "domain": "ML",
+        "topic": "Generative Document Retreival",
+        "title": "Bottleneck-Minimal Indexing for Generative Document Retrieval",
+        "conference": "ICML",
+        "paper_link": "https://arxiv.org/pdf/2405.10974",
+        "hidden_requirements": [
+            [
+                "RH",
+                "Rate-Distortion Theory."
+            ],
+            [
+                "NS",
+                3
+            ],
+            [
+                "NC",
+                6
+            ]
+        ]
+    },
+    {
+        "domain": "CV",
+        "topic": "Large Language Model watermarking",
+        "title": "Bypassing LLM Watermarks with Color-Aware Substitutions",
+        "conference": "ACL",
+        "paper_link": "https://arxiv.org/pdf/2403.14719",
+        "hidden_requirements": [
+            [
+                "PS",
+                "Most importantly, both approaches are ineffective when there are constraints placed on the number of permitted edits. For example, we see that both SICO and RP\u2019s AUROC is still \u2265 0.86 under the most relaxed 0.5 normalized edit distance (i.e., editing 50% of words of the watermarked text). In our work, we do not make this strong assumption."
+            ],
+            [
+                "NS",
+                3
+            ],
+            [
+                "NC",
+                9
+            ]
+        ]
+    },
+    {
+        "domain": "Robotics",
+        "topic": "Relative Localization in Multi-Robot Systems",
+        "title": "HGP-RL: Distributed Hierarchical Gaussian Processes for Wi-Fi-based Relative Localization in Multi-Robot Systems",
+        "conference": "IROS",
+        "paper_link": "https://arxiv.org/pdf/2307.10614",
+        "hidden_requirements": [
+            [
+                "PS",
+                "Contrary to existing works, we overcome the limitations of optimization and learning-based approaches by proposing an active learning-based relative localization, which significantly reduces the computational complexity of using the GPR model to locate a signal source (WiFi AP) through hierarchical inferencing."
+            ],
+            [
+                "NS",
+                0
+            ],
+            [
+                "NC",
+                15
+            ]
+        ]
+    },
+    {
+        "domain": "ML",
+        "topic": "Summarizing topological features over time and inferring interaction laws of collective dynamics from data",
+        "title": "Neural Persistence Dynamics",
+        "conference": "Neurips",
+        "paper_link": "https://arxiv.org/pdf/2405.15732",
+        "hidden_requirements": [
+            [
+                "PS",
+                "Despite remarkable success in distinguishing different configurations of models for collective behavior, all approaches suffer scalability issues, either in terms of the dimensionality of the vectorized persistence diagrams (as with the PSK approach of [23]), or in terms of the number of observation sequences (as is the case for crocker plots/stacks, due to the need for extensive cross-validation of the discretization parameters)."
+            ],
+            [
+                "NS",
+                2
+            ],
+            [
+                "NC",
+                20
+            ]
+        ]
+    },
+    {
+        "domain": "Cognitive Modeling and Cognitive Systems",
+        "topic": "Cognitive agents and learning through interactive task learning",
+        "title": "Bootstrapping Cognitive Agents with a Large Language Model",
+        "conference": "AAAI",
+        "paper_link": "https://arxiv.org/pdf/2403.00810",
+        "hidden_requirements": [
+            [
+                "PS",
+                "Unlike the situation-grounded code produced by these methods, our approach generates parameterized productions with learnable weights. This allows more generalization capabilities and choosing the best plan among multiple applicable plans."
+            ],
+            [
+                "NS",
+                2
+            ],
+            [
+                "NC",
+                11
+            ]
+        ]
+    },
+    {
+        "domain": "Optimization",
+        "topic": "Inverse Optimization",
+        "title": "Conformal Inverse Optimization",
+        "conference": "Neurips",
+        "paper_link": "https://arxiv.org/pdf/2402.01489",
+        "hidden_requirements": [
+            [
+                "PS",
+                "Unlike existing methods that provide a point estimation of the unknown parameters, we learn an uncertainty set that can be used in a robust optimization model."
+            ],
+            [
+                "NS",
+                4
+            ],
+            [
+                "NC",
+                12
+            ]
+        ]
+    },
+    {
+        "domain": "Cognitive Modeling and Cognitive Systems",
+        "topic": "Nested multi-agent reasoning",
+        "title": "Neural Amortized Inference for Nested Multi-agent Reasoning",
+        "conference": "AAAI",
+        "paper_link": "https://arxiv.org/pdf/2308.11071",
+        "hidden_requirements": [
+            [
+                "PS",
+                "While these are all powerful frameworks, there has not been much work on developing efficient inference algorithms for these frameworks in complex domains in which the hypothesis space on each level is very large. Conventional methods can conduct explicit nested reasoning robustly but fail to scale to complex environments."
+            ],
+            [
+                "NS",
+                3
+            ],
+            [
+                "NC",
+                12
+            ]
+        ]
+    },
+    {
+        "domain": "Quantum Physics",
+        "topic": "Compiler optimiation for Bosonic Quantum Computing",
+        "title": "Bosehedral: Compiler Optimization for Bosonic Quantum Computing",
+        "conference": "ISCA",
+        "paper_link": "https://arxiv.org/pdf/2402.02279",
+        "hidden_requirements": [
+            [
+                "PS",
+                "However, due to the difficulty in evaluating the gate matrices when the number of qubits is large, their approximation calculation and topology-aware resynthesis are usually limited to small-scale circuit blocks at each step or special types of circuits. Moreover, such gate-matrix-based approaches are not applicable in Bosonic QC because of the built-in infinite-dimensional state spaces. This paper overcomes this challenge by leveraging the high-level scalable representation of general linear interferometers. And the proposed compilation techniques can easily control the overall approximation fidelity and perform large-scale topology-aware linear interferometer circuit synthesis and optimization."
+            ],
+            [
+                "RH",
+                "Linear Interferometer Implementation"
+            ],
+            [
+                "RP",
+                "LO v-Calculus: A Graphical Language for Linear Optical Quantum Circuits"
+            ],
+            [
+                "NS",
+                3
+            ],
+            [
+                "NC",
+                17
+            ]
+        ]
+    },
+    {
+        "domain": "Quantum Physics",
+        "topic": "VQA applications in Quantum Computing",
+        "title": "Tetris: A Compilation Framework for VQA Applications in Quantum Computing",
+        "conference": "ISCA",
+        "paper_link": "https://arxiv.org/pdf/2309.01905",
+        "hidden_requirements": [
+            [
+                "PS",
+                "Li et al. [24] develops a software-hardware co-design framework for circuit synthesis and hardware mapping of VQE. It performs circuit synthesis on a proposed X\u2212tree architecture. It also prunes the number of Pauli-strings with respect to their importance. Paulihedral [25] for the first time defines the syntax and semantics of the Pauli-string IR. However, their approach focuses on single-qubit canceling, not necessarily two-qubit canceling. Moreover, it has an emphasis on SWAP reduction. It may have overlooked the potential of two-qubit gate canceling while focusing on SWAP insertion and single-qubit gate cancellation."
+            ],
+            [
+                "RP",
+                "A synergistic compilation workflow for tackling crosstalk in quantum machines"
+            ],
+            [
+                "RP",
+                "Software-hardware co-optimization for computational chemistry on superconducting quantum processors"
+            ],
+            [
+                "NS",
+                0
+            ],
+            [
+                "NC",
+                21
+            ]
+        ]
+    },
+    {
+        "domain": "NLP",
+        "topic": "Vertical word classification with Text Classifiers",
+        "title": "Taking advantage of Text Classifiers\u2019 horizontal vision",
+        "conference": "NAACL",
+        "paper_link": "https://arxiv.org/pdf/2404.08538",
+        "hidden_requirements": [
+            [
+                "PS",
+                "Unlike, VertAttack current word-based attacks only operate in the horizontal space. That is, all words chosen for replacement are substituted for that word in place. Their goal is to find words which a classifier does not know well enough to make a correct classification."
+            ],
+            [
+                "RH",
+                "Word-Based Attacks"
+            ],
+            [
+                "RP",
+                "Text processing like humans do: Visually attacking and shielding NLP systems"
+            ],
+            [
+                "NS",
+                2
+            ],
+            [
+                "NC",
+                8
+            ]
+        ]
+    },
+    {
+        "domain": "ML",
+        "topic": "Sparsity explanation value",
+        "title": "Improving Decision Sparsity",
+        "conference": "Neurips",
+        "paper_link": "https://arxiv.org/pdf/2410.20483",
+        "hidden_requirements": [
+            [
+                "PS",
+                "Thus, SEV has two advantages over standard counterfactuals: its references are meaningful because they represent population commons, and its explanations are sparse."
+            ],
+            [
+                "RP",
+                "Regularizing black-box models for improved interpretability"
+            ],
+            [
+                "RP",
+                "Why should I trust you? explaining the predictions of any classifier"
+            ],
+            [
+                "NS",
+                2
+            ],
+            [
+                "NC",
+                10
+            ]
+        ]
+    },
+    {
+        "domain": "NLP",
+        "topic": "Code Embeddings",
+        "title": "Language Agnostic Code Embeddings",
+        "conference": "NAACL",
+        "paper_link": "https://arxiv.org/pdf/2310.16803",
+        "hidden_requirements": [
+            [
+                "PS",
+                "While these studies predominantly concentrate on models trained for natural languages, our emphasis lies on those designed for programming languages."
+            ],
+            [
+                "RP",
+                "Language-agnostic representation learning of source code from structure and context"
+            ],
+            [
+                "RH",
+                "Cross Lingual properties of Natural Language models"
+            ],
+            [
+                "NS",
+                3
+            ],
+            [
+                "NC",
+                19
+            ]
+        ]
+    },
+    {
+        "domain": "ML",
+        "topic": "Efficent Transformers",
+        "title": "Locality-Sensitive Hashing-Based Efficient Point Transformer with Applications in High-Energy Physics",
+        "conference": "ICML",
+        "paper_link": "https://arxiv.org/pdf/2402.12535",
+        "hidden_requirements": [
+            [
+                "RH",
+                "Compromised Accuracy for Computational Regularity."
+            ],
+            [
+                "RH",
+                "Neglecting Error-Computation Tradeoff."
+            ],
+            [
+                "RP",
+                "Flatformer: Flattened window attention for efficient point cloud transformer."
+            ],
+            [
+                "NS",
+                2
+            ],
+            [
+                "NC",
+                9
+            ]
+        ]
+    },
+    {
+        "domain": "NLP",
+        "topic": "Scientific Natural Language Inference",
+        "title": "MSCINLI: A Diverse Benchmark for Scientific Natural Language Inference",
+        "conference": "NAACL",
+        "paper_link": "https://arxiv.org/pdf/2404.08066",
+        "hidden_requirements": [
+            [
+                "PS",
+                "Since the introduction of the NLI task, many datasets derived from different data sources have been made available. Datasets such as RTE and SICK were instrumental in the progress of NLI research in its earlier days. However, the training set sizes of these datasets are too small for large scale deep learning modeling."
+            ],
+            [
+                "RP",
+                "A broad-coverage challenge corpus for sentence understanding through inference"
+            ],
+            [
+                "RP",
+                "Adversarial NLI: A new benchmark for natural language understanding"
+            ],
+            [
+                "NS",
+                3
+            ],
+            [
+                "NC",
+                9
+            ]
+        ]
+    },
+    {
+        "domain": "Constraint Satisfaction and Optimization",
+        "topic": "Display Advertising in Online Optimization",
+        "title": "Percentile Risk-Constrained Budget Pacing for Guaranteed Display Advertising in Online Optimization",
+        "conference": "AAAI",
+        "paper_link": "https://arxiv.org/pdf/2312.06174",
+        "hidden_requirements": [
+            [
+                "PS",
+                "To further consider performance optimization while achieving budget control, Xu et al. (Xu et al. 2015) group requests with similar response rates (e.g. CTR) together and share a PTR among them. When the PTRs need to be adjusted, the average response rate of each group determines the priority of that group. While effective in budget control, relying solely on PTR regulation is insufficient to ensure guaranteed display for GD allocation."
+            ],
+            [
+                "RP",
+                "Dual mirror descent for online allocation problems"
+            ],
+            [
+                "RP",
+                "shale: an efficient algorithm for allocation of guaranteed display advertising"
+            ],
+            [
+                "NS",
+                0
+            ],
+            [
+                "NC",
+                10
+            ]
+        ]
+    },
+    {
+        "domain": "ML",
+        "topic": "Spacial and spectral filters in Graphs",
+        "title": "Spatio-Spectral Graph Neural Networks",
+        "conference": "Neurips",
+        "paper_link": "https://arxiv.org/pdf/2405.19121",
+        "hidden_requirements": [
+            [
+                "PS",
+                "Works that model long-range interactions can be categorized into: (a) MPGNNs on rewired graphs. (b) Closely related are also certain higher-order GNNs, e.g., due to a hierarchical message passing scheme, that may pass information to distant nodes. While approaches (a) and (b) can increase the receptive field on GNNs, they are typically still spatially bounded."
+            ],
+            [
+                "RP",
+                "MagNet: A Neural Network for Directed Graphs"
+            ],
+            [
+                "RH",
+                "Expressivity"
+            ],
+            [
+                "NS",
+                4
+            ],
+            [
+                "NC",
+                31
+            ]
+        ]
+    },
+    {
+        "domain": "NLP",
+        "topic": "Data Augmentation for Event Coreference Resolution",
+        "title": "A Rationale-centric Counterfactual Data Augmentation Method for Cross-Document Event Coreference Resolution",
+        "conference": "NAACL",
+        "paper_link": "https://arxiv.org/pdf/2404.01921",
+        "hidden_requirements": [
+            [
+                "PS",
+                "Our work is the first one specifically designed for the ECR task, which also involves the LLM-in-the-loop to automatically and efficiently construct the required CAD that meets the task's causal requirements."
+            ],
+            [
+                "RH",
+                "Counterfactual Data Augmentation"
+            ],
+            [
+                "RP",
+                "Robustness to spurious correlations in text classification via automatically generated counterfactuals"
+            ],
+            [
+                "NS",
+                2
+            ],
+            [
+                "NC",
+                12
+            ]
+        ]
+    },
+    {
+        "domain": "Robotics",
+        "topic": "Radar SLAM",
+        "title": "RaNDT SLAM: Radar SLAM Based on Intensity-Augmented Normal Distributions Transform",
+        "conference": "IROS",
+        "paper_link": "https://arxiv.org/pdf/2408.11576",
+        "hidden_requirements": [
+            [
+                "PS",
+                "We categorize the existing radar SLAM systems based on their target environment into indoor and outdoor:\n1) Indoor Environments: The radar sensor used for the indoor SLAM of Marck et al. [7] generates scans using only the strongest return per azimuth. They estimate motion based on scan-to-scan ICP and generate a map using a grid-mapping Particle Filter. In the SmokeBot project, a mechanically pivoting radar (MPR) was developed [11]. Within the project, Fritsche et al. [1] combine radar and LiDAR scans for SLAM and investigate two methods: a feature-based approach using a Kalman filter, and a scan registration-based method. Further, Mielle, Magnusson, and Lilienthal [8] compare gmapping and NDT-OM using only radar data produced by the MPR. Mandischer et al. [12] pre-process radar scans using Otsu thresholding and beam-wise clustering. The motion is estimated by probabilistic iterative correspondences matching and an autoregression-moving-average filter for outlier rejection. Torchalla et al. [9] propose a custom sensor setup using a pivoting single-chip radar. They use Truncated Signed Distance Functions for map representation and scan registration."
+            ],
+            [
+                "RP",
+                "A normal distribution transform-based radar odometry designed for scanning and automotive radars"
+            ],
+            [
+                "RH",
+                "Normal Distributions Transform SLAM"
+            ],
+            [
+                "NS",
+                4
+            ],
+            [
+                "NC",
+                12
+            ]
+        ]
+    },
+    {
+        "domain": "Cognitive Modeling and Cognitive Systems",
+        "topic": "Video Question Answering and Theory of Mind",
+        "title": "BDIQA: A New Dataset for Video Question Answering to Explore Cognitive Reasoning through Theory of Mind",
+        "conference": "AAAI",
+        "paper_link": "https://arxiv.org/pdf/2402.07402",
+        "hidden_requirements": [
+            [
+                "PS",
+                "VideoQA has been developing in a more intelligent direction while few of these datasets has incorporated human cognitive reasoning within ToM."
+            ],
+            [
+                "RP",
+                "Baby Intuitions Benchmark (BIB): Discerning the goals, preferences, and actions of others"
+            ],
+            [
+                "RP",
+                "TVQA: Localized, Compositional Video Question Answering"
+            ],
+            [
+                "NS",
+                2
+            ],
+            [
+                "NC",
+                12
+            ]
+        ]
+    },
+    {
+        "domain": "NLP",
+        "topic": "Evaluation suites for LMs",
+        "title": "S3Eval: A Synthetic, Scalable, Systematic Evaluation Suite for Large Language Models",
+        "conference": "NAACL",
+        "paper_link": "https://arxiv.org/pdf/2310.15147",
+        "hidden_requirements": [
+            [
+                "PS",
+                "Many previous works on long-text modeling rely on the perplexity or performance on simple artificial tasks. Concurrently, ZeroSCROLLS, L-Eval and LongBench are proposed as evaluation benchmarks for long-text modeling. However, these benchmarks are built from existing public datasets and have fixed evaluation types. In contrast, S3EVAL can effectively assess comprehension of infinitely long-context."
+            ],
+            [
+                "RP",
+                "Longbench: A bilingual, multitask benchmark for long context understanding"
+            ],
+            [
+                "RP",
+                "Zeroscrolls: A zero-shot benchmark for long text understanding"
+            ],
+            [
+                "NS",
+                2
+            ],
+            [
+                "NC",
+                14
+            ]
+        ]
+    },
+    {
+        "domain": "NLP",
+        "topic": "Rules for LM generations",
+        "title": "Ensuring Safe and High-Quality Outputs: A Guideline Library Approach for Language Models",
+        "conference": "NAACL",
+        "paper_link": "https://arxiv.org/pdf/2407.06077",
+        "hidden_requirements": [
+            [
+                "PS",
+                "Our approach addresses these limitations by automatically generating a comprehensive and detailed guideline library using a safety-trained model. In addition, Retrieval-Augmented Generation (RAG) has proven efficacy in mitigating issues such as model hallucinations and knowledge staleness through knowledge retrieval."
+            ],
+            [
+                "RP",
+                "Constitutional AI: harmlessness from AI feedback"
+            ],
+            [
+                "RP",
+                "Enabling large language models to generate text with citations"
+            ],
+            [
+                "NS",
+                2
+            ],
+            [
+                "NC",
+                10
+            ]
+        ]
+    },
+    {
+        "domain": "Cognitive Modeling and Cognitive Systems",
+        "topic": "Domain adaptation using static data and event based data augmentation",
+        "title": "Imitation of Life: A Search Engine for Biologically Inspired Design",
+        "conference": "AAAI",
+        "paper_link": "https://arxiv.org/pdf/2303.13077",
+        "hidden_requirements": [
+            [
+                "PS",
+                "Due to the limited amount of event data, directly implementing data augmentation to increase the amount of training data is a feasible strategy. Li et al. (2022c) propose neuromorphic data augmentation to stabilize SNN training and improve generalization. Shen, Zhao, and Zeng (2022b) design an augmentation strategy for event stream data, and perform the mixing of different event streams by Gaussian mixing model, while assigning labels to the mixed samples by calculating the relative distance of event streams."
+            ],
+            [
+                "RP",
+                "Improving Stability and Performance of Spiking Neural Networks through Enhancing Temporal Consistency"
+            ],
+            [
+                "RH",
+                "Domain Adaptation Using Static Data"
+            ],
+            [
+                "NS",
+                3
+            ],
+            [
+                "NC",
+                11
+            ]
+        ]
+    },
+    {
+        "domain": "DSA",
+        "topic": "Parallel sampling via Counting",
+        "title": "Parallel Sampling via Counting",
+        "conference": "STOC",
+        "paper_link": "https://arxiv.org/pdf/2408.09442",
+        "hidden_requirements": [
+            [
+                "PS",
+                "We note that all of these prior works use some tractability assumption about the distribution \u03bc. In contrast, in our work, the emphasis is on arbitrary distributions \u03bc, as none of the tractability assumptions of prior work is likely to hold for distributions learned by autoregressive models. As an application of our results, we show how to nontrivially speed up parallel sampling of planar perfect matchings in Section 4."
+            ],
+            [
+                "RH",
+                "Parallelizing Markov Chains"
+            ],
+            [
+                "RH",
+                "Adaptive Complexity in Computational Problems"
+            ],
+            [
+                "NS",
+                4
+            ],
+            [
+                "NC",
+                15
+            ]
+        ]
+    },
+    {
+        "domain": "Robotics",
+        "topic": "Object Pose ",
+        "title": "PEGASUS: Physically Enhanced Gaussian Splatting Simulation System for 6DoF Object Pose Dataset Generation",
+        "conference": "IROS",
+        "paper_link": "https://arxiv.org/pdf/2401.02281",
+        "hidden_requirements": [
+            [
+                "PS",
+                "Contrary to existing works, we overcome the limitations of optimization and learning-based approaches by proposing an active learning-based relative localization, which significantly reduces the computational complexity of using the GPR model to locate a signal source (WiFi AP) through hierarchical inferencing."
+            ],
+            [
+                "RH",
+                "Neural Radiance Fields"
+            ],
+            [
+                "RH",
+                "Dataset Generation"
+            ],
+            [
+                "NS",
+                2
+            ],
+            [
+                "NC",
+                14
+            ]
+        ]
+    },
+    {
+        "domain": "ML",
+        "topic": "Large Lanuage Models and LLM Quantization and security risks",
+        "title": "Exploiting LLM Quantization",
+        "conference": "Neurips",
+        "paper_link": "https://arxiv.org/pdf/2405.18137",
+        "hidden_requirements": [
+            [
+                "PS",
+                "Different from jailbreaking and poisoning, our work examines the threat of an adversary exploiting quantization to activate malicious behaviors in LLMs."
+            ],
+            [
+                "RH",
+                "The Open-Source LLM Community"
+            ],
+            [
+                "RP",
+                "You autocomplete me: Poisoning vulnerabilities in neural code completion"
+            ],
+            [
+                "NS",
+                4
+            ],
+            [
+                "NC",
+                12
+            ]
+        ]
+    },
+    {
+        "domain": "CV",
+        "topic": "Object Detection",
+        "title": "YOLOv9: Learning What You Want to Learn Using Programmable Gradient Information",
+        "conference": "EECV",
+        "paper_link": "https://arxiv.org/pdf/2402.13616",
+        "hidden_requirements": [
+            [
+                "PS",
+                "This paper chooses YOLOv7, which has been proven effective in a variety of computer vision tasks and various scenarios, as a base to develop the proposed method. We use GELAN to improve the architecture and the training process with the proposed PGI. The above novel approach makes the proposed YOLOv9 the top real-time object detector of the new generation."
+            ],
+            [
+                "RP",
+                "Designing Network Design Strategies Through Gradient Path Analysis"
+            ],
+            [
+                "RH",
+                "Real-time Object Detectors"
+            ],
+            [
+                "NS",
+                3
+            ],
+            [
+                "NC",
+                24
+            ]
+        ]
+    },
+    {
+        "domain": "Cognitive Modeling and Cognitive Systems",
+        "topic": "Toddler learning for reinforcement learning",
+        "title": "Unveiling the Significance of Toddler-Inspired Reward Transition in Goal-Oriented Reinforcement Learning",
+        "conference": "AAAI",
+        "paper_link": "https://arxiv.org/pdf/2403.06880",
+        "hidden_requirements": [
+            [
+                "PS",
+                "Drawing insights from toddler developmental stages has provided a fresh perspective in advancing deep learning. By harnessing the innate exploratory tendencies and distinctive learning mechanisms of toddlers, researchers have refined both supervised and reinforcement learning techniques."
+            ],
+            [
+                "RH",
+                "Curriculum learning"
+            ],
+            [
+                "RH",
+                "Potential-based reward shaping (PBRS)"
+            ],
+            [
+                "NS",
+                4
+            ],
+            [
+                "NC",
+                8
+            ]
+        ]
+    },
+    {
+        "domain": "ML",
+        "topic": "RNN weight matrices ",
+        "title": "Learning Useful Representations of Recurrent Neural Network Weight Matrices",
+        "conference": "ICML",
+        "paper_link": "https://arxiv.org/pdf/2403.11998",
+        "hidden_requirements": [
+            [
+                "RP",
+                "Learning one abstract bit at a time through self-invented experiments encoded as neural networks."
+            ],
+            [
+                "RP",
+                "On learning to think: Algorithmic information theory for novel combinations of reinforcement learning controllers and recurrent neural world models."
+            ],
+            [
+                "RP",
+                "Classifying the classifier: dissecting the weight space of neural networks."
+            ],
+            [
+                "NS",
+                0
+            ],
+            [
+                "NC",
+                14
+            ]
+        ]
+    },
+    {
+        "domain": "NLP",
+        "topic": "Lora",
+        "title": "ALoRA: Allocating Low-Rank Adaptation for Fine-tuning Large Language Models",
+        "conference": "NAACL",
+        "paper_link": "https://arxiv.org/pdf/2403.16187",
+        "hidden_requirements": [
+            [
+                "PS",
+                "Despite its tractability and effectiveness, LoRA still has room for improvements in selecting optimal rank rm for each Transformer model weight m. The rank r takes discrete values; thus, changing it will directly alter the model structures."
+            ],
+            [
+                "RP",
+                "Prefix-tuning: Optimizing continuous prompts for generation"
+            ],
+            [
+                "RH",
+                "The LoRA method and its variants"
+            ],
+            [
+                "NS",
+                2
+            ],
+            [
+                "NC",
+                15
+            ]
+        ]
+    },
+    {
+        "domain": "Cognitive Modeling and Cognitive Systems",
+        "topic": "Open-Set facial expression recognition",
+        "title": "Open-Set Facial Expression Recognition",
+        "conference": "AAAI",
+        "paper_link": "https://arxiv.org/pdf/2401.12507",
+        "hidden_requirements": [
+            [
+                "PS",
+                "While open-set recognition methods have demonstrated good performance when inter-class distances are large, they are not suitable for open-set FER with small inter-class distances. Methods that work well under small inter-class distances are needed."
+            ],
+            [
+                "RP",
+                "Generative openmax for multi-class open set classification"
+            ],
+            [
+                "RP",
+                "Difficulty-aware simulator for open set recognition"
+            ],
+            [
+                "NS",
+                2
+            ],
+            [
+                "NC",
+                12
+            ]
+        ]
+    },
+    {
+        "domain": "NLP",
+        "topic": "Text Entailment across Paragraphs",
+        "title": "X-PARADE: Cross-Lingual Textual Entailment and Information Divergence across Paragraphs",
+        "conference": "NAACL",
+        "paper_link": "https://arxiv.org/pdf/2309.08873",
+        "hidden_requirements": [
+            [
+                "PS",
+                "To determine an appropriate label set Y, we reviewed existing taxonomies, including taxonomies for paraphrases and translations. However, these were too fine-grained for our purpose (also including syntactic phenomena), and so we use the following mutually-exclusive classes for span-level annotations"
+            ],
+            [
+                "RH",
+                "Task Setting"
+            ],
+            [
+                "RH",
+                "Related Tasks"
+            ],
+            [
+                "NS",
+                2
+            ],
+            [
+                "NC",
+                14
+            ]
+        ]
+    },
+    {
+        "domain": "Computing",
+        "topic": "Pauli Spectrum of QAC0",
+        "title": "On the Pauli Spectrum of QAC0",
+        "conference": "STOC",
+        "paper_link": "https://arxiv.org/pdf/2311.09631",
+        "hidden_requirements": [
+            [
+                "PS",
+                "By defining our Fourier basis in this way, we are able to analyze channels with an arbitrary number of output qubits. As discussed earlier in the section, this provides a definition of Pauli spectrum that connects more closely with computational complexity and allows us to prove spectral concentration, average-case lower bounds, and learning results for single-output-qubit QAC0 circuits."
+            ],
+            [
+                "RH",
+                "Related Work on Quantum Learning"
+            ],
+            [
+                "RP",
+                "Testing and Learning Quantum Juntas Nearly Optimally"
+            ],
+            [
+                "NS",
+                3
+            ],
+            [
+                "NC",
+                30
+            ]
+        ]
+    },
+    {
+        "domain": "Cognitive Modeling and Cognitive Systems",
+        "topic": "Reasoning about Agents' goals, preferences, and actions",
+        "title": "Neural Reasoning About Agents\u2019 Goals, Preferences, and Actions",
+        "conference": "AAAI",
+        "paper_link": "https://arxiv.org/pdf/2312.07122",
+        "hidden_requirements": [
+            [
+                "PS",
+                "Like the BIB, AGENT tests whether models can predict that agents have object-based goals and act efficiently (Shu et al. 2021). In contrast to the BIB, however, AGENT does not evaluate whether models can reason about multiple agents, inaccessible goals, instrumental actions, or distinguish between rational and irrational agents."
+            ],
+            [
+                "RP",
+                "Cosmos QA: Machine Reading Comprehension with Contextual Commonsense Reasoning"
+            ],
+            [
+                "RP",
+                "Baby Intuitions Benchmark (BIB): Discerning the goals, preferences, and actions of others"
+            ],
+            [
+                "RP",
+                "Abductive Commonsense Reasoning"
+            ],
+            [
+                "RP",
+                "PIQA: Reasoning about Physical Commonsense in Natural Language"
+            ],
+            [
+                "NC",
+                14
+            ],
+            [
+                "NS",
+                2
+            ]
+        ]
+    },
+    {
+        "domain": "ML",
+        "topic": "Dataset valuation",
+        "title": "Data Distribution Valuation",
+        "conference": "Neurips",
+        "paper_link": "https://arxiv.org/pdf/2410.04386",
+        "hidden_requirements": [
+            [
+                "PS",
+                "While the settings of [14, 59, 65] can include heterogeneity in the vendors' data, they do not explicitly formalize it and thus cannot precisely analyze its effects on data valuation. In contrast, our method, via the careful design choices of the Huber model (for heterogeneity) and MMD (for valuation), uniquely offers a precise analysis on the effect of heterogeneity on the value of data."
+            ],
+            [
+                "RP",
+                "LAVA: Data valuation without pre-specified learning algorithms"
+            ],
+            [
+                "RP",
+                "Beta Shapley: a unified and noise-reduced data valuation framework for machine learning"
+            ],
+            [
+                "RH",
+                "With a given reference"
+            ],
+            [
+                "RP",
+                "Data Shapley: Equitable valuation of data for machine learning"
+            ],
+            [
+                "NS",
+                2
+            ],
+            [
+                "NC",
+                10
+            ]
+        ]
+    },
+    {
+        "domain": "ML",
+        "topic": "Artificial Superhuman Intelligence",
+        "title": "Open-Endedness is Essential for Artificial Superhuman Intelligence",
+        "conference": "ICML",
+        "paper_link": "https://arxiv.org/pdf/2406.04268",
+        "hidden_requirements": [
+            [
+                "RP",
+                "OMNI: Open-endedness via Models of human Notions of Interestingness."
+            ],
+            [
+                "RP",
+                "General Intelligence Requires Rethinking Exploration."
+            ],
+            [
+                "RP",
+                "RIDE: Rewarding Impact-Driven Exploration for Procedurally-Generated Environments."
+            ],
+            [
+                "RP",
+                "AI-GAs: AI-generating algorithms, an alternate paradigm for producing general artificial intelligence."
+            ],
+            [
+                "RP",
+                "A definition of open-ended learning problems for goal-conditioned agents."
+            ],
+            [
+                "NS",
+                0
+            ],
+            [
+                "NC",
+                19
+            ]
+        ]
+    },
+    {
+        "domain": "Quantum Physics",
+        "topic": "Mitigating quantum gate",
+        "title": "QuTracer: Mitigating Quantum Gate and Measurement Errors by Tracing Subsets of Qubits",
+        "conference": "ISCA",
+        "paper_link": "https://arxiv.org/pdf/2404.19712",
+        "hidden_requirements": [
+            [
+                "PS",
+                "While Jigsaw and VarSaw target measurement errors, gate errors remain unmitigated. The effectiveness of measurement subsetting is limited for circuits with a high circuit depth, leading to a high gate error rate. Therefore, a subsetting technique that can also effectively mitigate gate errors is desired."
+            ],
+            [
+                "PS",
+                "Circuit cutting, rather than being solely used for dividing a circuit into multiple subcircuits, can be repurposed to monitor the quantum states throughout the execution of a circuit."
+            ],
+            [
+                "PS",
+                "PCS is a promising mitigation technique but the extra noise due to its additional gates and ancillas limits its effectiveness. Although the SQEM framework reduces this extra noise of PCS and can be used for shallow VQE circuits, there is a need for a more generalized framework capable of handling multi-layer, complex circuits. The crucial part is to address the scalability resulting from circuit cutting."
+            ],
+            [
+                "RH",
+                "Circuit Cutting"
+            ],
+            [
+                "RP",
+                "VarSaw: Application-Tailored Measurement Error Mitigation for Variational Quantum Algorithms"
+            ],
+            [
+                "NS",
+                3
+            ],
+            [
+                "NC",
+                9
+            ]
+        ]
+    },
+    {
+        "domain": "Robotics",
+        "topic": "Global Localisation of LIDAR sensor",
+        "title": "CBGL: Fast Monte Carlo Passive Global Localisation of 2D LIDAR Sensor",
+        "conference": "IROS",
+        "paper_link": "https://arxiv.org/pdf/2307.14247",
+        "hidden_requirements": [
+            [
+                "PS",
+                "The literature concerning the solution to the problem of global localisation with the use of a 2D LIDAR sensor is rich. A recent and comprehensive survey on global localisation may be found in [8], while a brief overview is given below."
+            ],
+            [
+                "RP",
+                "A survey on global lidar localization: Challenges, advances and open problems"
+            ],
+            [
+                "RP",
+                "KISS-ICP: In Defense of Point-to-Point ICP \u2013 Simple, Accurate, and Robust Registration If Done the Right Way"
+            ],
+            [
+                "RP",
+                "TransLoc3D : Point Cloud based Large-scale Place Recognition using Adaptive Receptive Fields"
+            ],
+            [
+                "RP",
+                "Deep Samplable Observation Model for Global Localization and Kidnapping"
+            ],
+            [
+                "NS",
+                0
+            ],
+            [
+                "NC",
+                21
+            ]
+        ]
+    },
+    {
+        "domain": "NLP",
+        "topic": "Generative Vision-Language Models",
+        "title": "An Examination of the Compositionality of Large Generative Vision-Language Models",
+        "conference": "NAACL",
+        "paper_link": "https://arxiv.org/pdf/2308.10509",
+        "hidden_requirements": [
+            [
+                "PS",
+                "The prevailing approach in recent research connects a frozen visual encoder with an LLM by training mapping layers on images-text pairs, followed by fine-tuning using multi-modal instructional data to facilitate multi-turn conversations."
+            ],
+            [
+                "RH",
+                "Vision-language compositionality"
+            ],
+            [
+                "RP",
+                "VL-CheckList: Evaluating pre-trained vision-language models with objects, attributes and relations"
+            ],
+            [
+                "RP",
+                "Multimodal-gpt: A vision and language model for dialogue with humans"
+            ],
+            [
+                "RH",
+                "Generative vision-language models"
+            ],
+            [
+                "NS",
+                3
+            ],
+            [
+                "NC",
+                23
+            ]
+        ]
+    },
+    {
+        "domain": "CV",
+        "topic": "Video generation and diffusion models",
+        "title": "SF-V: Single Forward Video Generation Model",
+        "conference": "Neurips",
+        "paper_link": "https://arxiv.org/pdf/2406.04324",
+        "hidden_requirements": [
+            [
+                "PS",
+                "Nonetheless, the tremendous computation cost of video diffusion models hinders their wide deployment. It takes tens of seconds to generate a single video batch even for high-tier server GPUs. Consequently, the reduction of denoising steps is pivotal to efficient video generation, which linearly scales down the total runtime."
+            ],
+            [
+                "RH",
+                "Step Distillation of Diffusion Models"
+            ],
+            [
+                "RP",
+                "Fast high-resolution image synthesis with latent adversarial diffusion distillation"
+            ],
+            [
+                "RP",
+                "Progressive distillation for fast sampling of diffusion models"
+            ],
+            [
+                "RP",
+                "Animatediff-lightning: Cross-model diffusion distillation"
+            ],
+            [
+                "NS",
+                2
+            ],
+            [
+                "NC",
+                23
+            ]
+        ]
+    },
+    {
+        "domain": "NLP",
+        "topic": "Model Finetuning",
+        "title": "InsCL: A Data-efficient Continual Learning Paradigm for Fine-tuning Large Language Models with Instructions",
+        "conference": "NAACL",
+        "paper_link": "https://arxiv.org/pdf/2403.11435",
+        "hidden_requirements": [
+            [
+                "PS",
+                "With the help of various low-cost methods of constructing high-quality templates, instruction datasets can expand easily over time as new tasks appear. When the data scale grows dynamically, we can easily obtain sufficient task-specific data."
+            ],
+            [
+                "RH",
+                "Traditional CL Methods"
+            ],
+            [
+                "RP",
+                "Orthogonal subspace learning for language model continual learning"
+            ],
+            [
+                "RP",
+                "Continual-bert: Continual learning for adaptive extractive summarization of covid-19 literature"
+            ],
+            [
+                "RH",
+                "CL for LLMs instruction tuning"
+            ],
+            [
+                "NS",
+                3
+            ],
+            [
+                "NC",
+                23
+            ]
+        ]
+    },
+    {
+        "domain": "NLP",
+        "topic": "Few-Shot Prompt Tuning",
+        "title": "TrojFSP: Trojan Insertion in Few-shot Prompt Tuning",
+        "conference": "NAACL",
+        "paper_link": "https://arxiv.org/pdf/2312.10467",
+        "hidden_requirements": [
+            [
+                "PS",
+                "Although PPT and PromptAttack freeze the PLMs and tune only a small set of prompt parameters, they require a large training dataset consisting of hundreds of input samples. In contrast, TrojFSP can generate a backdoored prompt that can achieve both a high ASR and a high CDA by freezing the PLMs and tuning a small set of prompt parameters with few (e.g., 16-shot)"
+            ],
+            [
+                "RP",
+                "Badprompt: Backdoor attacks on continuous prompts"
+            ],
+            [
+                "RH",
+                "Motivation"
+            ],
+            [
+                "RH",
+                "Prompt-tuning for PLMs"
+            ],
+            [
+                "RP",
+                "Promptattack: Prompt-based attack for language models via gradient search"
+            ],
+            [
+                "NS",
+                3
+            ],
+            [
+                "NC",
+                15
+            ]
+        ]
+    },
+    {
+        "domain": "CV",
+        "topic": "Self supervised learning attacks",
+        "title": "SSL-Cleanse: Trojan Detection and Mitigation in Self-Supervised Learning",
+        "conference": "EECV",
+        "paper_link": "https://arxiv.org/pdf/2303.09079",
+        "hidden_requirements": [
+            [
+                "PS",
+                "However, as the defender lacks knowledge of the target class, simulating the trigger pattern becomes challenging, hindering effective backdoor removal. In our threat model, the SSL encoder is required but there\u2019s no requirement for the poisoned training dataset."
+            ],
+            [
+                "RH",
+                "Self-Supervised Learning"
+            ],
+            [
+                "RP",
+                "Momentum Contrast for Unsupervised Visual Representation Learning"
+            ],
+            [
+                "RP",
+                "ALBERT: A Lite BERT for Self-Supervised Learning of Language Representations"
+            ],
+            [
+                "RH",
+                "Limitations of Related Backdoor Defense"
+            ],
+            [
+                "NS",
+                3
+            ],
+            [
+                "NC",
+                21
+            ]
+        ]
+    },
+    {
+        "domain": "Cognitive Modeling and Cognitive Systems",
+        "topic": "Spiking Neural Network coding schemes",
+        "title": "Gated Attention Coding for Training High-performance and Efficient Spiking Neural Networks",
+        "conference": "AAAI",
+        "paper_link": "https://arxiv.org/pdf/2308.06582",
+        "hidden_requirements": [
+            [
+                "PS",
+                "Spiking Neural Networks (SNNs) offer a promising approach to achieving energy-efficient intelligence. These networks aim to replicate the behavior of biological neurons by employing binary spiking signals, where a value of 0 indicates no activity and a value of 1 represents a spiking event."
+            ],
+            [
+                "RH",
+                "SNN Coding Schemes"
+            ],
+            [
+                "RP",
+                "Temporal-wise attention spiking neural networks for event streams classification"
+            ],
+            [
+                "RH",
+                "Attention Mechanism"
+            ],
+            [
+                "RP",
+                "Reducing ANN-SNN Conversion Error Through Residual Membrane Potential"
+            ],
+            [
+                "NS",
+                3
+            ],
+            [
+                "NC",
+                9
+            ]
+        ]
+    },
+    {
+        "domain": "ML",
+        "topic": "Causal Effect Estimation under Networked Interference",
+        "title": "Doubly Robust Causal Effect Estimation under Networked Interference via Targeted Learning",
+        "conference": "ICML",
+        "paper_link": "https://arxiv.org/pdf/2405.03342",
+        "hidden_requirements": [
+            [
+                "RP",
+                "Learning representations for counterfactual inference."
+            ],
+            [
+                "RH",
+                "Causal inference"
+            ],
+            [
+                "RP",
+                "Learning causal effects on hypergraphs."
+            ],
+            [
+                "RP",
+                "Vcnet and functional targeted regularization for learning causal effects of continuous treatments."
+            ],
+            [
+                "RP",
+                "Generalization bound for estimating causal effects from observational network data."
+            ],
+            [
+                "NS",
+                3
+            ],
+            [
+                "NC",
+                27
+            ]
+        ]
+    },
+    {
+        "domain": "NLP",
+        "topic": "Persona Agent in LLM evaluation",
+        "title": "PersonaGym: Evaluating Persona Agents and LLMs",
+        "conference": "N/A",
+        "paper_link": "https://arxiv.org/pdf/2407.18416",
+        "hidden_requirements": [
+            [
+                "PS",
+                "Recent research has explored LLMs' role-playing capabilities as personas. Li et al. (2023) developed an algorithm to enhance LLMs' ability to portray anime characters through improved prompting and memory extraction from scripts, focusing on knowledge, background, personality, and linguistic habits."
+            ],
+            [
+                "RP",
+                "Character is destiny: Can large language models simulate persona-driven decisions in role-playing?"
+            ],
+            [
+                "RH",
+                "Role-Play Evaluation"
+            ],
+            [
+                "RP",
+                "ExpertPrompting: Instructing large language models to be distinguished experts"
+            ],
+            [
+                "RP",
+                "InCharacter: Evaluating personality fidelity in role-playing agents through psychological interviews"
+            ],
+            [
+                "NS",
+                2
+            ],
+            [
+                "NC",
+                7
+            ]
+        ]
+    },
+    {
+        "domain": "Constraint Satisfaction and Optimization",
+        "topic": "Self-Reducible Samplers",
+        "title": "Testing Self-Reducible Samplers",
+        "conference": "AAAI",
+        "paper_link": "https://arxiv.org/pdf/2312.10999",
+        "hidden_requirements": [
+            [
+                "PS",
+                "The state-of-the-art approach for efficiently testing CNF samplers was initiated by Meel and Chakraborty (Chakraborty and Meel 2019). They employed the concept of hypothesis testing with conditional samples (Chakraborty et al. 2016; Canonne, Ron, and Servedio 2015) and showed that such samples could be 'simulated' in the case of CNF samplers. The approach produced mathematical guarantees on the correctness of their tester."
+            ],
+            [
+                "RP",
+                "Efficient parameter estimation of truncated boolean product distributions"
+            ],
+            [
+                "RP",
+                "On Scalable Testing of Samplers"
+            ],
+            [
+                "RP",
+                "Learning and testing junta distributions with subcube conditioning"
+            ],
+            [
+                "RP",
+                "Tolerant Testing of High-Dimensional Samplers with Subcube Conditioning"
+            ],
+            [
+                "NS",
+                0
+            ],
+            [
+                "NC",
+                14
+            ]
+        ]
+    },
+    {
+        "domain": "ML",
+        "topic": "Detection of LLM Generated Text",
+        "title": "Monitoring AI-Modified Content at Scale: A Case Study on the Impact of ChatGPT on AI Conference Peer Reviews",
+        "conference": "ICML",
+        "paper_link": "https://arxiv.org/pdf/2403.07183",
+        "hidden_requirements": [
+            [
+                "RH",
+                "LLM watermarking."
+            ],
+            [
+                "RP",
+                "DetectGPT: Zero-Shot Machine-Generated Text Detection using Probability Curvature."
+            ],
+            [
+                "RP",
+                "RADAR: Robust AI-Text Detection via Adversarial Learning."
+            ],
+            [
+                "RH",
+                "Training-based LLM detection."
+            ],
+            [
+                "RH",
+                "Zero-shot LLM Detection."
+            ],
+            [
+                "NS",
+                3
+            ],
+            [
+                "NC",
+                27
+            ]
+        ]
+    },
+    {
+        "domain": "ML",
+        "topic": "Deep Ensembles",
+        "title": "Emergent Equivariance in Deep Ensembles",
+        "conference": "ICML",
+        "paper_link": "https://arxiv.org/pdf/2403.03103",
+        "hidden_requirements": [
+            [
+                "RP",
+                "Local Group Invariant Representations via Orbit Embeddings."
+            ],
+            [
+                "RP",
+                "Frame averaging for invariant and equivariant network design."
+            ],
+            [
+                "RP",
+                "Scaling Limits of Wide Neural Networks with Weight Sharing: Gaussian Process Behavior, Gradient Independence, and Neural Tangent Kernel Derivation."
+            ],
+            [
+                "RH",
+                "Data augmentation and kernel machines."
+            ],
+            [
+                "RH",
+                "Deep Ensembles, Equivariance"
+            ],
+            [
+                "NS",
+                4
+            ],
+            [
+                "NC",
+                26
+            ]
+        ]
+    },
+    {
+        "domain": "CV",
+        "topic": "Attribute value extraction for multimodal LLMs",
+        "title": "ImplicitAVE: An Open-Source Dataset and Multimodal LLMs Benchmark for Implicit Attribute Value Extraction",
+        "conference": "ACL",
+        "paper_link": "https://arxiv.org/pdf/2404.15592",
+        "hidden_requirements": [
+            [
+                "PS",
+                "While several explicit AVE datasets exist, implicit AVE is much more challenging and under-explored. To advance multi-modal AVE research further, we introduce the first publicly available multimodal implicit AVE dataset, ImplicitAVE, featuring careful human annotation and a versatile range of items from multiple domains. Our dataset is considerably different from DESIRE, as detailed in Appendix A."
+            ],
+            [
+                "RP",
+                "MAVE: A Product Dataset for Multi-Source Attribute Value Extraction"
+            ],
+            [
+                "RP",
+                "InstructBLIP: Towards General-Purpose Vision-Language Models with Instruction Tuning"
+            ],
+            [
+                "RP",
+                "BLIP-2: Bootstrapping Language-Image Pre-training with Frozen Image Encoders and Large Language Models"
+            ],
+            [
+                "RP",
+                "AdaTag: Multi-Attribute Value Extraction from Product Profiles with Adaptive Decoding"
+            ],
+            [
+                "NS",
+                2
+            ],
+            [
+                "NC",
+                22
+            ]
+        ]
+    },
+    {
+        "domain": "Cognitive Modeling and Cognitive Systems",
+        "topic": "Diffusion models for crowd simulation",
+        "title": "Social Physics Informed Diffusion Model for Crowd Simulation",
+        "conference": "AAAI",
+        "paper_link": "https://arxiv.org/pdf/2402.06680",
+        "hidden_requirements": [
+            [
+                "PS",
+                "The Social Force Model (SFM) exemplifies an approach with good generalizability, representing crowd motion as a many-particle dynamical system where various forces influence pedestrians. Nevertheless, physics-based methods struggle to accurately capture micro pedestrian motion due to the complexity and indeterminacy of human behaviors, as proven in the experiments in (Zhang et al. 2022)."
+            ],
+            [
+                "RH",
+                "Equivariant networks"
+            ],
+            [
+                "RH",
+                "Crowd simulation"
+            ],
+            [
+                "RP",
+                "Social-STGCNN: A Social Spatio-Temporal Graph Convolutional Neural Network for Human Trajectory Prediction"
+            ],
+            [
+                "RP",
+                "Stochastic Trajectory Prediction via Motion Indeterminacy Diffusion"
+            ],
+            [
+                "NS",
+                3
+            ],
+            [
+                "NC",
+                13
+            ]
+        ]
+    },
+    {
+        "domain": "NLP",
+        "topic": "LM Attacks",
+        "title": "Two Heads are Better than One: Nested PoE for Robust Defense Against Multi-Backdoors",
+        "conference": "NAACL",
+        "paper_link": "https://arxiv.org/pdf/2404.02356",
+        "hidden_requirements": [
+            [
+                "PS",
+                "One significant advantage of PoE is its capability of mitigating unknown biases by training a weak model to proactively capture the underlying data bias and then learning in the main model the residue between the captured biases and original task observations for debiasing."
+            ],
+            [
+                "RH",
+                "Backdoor Attack in NLP"
+            ],
+            [
+                "RH",
+                "Backdoor Defense in NLP"
+            ],
+            [
+                "RP",
+                "ONION: A simple and effective defense against textual backdoor attacks"
+            ],
+            [
+                "RP",
+                "Hidden killer: Invisible textual backdoor attacks with syntactic trigger"
+            ],
+            [
+                "NS",
+                3
+            ],
+            [
+                "NC",
+                18
+            ]
+        ]
+    },
+    {
+        "domain": "ML",
+        "topic": "Deep Overparametrized Low-Rank Learning",
+        "title": "Compressible Dynamics in Deep Overparameterized Low-Rank Learning & Adaptation",
+        "conference": "ICML",
+        "paper_link": "https://arxiv.org/pdf/2406.04112",
+        "hidden_requirements": [
+            [
+                "RH",
+                "Implicit regularization."
+            ],
+            [
+                "RP",
+                "Intrinsic dimensionality explains the effectiveness of language model fine-tuning."
+            ],
+            [
+                "RP",
+                "In search of the real inductive bias: On the role of implicit regularization in deep learning."
+            ],
+            [
+                "RP",
+                "Speeding up convolutional neural networks with low rank expansions."
+            ],
+            [
+                "RP",
+                "Generalization guarantees for neural networks via harnessing the low-rank structure of the Jacobian."
+            ],
+            [
+                "NS",
+                3
+            ],
+            [
+                "NC",
+                17
+            ]
+        ]
+    },
+    {
+        "domain": "Cognitive Modeling and Cognitive Systems",
+        "topic": "Music style transfer",
+        "title": "Music Style Transfer with Time-Varying Inversion of Diffusion Models",
+        "conference": "AAAI",
+        "paper_link": "https://arxiv.org/pdf/2402.13763",
+        "hidden_requirements": [
+            [
+                "PS",
+                "Above methods can generate good music style transfer results, but they can only achieve single-style transfer or require a large amount of training data, while failing to generate high-quality music with natural sound sources."
+            ],
+            [
+                "RH",
+                "Text-to-music generation"
+            ],
+            [
+                "RH",
+                "Music style transfer"
+            ],
+            [
+                "RP",
+                "Self-supervised vq-vae for one-shot music style transfer"
+            ],
+            [
+                "RP",
+                "TimbreTron: A WaveNet(CycleGAN(CQT(Audio))) Pipeline for Musical Timbre Transfer"
+            ],
+            [
+                "NS",
+                3
+            ],
+            [
+                "NC",
+                15
+            ]
+        ]
+    },
+    {
+        "domain": "ML",
+        "topic": "DP Federated Learning",
+        "title": "PrE-Text: Training Language Models on Private Federated Data in the Age of LLMs",
+        "conference": "ICML",
+        "paper_link": "https://arxiv.org/pdf/2406.02958",
+        "hidden_requirements": [
+            [
+                "RH",
+                "DP Federated Learning."
+            ],
+            [
+                "RP",
+                "Learning differentially private recurrent language models."
+            ],
+            [
+                "RP",
+                "Training large-vocabulary neural language models by private federated learning for resource-constrained devices."
+            ],
+            [
+                "RP",
+                "Unnatural instructions: Tuning language models with (almost) no human labor."
+            ],
+            [
+                "RP",
+                "Don\u2019t generate me: Training differentially private generative models with sinkhorn divergence."
+            ],
+            [
+                "NS",
+                3
+            ],
+            [
+                "NC",
+                19
+            ]
+        ]
+    },
+    {
+        "domain": "ML",
+        "topic": "Value functions for scalable deep RL",
+        "title": "Stop Regressing: Training Value Functions via Classification for Scalable Deep RL",
+        "conference": "ICML",
+        "paper_link": "https://arxiv.org/pdf/2403.03950",
+        "hidden_requirements": [
+            [
+                "RP",
+                "On the effect of auxiliary tasks on representation dynamics."
+            ],
+            [
+                "RP",
+                "Mastering atari, go, chess and shogi by planning with a learned model."
+            ],
+            [
+                "RP",
+                "Lcr-net++: Multi-person 2d and 3d pose detection in natural images."
+            ],
+            [
+                "RP",
+                "Implicit under-parameterization inhibits data-efficient deep reinforcement learning."
+            ],
+            [
+                "RP",
+                "The statistical benefits of quantile temporal-difference learning for value estimation."
+            ],
+            [
+                "NS",
+                0
+            ],
+            [
+                "NC",
+                19
+            ]
+        ]
+    },
+    {
+        "domain": "CV",
+        "topic": "Facial expressions to convey emotion from speech",
+        "title": "EmoVOCA: Speech-Driven Emotional 3D Talking Heads",
+        "conference": "EECV",
+        "paper_link": "https://arxiv.org/pdf/2403.12886",
+        "hidden_requirements": [
+            [
+                "PS",
+                "Again, the very core of these approaches is based upon the efficacy of reconstructing a 3D face from 2D representations. We will show that this strategy results in decreased lip-sync accuracy. To address these challenges, our work proposes a novel approach that improves lip-sync accuracy without relying solely on 2D reconstruction."
+            ],
+            [
+                "RP",
+                "Audio-Driven 3D Facial Animation from In-the-Wild Videos"
+            ],
+            [
+                "RP",
+                "MeshTalk: 3D Face Animation from Speech Using Cross-Modality Disentanglement"
+            ],
+            [
+                "RP",
+                "LaughTalk: Expressive 3D Talking Head Generation with Laughter"
+            ],
+            [
+                "RH",
+                "Emotional Facial Animation and Data Limitations"
+            ],
+            [
+                "NS",
+                3
+            ],
+            [
+                "NC",
+                19
+            ]
+        ]
+    },
+    {
+        "domain": "Computing",
+        "topic": "Commodity processing in DIMM devices",
+        "title": "PID-Comm: A Fast and Flexible Collective Communication Framework for Commodity Processing-in-DIMM Devices",
+        "conference": "ISCA",
+        "paper_link": "https://arxiv.org/pdf/2404.08871",
+        "hidden_requirements": [
+            [
+                "RP",
+                "Scaling distributed machine learning with in-network aggregation"
+            ],
+            [
+                "RP",
+                "Recnmp: Accelerating personalized recommendation with near-memory processing"
+            ],
+            [
+                "RP",
+                "Synthesizing optimal parallelism placement and reduction strategies on hierarchical systems for deep learning"
+            ],
+            [
+                "RP",
+                "Megatron-LM: Training Multi-billion Parameter Language Models Using Model Parallelism"
+            ],
+            [
+                "RP",
+                "Blink: Fast and generic collectives for distributed ml"
+            ],
+            [
+                "NS",
+                2
+            ],
+            [
+                "NC",
+                68
+            ]
+        ]
+    },
+    {
+        "domain": "NLP",
+        "topic": "Persona Agents",
+        "title": "DiverseDialogue: A Methodology for Designing Chatbots with Human-Like Diversity",
+        "conference": "N/A",
+        "paper_link": "https://arxiv.org/pdf/2409.00262",
+        "hidden_requirements": [
+            [
+                "PS",
+                "Diversity plays an important role in chatbot generation. Conversational styles of Large Language Models (LLMs) tend to differ systematically from those of humans, both in their average behavior and in their variance (Huang et al. 2024)."
+            ],
+            [
+                "RP",
+                "Can Large Language Models Serve as Rational Players in Game Theory? A Systematic Analysis"
+            ],
+            [
+                "RP",
+                "Zhongjing: Enhancing the Chinese Medical Capabilities of Large Language Model through Expert Feedback and Real-World Multi-Turn Dialogue"
+            ],
+            [
+                "RP",
+                "Agent Hospital: A Simulacrum of Hospital with Evolvable Medical Agents"
+            ],
+            [
+                "RP",
+                "Characterizing Similarities and Divergences in Conversational Tones in Humans and LLMs by Sampling with People"
+            ],
+            [
+                "RP",
+                "A survey on large language model based autonomous agents"
+            ],
+            [
+                "RP",
+                "User Simulation with Large Language Models for Evaluating Task-Oriented Dialogue"
+            ],
+            [
+                "NS",
+                3
+            ],
+            [
+                "NC",
+                10
+            ]
+        ]
+    },
+    {
+        "domain": "NLP",
+        "topic": "Prompt understanding and prompt optimization",
+        "title": "Prompts have evil twins",
+        "conference": "EMNLP",
+        "paper_link": "https://arxiv.org/pdf/2311.07064",
+        "hidden_requirements": [
+            [
+                "PS",
+                "These experiments suggest that LLMs follow prompt instructions differently than humans do, aligning with our findings on \"evil twin prompts.\""
+            ],
+            [
+                "RP",
+                "Prefix-tuning: Optimizing continuous prompts for generation"
+            ],
+            [
+                "RH",
+                "How Models Parse Prompts"
+            ],
+            [
+                "RP",
+                "HotFlip: White-box adversarial examples for text classification"
+            ],
+            [
+                "RP",
+                "AutoDAN: Generating Stealthy Jailbreak Prompts on Aligned Large Language Models"
+            ],
+            [
+                "RH",
+                "Prompt Optimization"
+            ],
+            [
+                "RP",
+                "Hard Prompts Made Easy: Gradient-Based Discrete Optimization for Prompt Tuning and Discovery"
+            ],
+            [
+                "NS",
+                2
+            ],
+            [
+                "NC",
+                13
+            ]
+        ]
+    },
+    {
+        "domain": "ML",
+        "topic": "Nonconvex Mean-field Dynamics on the Attention Landscape",
+        "title": "Transformers Learn Nonlinear Features In Context: Nonconvex Mean-field Dynamics on the Attention Landscape",
+        "conference": "ICML",
+        "paper_link": "https://arxiv.org/pdf/2402.01258",
+        "hidden_requirements": [
+            [
+                "RP",
+                "Transformers learn to implement preconditioned gradient descent for in-context learning."
+            ],
+            [
+                "RP",
+                "Matrix completion has no spurious local minimum."
+            ],
+            [
+                "RP",
+                "How do Transformers learn in-context beyond simple functions? A case study on learning with representations."
+            ],
+            [
+                "RH",
+                "In-Context Learning."
+            ],
+            [
+                "RH",
+                "Landscape analyses."
+            ],
+            [
+                "RP",
+                "One step of gradient descent is provably the optimal in-context learner with one layer of linear self-attention."
+            ],
+            [
+                "RP",
+                "Escaping from saddle points - online stochastic gradient for tensor decomposition."
+            ],
+            [
+                "NS",
+                3
+            ],
+            [
+                "NC",
+                20
+            ]
+        ]
+    },
+    {
+        "domain": "ML",
+        "topic": "Algorithm Design using Large Language Models",
+        "title": "Evolution of Heuristics: Towards Efficient Automatic Algorithm Design Using Large Language Model",
+        "conference": "ICML",
+        "paper_link": "https://arxiv.org/pdf/2401.02051",
+        "hidden_requirements": [
+            [
+                "RP",
+                "Large language models as commonsense knowledge for large-scale task planning."
+            ],
+            [
+                "RH",
+                "LLMs for Heuristic Design"
+            ],
+            [
+                "RP",
+                "Connecting large language models with evolutionary algorithms yields powerful prompt optimizers."
+            ],
+            [
+                "RP",
+                "Promptbreeder: Self-referential self-improvement via prompt evolution."
+            ],
+            [
+                "RP",
+                "Navigation with large language models: Semantic guesswork as a heuristic for planning."
+            ],
+            [
+                "RP",
+                "Evoprompting: Language models for code-level neural architecture search."
+            ],
+            [
+                "RH",
+                "Automatic Heuristic Design"
+            ],
+            [
+                "NS",
+                3
+            ],
+            [
+                "NC",
+                34
+            ]
+        ]
+    },
+    {
+        "domain": "RL",
+        "topic": "Sample efficiency improvements",
+        "title": "Bigger, Regularized, Optimistic: scaling for compute and sample-efficient continuous control",
+        "conference": "Neurips",
+        "paper_link": "https://arxiv.org/pdf/2405.16158",
+        "hidden_requirements": [
+            [
+                "PS",
+                "Recently, Nauman et al. (2024) showed that layer normalization can improve performance without value overestimation, eliminating the need for pessimistic Q-learning. A notable effort has also focused on optimistic exploration (Wang et al., 2020; Moskovitz et al., 2021). Various methods have been developed to increase sample efficiency via exploration that is greedy with respect to a Q-value upper bound. These include closed-form transformations of the pessimistic policy (Ciosek et al., 2019) or using a dual actor network dedicated to exploration (Nauman & Cygan, 2023)."
+            ],
+            [
+                "RP",
+                "Bigger, Better, Faster: Human-level Atari with Human-level Efficiency"
+            ],
+            [
+                "RP",
+                "Stop Regressing: Training Value Functions via Classification for Scalable Deep RL"
+            ],
+            [
+                "RP",
+                "PaLM-E: An Embodied Multimodal Language Model"
+            ],
+            [
+                "RP",
+                "EfficientZero v2: Mastering Discrete and Continuous Control with Limited Data"
+            ],
+            [
+                "RP",
+                "TD-MPC2: Scalable, Robust World Models for Continuous Control"
+            ],
+            [
+                "RP",
+                "Offline Q-Learning on Diverse Multi-Task Data Both Scales and Generalizes"
+            ],
+            [
+                "NS",
+                2
+            ],
+            [
+                "NC",
+                26
+            ]
+        ]
+    },
+    {
+        "domain": "Robotics",
+        "topic": "Vision Based Tactile Sensors",
+        "title": "Large-scale Deployment of Vision-based Tactile Sensors on Multi-fingered Grippers",
+        "conference": "IROS",
+        "paper_link": "https://www.arxiv.org/pdf/2408.02206",
+        "hidden_requirements": [
+            [
+                "PS",
+                "Large-scale tactile perception has seen significant advancements through innovative sensor technologies [20]. Various techniques, using piezoresistive sensors [9], capacitive sensors [21], piezoelectric sensors [22], magnetic sensors [23], optical sensors [24], etc., have been explored to provide robotic end-effectors with extensive tactile feedback for object assessment via physical contact [25]. Key design parameters such as spatial resolution, sensitivity, wiring complexity, frequency response, flexibility, robustness, and cost are crucial. Balancing these criteria often requires trade-offs in practical applications. While e-skins [11,12] perform relatively well in the aforementioned categories, they still face challenges such as manufacturing complexity and high cost, as well as having wiring and durability issues."
+            ],
+            [
+                "RP",
+                "Towards vision-based robotic skins: a data-driven, multi-camera tactile sensor"
+            ],
+            [
+                "RP",
+                "9dtact: A compact vision-based tactile sensor for accurate 3d shape reconstruction and generalizable 6d force estimation"
+            ],
+            [
+                "RP",
+                "Exoskeleton-covered soft finger with vision-based proprioception and tactile sensing"
+            ],
+            [
+                "RP",
+                "Soft-bubble: A highly compliant dense geometry tactile sensor for robot manipulation"
+            ],
+            [
+                "RP",
+                "Soft, round, high resolution tactile fingertip sensors for dexterous robotic manipulation"
+            ],
+            [
+                "RH",
+                "GelSight Variants"
+            ],
+            [
+                "NS",
+                2
+            ],
+            [
+                "NC",
+                23
+            ]
+        ]
+    },
+    {
+        "domain": "NLP",
+        "topic": "LLM Hallucination",
+        "title": "Language Models Hallucinate, but May Excel at Fact Verification",
+        "conference": "NAACL",
+        "paper_link": "https://arxiv.org/pdf/2310.14564",
+        "hidden_requirements": [
+            [
+                "PS",
+                "There are many active efforts to use LLMs' generated answers or generation probabilities for NLG evaluation. More recent studies show high correlations of ChatGPT with human judgments for evaluating summarization, story generation, etc. SELFCHECKGPT judged the factuality of a model output based on its similarity with other sampled outputs from the same model, and does not apply to non-model-generated statements or model-agnostic generation."
+            ],
+            [
+                "RP",
+                "True: Re-evaluating factual consistency evaluation"
+            ],
+            [
+                "RP",
+                "Human-like summarization evaluation with chatgpt"
+            ],
+            [
+                "RP",
+                "FactScore: Fine-grained atomic evaluation of factual precision in long form text generation"
+            ],
+            [
+                "RH",
+                "Hallucination"
+            ],
+            [
+                "RP",
+                "Climate-fever: A dataset for verification of real-world climate claims"
+            ],
+            [
+                "RP",
+                "Leveraging passage retrieval with generative models for open domain question answering"
+            ],
+            [
+                "NS",
+                3
+            ],
+            [
+                "NC",
+                15
+            ]
+        ]
+    },
+    {
+        "domain": "Robotics",
+        "topic": "Input Corruption mitigation in models",
+        "title": "Enhanced Model Robustness to Input Corruptions by Per-corruption Adaptation of Normalization Statistics",
+        "conference": "IROS",
+        "paper_link": "http://www.arxiv.org/pdf/2407.06450",
+        "hidden_requirements": [
+            [
+                "PS",
+                "Data Augmentation methods improve model performance during pre-training via data augmentation: they aim to develop a general robust model against corrupted images [19\u201321, 28]. Some methods improve the robustness of models by automatically searching for improved data augmentation policies among common methods [29], or applying random noise or patches to train images [30, 31]."
+            ],
+            [
+                "RP",
+                "A simple way to make neural networks robust against diverse image corruptions"
+            ],
+            [
+                "RP",
+                "Fft-based selection and optimization of statistics for robust recognition of severely corrupted images"
+            ],
+            [
+                "RH",
+                "Test-Time Adaptation"
+            ],
+            [
+                "RP",
+                "Test-time adaptation for point cloud upsampling using meta-learning"
+            ],
+            [
+                "RP",
+                "Online continual learning for robust indoor object recognition"
+            ],
+            [
+                "RP",
+                "Improving robustness without sacrificing accuracy with patch gaussian augmentation"
+            ],
+            [
+                "NS",
+                2
+            ],
+            [
+                "NC",
+                27
+            ]
+        ]
+    },
+    {
+        "domain": "CV",
+        "topic": "Deepfake detection through forgery augmentation",
+        "title": "Fake It till You Make It: Curricular Dynamic Forgery Augmentations towards General Deepfake Detection",
+        "conference": "EECV",
+        "paper_link": "https://arxiv.org/pdf/2409.14444",
+        "hidden_requirements": [
+            [
+                "PS",
+                "Due to the development of deep generative models, the forged faces become more realistic and the manipulation methods are of more diversity. Some works propose to find clues on inconsistency of facial identity [13,16,17,41]. Several works introduce common data augmentations (e.g., blurring and jpeg compression) [4,51,60] to help improve the detection performance. Furthermore, [37] proposes to use RL agent to search the policy of common data augmentations (e.g., Brightness and Contrast). However, the improvement in generalization performance of the commonly used data augmentation is limited."
+            ],
+            [
+                "RP",
+                "Training Strategies and Data Augmentations in CNN-based DeepFake Video Detection"
+            ],
+            [
+                "RH",
+                "Deepfake Detection through Forgery Augmentation"
+            ],
+            [
+                "RP",
+                "Spatial-Phase Shallow Learning: Rethinking Face Forgery Detection in Frequency Domain"
+            ],
+            [
+                "RP",
+                "Xception: Deep Learning With Depthwise Separable Convolutions"
+            ],
+            [
+                "RH",
+                "Deepfake Detection"
+            ],
+            [
+                "RP",
+                "Thinking in Frequency: Face Forgery Detection by Mining Frequency-Aware Clues"
+            ],
+            [
+                "NS",
+                2
+            ],
+            [
+                "NC",
+                27
+            ]
+        ]
+    },
+    {
+        "domain": "Cognitive Modeling and Cognitive Systems",
+        "topic": "Text based person search",
+        "title": "An Empirical Study of CLIP for Text-based Person Search",
+        "conference": "AAAI",
+        "paper_link": "https://arxiv.org/pdf/2308.10045",
+        "hidden_requirements": [
+            [
+                "PS",
+                "Witnessing VLP's great success on cross-modal tasks in recent years, researchers have begun pushing the frontier of TBPS solutions with VLP. Han et al. propose to employ CLIP as the backbone and appends a Bi-GRU after its text encoder for better text feature encoding; CFine embraces the image encoder from CLIP to enrich cross-modal correspondence information, and uses the text encoder replaced with BERT to avoid intra-modal information distortion"
+            ],
+            [
+                "RP",
+                "Adversarial representation learning for text-to-image matching"
+            ],
+            [
+                "RP",
+                "Blip: Bootstrapping language-image pre-training for unified vision-language understanding and generation"
+            ],
+            [
+                "RP",
+                "Align before fuse: Vision and language representation learning with momentum distillation"
+            ],
+            [
+                "RP",
+                "Vilbert: Pretraining task-agnostic visiolinguistic representations for vision-and-language tasks"
+            ],
+            [
+                "RP",
+                "TIPCB: A simple but effective part-based convolutional baseline for text-based person search"
+            ],
+            [
+                "RP",
+                "Identity-aware textual-visual matching with latent co-attention"
+            ],
+            [
+                "NS",
+                2
+            ],
+            [
+                "NC",
+                18
+            ]
+        ]
+    },
+    {
+        "domain": "Robotics",
+        "topic": "Object Pose Estimation",
+        "title": "ZS6D: Zero-shot 6D Object Pose Estimation using Vision Transformers",
+        "conference": "ICRA",
+        "paper_link": "https://arxiv.org/pdf/2309.11986",
+        "hidden_requirements": [
+            [
+                "PS",
+                "Contemporary methods for pose estimation [4], [3], [1], [2], [18], [19], [20], [21], [22] rely on object-specific training and a preceding object detection stage which also has to be trained separately. These approaches do not scale well, since they have to be trained for every new object."
+            ],
+            [
+                "RP",
+                "Multi-path learning for object pose estimation across domains"
+            ],
+            [
+                "RP",
+                "Zebrapose: Coarse to fine surface encoding for 6dof object pose estimation"
+            ],
+            [
+                "RP",
+                "Pyrapose: Feature pyramids for fast and accurate object pose estimation under domain shift"
+            ],
+            [
+                "RP",
+                "Stand-alone self-attention in vision models"
+            ],
+            [
+                "RP",
+                "Templates for 3d object pose estimation revisited: Generalization to new objects and robustness to occlusions"
+            ],
+            [
+                "RH",
+                "Novel object pose estimation"
+            ],
+            [
+                "NS",
+                2
+            ],
+            [
+                "NC",
+                22
+            ]
+        ]
+    },
+    {
+        "domain": "CV",
+        "topic": "Video datasets and egocentric video datasets",
+        "title": "EgoPet: Egomotion and Interaction Data from an Animal\u2019s Perspective",
+        "conference": "EECV",
+        "paper_link": "https://arxiv.org/pdf/2404.09991",
+        "hidden_requirements": [
+            [
+                "PS",
+                "However, while existing datasets focus on human and human skills, our focus is on animal agents which have more limited language and hand-object interactions. The most related egocentric dataset is DECADE which consists of an hour of footage of a single dog, including joint locations annotations. Inspired by DECADE, EgoPet is a much larger web-scale dataset (84 hours) and much more diverse."
+            ],
+            [
+                "RP",
+                "The 'Something Something' Video Database for Learning and Evaluating Visual Common Sense"
+            ],
+            [
+                "RP",
+                "Animal Kingdom: A Large and Diverse Dataset for Animal Behavior Understanding"
+            ],
+            [
+                "RH",
+                "Egocentric Video Datasets"
+            ],
+            [
+                "RH",
+                "Video Datasets"
+            ],
+            [
+                "RP",
+                "You2Me: Inferring Body Pose in Egocentric Video via First and Second Person Interactions"
+            ],
+            [
+                "RP",
+                "AVA: A Video Dataset of Spatio-temporally Localized Atomic Visual Actions"
+            ],
+            [
+                "NS",
+                2
+            ],
+            [
+                "NC",
+                22
+            ]
+        ]
+    },
+    {
+        "domain": "Computing",
+        "topic": "Elastic resource scaling for recommendation models",
+        "title": "ElasticRec: A Microservice-based Model Serving Architecture Enabling Elastic Resource Scaling for Recommendation Models",
+        "conference": "ISCA",
+        "paper_link": "https://arxiv.org/pdf/2406.06955",
+        "hidden_requirements": [
+            [
+                "RP",
+                "MP-Rec: Hardware-Software Co-design to Enable Multi-Path Recommendation"
+            ],
+            [
+                "RH",
+                "Memory bandwidth bottleneck of RecSys"
+            ],
+            [
+                "RP",
+                "Supporting Massive DLRM Inference Through Software Defined Memory"
+            ],
+            [
+                "RP",
+                "The Architectural Implications of Facebook\u2019s DNN-based Personalized Recommendation"
+            ],
+            [
+                "RP",
+                "JIZHI: A Fast and Cost-Effective Model-As-A-Service System for Web-Scale Online Inference at Baidu"
+            ],
+            [
+                "RP",
+                "RecNMP: Accelerating Personalized Recommendation with Near-Memory Processing"
+            ],
+            [
+                "RP",
+                "Tensor Casting: Co-Designing Algorithm-Architecture for Personalized Recommendation Training"
+            ],
+            [
+                "NS",
+                3
+            ],
+            [
+                "NC",
+                29
+            ]
+        ]
+    },
+    {
+        "domain": "NLP",
+        "topic": "LLMs for text reranking",
+        "title": "EcoRank: Budget-Constrained Text Re-ranking Using Large Language Models",
+        "conference": "ACL",
+        "paper_link": "https://arxiv.org/pdf/2402.10866",
+        "hidden_requirements": [
+            [
+                "PS",
+                "All these approaches do not consider the cost of LLMs and do not try to optimize the performance of text rankers with a budget constraint. Prior to recent efforts with LLMs in text re-ranking, most works focused on the supervised ranking problem using monoT5 or BERT where they trained a pre-trained LM for re-ranking tasks. They mainly use LLMs as an auxiliary tool to support the training of PLMs and thus differ from the scope of this paper."
+            ],
+            [
+                "RP",
+                "Zero-Shot Listwise Document Reranking with a Large Language Model"
+            ],
+            [
+                "RH",
+                "Cost-aware LLMs"
+            ],
+            [
+                "RP",
+                "Promptagator: Few-Shot Dense Retrieval from 8 Examples"
+            ],
+            [
+                "RH",
+                "LLMs in Text Re-ranking"
+            ],
+            [
+                "RP",
+                "Instruction Distillation Makes Large Language Models Efficient Zero-Shot Rankers"
+            ],
+            [
+                "RP",
+                "Cache & Distil: Optimising API Calls to Large Language Models"
+            ],
+            [
+                "NS",
+                2
+            ],
+            [
+                "NC",
+                23
+            ]
+        ]
+    },
+    {
+        "domain": "Hardware",
+        "topic": "Data preprocessing system for recommendation models",
+        "title": "PreSto: An In-Storage Data Preprocessing System for Training Recommendation Models",
+        "conference": "ISCA",
+        "paper_link": "https://arxiv.org/pdf/2406.14571",
+        "hidden_requirements": [
+            [
+                "RP",
+                "Understanding Data Storage and Ingestion for Large-Scale Deep Recommendation Model Training"
+            ],
+            [
+                "RP",
+                "RecSSD: Near Data Processing for Solid State Drive Based Recommendation Inference"
+            ],
+            [
+                "RP",
+                "Centaur: A Chiplet-Based, Hybrid Sparse-Dense Accelerator for Personalized Recommendations"
+            ],
+            [
+                "RH",
+                "RecSys model training/inference"
+            ],
+            [
+                "RP",
+                "The Architectural Implications of Facebook\u2019s DNN-Based Personalized Recommendation"
+            ],
+            [
+                "RP",
+                "tf.data service: A Case for Disaggregating ML Input Data Processing"
+            ],
+            [
+                "RP",
+                "MP-Rec: Hardware-Software Co-design to Enable Multi-Path Recommendation"
+            ],
+            [
+                "NS",
+                4
+            ],
+            [
+                "NC",
+                52
+            ]
+        ]
+    },
+    {
+        "domain": "Robotics",
+        "topic": "Metric Localization",
+        "title": "Spectral Geometric Verification: Re-Ranking Point Cloud Retrieval for Metric Localization",
+        "conference": "ICRA",
+        "paper_link": "https://arxiv.org/pdf/2210.04432",
+        "hidden_requirements": [
+            [
+                "PS",
+                "Our proposed SpectralGV can be readily integrated into all the above metric localization methods [4]\u2013[6] as well as place recognition methods such as [18] which produce discriminative local features."
+            ],
+            [
+                "RP",
+                "PointNetVLAD: Deep point cloud based retrieval for large-scale place recognition"
+            ],
+            [
+                "RP",
+                "Scancontext++: Structural place recognition robust to rotation and lateral variations in urban environments"
+            ],
+            [
+                "RP",
+                "Efficient diffusion on region manifolds: Recovering small objects with compact cnn representations"
+            ],
+            [
+                "RP",
+                "Re-ranking person re-identification with k-reciprocal encoding"
+            ],
+            [
+                "RP",
+                "Patch-NetVLAD: Multi-scale fusion of locally-global descriptors for place recognition"
+            ],
+            [
+                "RP",
+                "Lpd-net: 3d point cloud learning for large-scale place recognition and environment analysis"
+            ],
+            [
+                "NS",
+                3
+            ],
+            [
+                "NC",
+                27
+            ]
+        ]
+    },
+    {
+        "domain": "ML",
+        "topic": "Memory efficient LLM Training",
+        "title": "GaLore: Memory-Efficient LLM Training by Gradient Low-Rank Projection",
+        "conference": "ICML",
+        "paper_link": "https://arxiv.org/pdf/2403.03507",
+        "hidden_requirements": [
+            [
+                "RP",
+                "Continual learning in low-rank orthogonal subspaces."
+            ],
+            [
+                "RP",
+                "Gradient Descent Happens in a Tiny Subspace."
+            ],
+            [
+                "RP",
+                "MultiLoRA: Democratizing LoRA for Better Multi-Task Learning."
+            ],
+            [
+                "RP",
+                "Chain of LoRA: Efficient Fine-tuning of Language Models via Residual Learning."
+            ],
+            [
+                "RP",
+                "Gradient-based meta-learning with learned layerwise metric and subspace."
+            ],
+            [
+                "RP",
+                "8-bit optimizers via block-wise quantization."
+            ],
+            [
+                "RH",
+                "Projected gradient descent."
+            ],
+            [
+                "NS",
+                5
+            ],
+            [
+                "NC",
+                29
+            ]
+        ]
+    },
+    {
+        "domain": "Robotics",
+        "topic": "Personal Object Search",
+        "title": "Swiss DINO: Efficient and Versatile Vision Framework for On-device Personal Object Search",
+        "conference": "IROS",
+        "paper_link": "https://arxiv.org/pdf/2407.07541",
+        "hidden_requirements": [
+            [
+                "PS",
+                "While early works on few-shot semantic segmentation resorted to fine-tuning large parts of models [11]\u2013[14], recent approaches are based on sparse feature matching [15] or training adaptation layers with the prototypical loss [16]\u2013[20]. These latter approaches compute class prototypes as the average embedding of all images of a class. The label of a new (query) image is predicted by identifying the nearest prototype vector computed from the training (support) set. The training and evaluation are usually performed on popular segmentation datasets with coarse-level classes (e.g. person, cat, car, chair), namely PASCAL \u2212 5i [21] and COCO \u2212 20i [22]."
+            ],
+            [
+                "RP",
+                "Matcher: Segment anything with one shot using all-purpose feature matching"
+            ],
+            [
+                "RH",
+                "Object Detection Datasets for Robotic Applications"
+            ],
+            [
+                "RP",
+                "Online Continual Learning for Embedded Devices"
+            ],
+            [
+                "RP",
+                "Cross-architecture auxiliary feature space translation for efficient few-shot personalized object detection"
+            ],
+            [
+                "RP",
+                "Localizing objects with self-supervised transformers and no labels"
+            ],
+            [
+                "RP",
+                "Openloris-object: A robotic vision dataset and benchmark for lifelong deep learning"
+            ],
+            [
+                "NS",
+                3
+            ],
+            [
+                "NC",
+                20
+            ]
+        ]
+    },
+    {
+        "domain": "Robotics",
+        "topic": "Personalized Object Detection",
+        "title": "Cross-Architecture Auxiliary Feature Space Translation for Efficient Few-Shot Personalized Object Detection",
+        "conference": "IROS",
+        "paper_link": "https://arxiv.org/pdf/2407.01193",
+        "hidden_requirements": [
+            [
+                "PS",
+                "Cross-Architecture Knowledge Distillation has emerged in recent years as a generalization of hint-based knowledge distillation approaches [23]\u2013[26] (which assume that the architectures\u2019 topology matches). The objective is to distill transformer architectures [27]\u2013[33] into more efficient alternatives (e.g., CNNs), since their impressive performance comes at a significant compute cost. The first investigation into the topic by Liu et al. [15] focused on distilling the output space of two heterogeneous architectures. In [16] the authors could improve the performance of a face recognition model introducing an ad-hoc distillation approach that used facial keypoints as hints and focused on the attention maps produced by the teacher. The most recent work on the topic, which is also the closest to our approach, is [17] where distillation on outputs and feature spaces of models is applied simultaneously, mimicking shortcut-based architectures. The core differences compared to our approach lie in the utilized distillation techniques and overall objective. [17] focuses on achieving the highest accuracy on a task shared by teacher and student models, via KL-divergence-based losses to distill teacher logits into the student\u2019s output space and projected features. Our objective is different since we consider the reconstruction of the teacher\u2019s feature space as an auxiliary task, which we want to solve without impacting the performance of the main task. Therefore, we use losses more geared toward reconstruction and apply them to an auxiliary, translated space."
+            ],
+            [
+                "RP",
+                "An image is worth 16x16 words: Transformers for image recognition at scale"
+            ],
+            [
+                "RP",
+                "Robotic interestingness via human-informed few-shot object detection"
+            ],
+            [
+                "RP",
+                "Seggpt: Segmenting everything in context"
+            ],
+            [
+                "RP",
+                "Matcher: Segment anything with one shot using all-purpose feature matching"
+            ],
+            [
+                "RH",
+                "Few Shot Learning"
+            ],
+            [
+                "RH",
+                "Cross-Architecture Knowledge Distillation"
+            ],
+            [
+                "NS",
+                3
+            ],
+            [
+                "NC",
+                29
+            ]
+        ]
+    },
+    {
+        "domain": "Robotics",
+        "topic": "Text identification in noisy scenes",
+        "title": "Diving into the Depths of Spotting Text in Multi-Domain Noisy Scenes",
+        "conference": "ICRA",
+        "paper_link": "https://arxiv.org/pdf/2310.00558",
+        "hidden_requirements": [
+            [
+                "PS",
+                "In this work, we strive towards efficiency by using a tiny variant of Swin feature backbone coupled with deformable attention module for the text spotting unit"
+            ],
+            [
+                "RH",
+                "Image Super-resolution"
+            ],
+            [
+                "RH",
+                "Modelling linguistic knowledge for end-to-end STR"
+            ],
+            [
+                "RP",
+                "Pan++: Towards efficient and accurate end-to-end spotting of arbitrarily-shaped text"
+            ],
+            [
+                "RP",
+                "Abcnet v2: Adaptive bezier-curve network for real-time end-to-end text spotting"
+            ],
+            [
+                "RH",
+                "Multi-Domain Learning"
+            ],
+            [
+                "RP",
+                "An image is worth 16x16 words: Transformers for image recognition at scale"
+            ],
+            [
+                "NS",
+                4
+            ],
+            [
+                "NC",
+                40
+            ]
+        ]
+    },
+    {
+        "domain": "ML",
+        "topic": "Large Language Models for Code",
+        "title": "Evaluation of LLMs on Syntax-Aware Code Fill-in-the-Middle Tasks",
+        "conference": "ICML",
+        "paper_link": "https://arxiv.org/pdf/2403.04814",
+        "hidden_requirements": [
+            [
+                "RP",
+                "SWE-Bench: Can language models resolve real-world Github issues?"
+            ],
+            [
+                "RP",
+                "GLM: General language model pretraining with autoregressive blank infilling."
+            ],
+            [
+                "RP",
+                "JuICe: A large scale distantly supervised dataset for open domain context-based code generation."
+            ],
+            [
+                "RP",
+                "InCoder: A generative model for code infilling and synthesis."
+            ],
+            [
+                "RH",
+                "Fill-in-the-Middle in Training and Evaluating Code LLMs."
+            ],
+            [
+                "RP",
+                "Unified pre-training for program understanding and generation."
+            ],
+            [
+                "RP",
+                "BERT: Pre-training of deep bidirectional transformers for language understanding."
+            ],
+            [
+                "NS",
+                3
+            ],
+            [
+                "NC",
+                43
+            ]
+        ]
+    },
+    {
+        "domain": "CV",
+        "topic": "NeRF-based Pseudo-LiDAR Point Cloud",
+        "title": "Just Add $100 More: Augmenting NeRF-based Pseudo-LiDAR Point Cloud for Resolving Class-imbalance Problem",
+        "conference": "Neurips",
+        "paper_link": "https://arxiv.org/pdf/2403.11573",
+        "hidden_requirements": [
+            [
+                "PS",
+                "Instead of collecting large-scale datasets, we propose a novel approach of generating high-quality rare objects cheaply. These generated objects can be used as data augmentation for existing detection pipelines, addressing the class imbalance problem."
+            ],
+            [
+                "RH",
+                "LiDAR-based 3D Object Detection Datasets for Autonomous Driving"
+            ],
+            [
+                "RP",
+                "Imbalance problems in object detection: A review"
+            ],
+            [
+                "RP",
+                "Plenoxels: Radiance fields without neural networks"
+            ],
+            [
+                "RP",
+                "PIFu: Pixel-Aligned Implicit Function for High-Resolution Clothed Human Digitization"
+            ],
+            [
+                "RP",
+                "Instant Neural Graphics Primitives with a Multiresolution Hash Encoding"
+            ],
+            [
+                "RP",
+                "Waymo Open Dataset: Panoramic Video Panoptic Segmentation"
+            ],
+            [
+                "NS",
+                3
+            ],
+            [
+                "NC",
+                28
+            ]
+        ]
+    },
+    {
+        "domain": "ML",
+        "topic": "Transformer improvements and Attention in Transformers",
+        "title": "Improving Transformers with Dynamically Composable Multi-Head Attention",
+        "conference": "ICML",
+        "paper_link": "https://arxiv.org/pdf/2405.08553",
+        "hidden_requirements": [
+            [
+                "RP",
+                "Transformer-XL: Attentive language models beyond a fixed-length context."
+            ],
+            [
+                "RP",
+                "Retentive network: A successor to transformer for large language models."
+            ],
+            [
+                "RP",
+                "Roformer: Enhanced transformer with rotary position embedding."
+            ],
+            [
+                "RP",
+                "Information aggregation for multi-head attention with routing-by-agreement."
+            ],
+            [
+                "RP",
+                "Open-endedness via Models of human Notions of Interestingness."
+            ],
+            [
+                "RH",
+                "Architecture Modifications to Transformers"
+            ],
+            [
+                "RP",
+                "Multi-head attention: Collaborate instead of concatenate."
+            ],
+            [
+                "NS",
+                4
+            ],
+            [
+                "NC",
+                24
+            ]
+        ]
+    },
+    {
+        "domain": "NLP",
+        "topic": "Human in the loop",
+        "title": "Into the Unknown Unknowns: Engaged Human Learning through Participation in Language Model Agent Conversations",
+        "conference": "ENMLP",
+        "paper_link": "http://www.arxiv.org/pdf/2408.15232",
+        "hidden_requirements": [
+            [
+                "PS",
+                "However, these works typically ignore human interaction or only passively answer user questions. We construct a multi-agent system with a human-in-the-loop protocol to support effective user interaction for complex and evolving information needs."
+            ],
+            [
+                "RP",
+                "Dynamic LLM-agent network: An LLM-agent collaboration framework with agent team optimization"
+            ],
+            [
+                "RP",
+                "TyDi QA: A benchmark for information-seeking question answering in typologically diverse languages"
+            ],
+            [
+                "RP",
+                "A dataset of information-seeking questions and answers anchored in research papers"
+            ],
+            [
+                "RH",
+                "Multi-Agent Systems"
+            ],
+            [
+                "RP",
+                "Debate Helps Supervise Unreliable Experts"
+            ],
+            [
+                "RP",
+                "Encouraging Divergent Thinking in Large Language Models through Multi-Agent Debate"
+            ],
+            [
+                "NS",
+                3
+            ],
+            [
+                "NC",
+                33
+            ]
+        ]
+    },
+    {
+        "domain": "NLP",
+        "topic": "Data selection for pre-training",
+        "title": "MATES: Model-Aware Data Selection for Efficient Pretraining with Data Influence Models\n",
+        "conference": "Neurips",
+        "paper_link": "https://arxiv.org/pdf/2406.06046",
+        "hidden_requirements": [
+            [
+                "PS",
+                "These methods leverage the capabilities of strong reference LLMs, which are often several orders of magnitude larger, to guide the pretraining of smaller models. It remains uncertain how the data curated by existing LLMs can contribute to building models stronger than them."
+            ],
+            [
+                "RP",
+                "D4: Improving LLM pretraining via document de-duplication and diversification"
+            ],
+            [
+                "RP",
+                "Model-generated pretraining signals improves zero-shot generalization of text-to-text transformers"
+            ],
+            [
+                "RH",
+                "Influence Functions"
+            ],
+            [
+                "RP",
+                "TRAK: Attributing model behavior at scale"
+            ],
+            [
+                "RP",
+                "Self-influence guided data reweighting for language model pre-training"
+            ],
+            [
+                "RP",
+                "Deduplicating training data makes language models better"
+            ],
+            [
+                "NS",
+                6
+            ],
+            [
+                "NC",
+                29
+            ]
+        ]
+    }
+]
