@@ -142,7 +142,7 @@ class CoEnv:
         parsed_action = None
         for space in action_space:
             parsed_action = space.parse(action)
-            if parsed_action:
+            if parsed_action is not None:  # {} is also a valid parsed action
                 return parsed_action, private, space.machine_readable_identifier, None
 
         # Should not reach here if action spaces are properly defined

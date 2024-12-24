@@ -9,11 +9,10 @@ from aact import NodeFactory, Message
 from aact.messages import Zero
 from websocket import WebSocket
 
-from collaborative_gym.core import ObservationTypes
+from collaborative_gym.core import ObservationTypes, logger
 from collaborative_gym.nodes.agent_interface import AGENT_TO_PID_KEY
 from collaborative_gym.nodes.base_node import BaseNode
 from collaborative_gym.nodes.commons import JsonObj
-from collaborative_gym.runner import logger
 from collaborative_gym.utils.code_executor import JupyterManager
 
 
@@ -214,14 +213,18 @@ class GUIUserListenNode(BaseNode[JsonObj, JsonObj]):
                 message = json.loads(data)
 
                 if message.get("type") == "request_state":
-                    print("GUIUserListenNode: received request_state message from GUI")
+                    logger.info(
+                        f"GUIUserListenNode ({self.node_name}): received request_state message from GUI"
+                    )
                     await self.r.publish(
                         f"{self.env_uuid}/{self.node_name}/request_state",
                         Message[JsonObj](data=JsonObj(object={})).model_dump_json(),
                     )
 
         except asyncio.CancelledError:
-            print("WebSocket listener task cancelled.")
+            logger.info(
+                "GUIUserListenNode ({self.node_name}): WebSocket listener task cancelled."
+            )
         except Exception as e:
             pass
 
@@ -268,7 +271,9 @@ class GUIUserListenNode(BaseNode[JsonObj, JsonObj]):
             try:
                 await self.websocket.send_json(payload)
             except Exception as e:
-                # print(f"Error in sending message to GUI: {e}")
+                logger.debug(
+                    f"GUIUserListenNode ({self.node_name}): Error in sending message to GUI: {e}"
+                )
                 # Handle WebSocket closing here if needed
                 await self.close_websocket()
 
@@ -431,9 +436,7 @@ class GUIUserListenNode(BaseNode[JsonObj, JsonObj]):
                 await self.listener_task  # Await the task to finish gracefully
 
             await self.close_websocket()
-            logger.info(
-                f"Node GUIUserListenNode for {self.node_name} shutdown gracefully."
-            )
+            logger.info(f"GUIUserListenNode ({self.node_name}) shutdown gracefully.")
         else:
             yield input_channel, Message[JsonObj](
                 data=JsonObj(

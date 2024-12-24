@@ -3,6 +3,7 @@ from typing import AsyncIterator, Self, Any
 
 from aact import NodeFactory, Message
 
+from collaborative_gym.core import logger
 from collaborative_gym.nodes.base_node import BaseNode
 from collaborative_gym.nodes.commons import JsonObj
 
@@ -23,8 +24,6 @@ class AgentNode(BaseNode[JsonObj, JsonObj]):
     - `start(self, name: str, team_members: List[str], task_description: str, action_space: List[str], example_question: str, example_trajectory: str) -> None`
         - This method will be called when the node receives a start message.
     - `get_action(self, observation: dict, chat_history: List[dict]) -> str`
-        - This method will be called when the node receives a new observation message.
-    - `update_with_feedback(self, reward: float, action_info: Optional[str]) -> None`
         - This method will be called when the node receives a new observation message.
     - `end(self, result_dir: str) -> None`
         - This method will be called when the node receives an end message.
@@ -146,7 +145,7 @@ class AgentNode(BaseNode[JsonObj, JsonObj]):
             asyncio.CancelledError: When receiving an end message
         """
         if input_channel == f"{self.env_uuid}/start":
-            print("AgentNode: received start message")
+            logger.info(f"AgentNode ({self.node_name}): received start message")
             self.agent.start(
                 name=self.node_name,
                 team_members=input_message.data.object["team_members"],
@@ -156,16 +155,9 @@ class AgentNode(BaseNode[JsonObj, JsonObj]):
                 example_trajectory=input_message.data.object["example_trajectory"],
             )
         elif input_channel == f"{self.env_uuid}/{self.node_name}/observation":
-            print("AgentNode: received observation message")
+            logger.info(f"AgentNode ({self.node_name}): received observation message")
             observation = input_message.data.object["observation"]
             chat_history = input_message.data.object["chat_history"]
-            # Not necessary as the observation includes the event log
-            # reward = input_message.data.object['reward']
-            # info = input_message.data.object['info']
-            # self.agent.update_with_feedback(
-            #     reward=reward,
-            #     action_info=info['action_error'] if 'action_error' in info else None
-            # )
             action = self.agent.get_action(
                 observation=observation, chat_history=chat_history
             )
@@ -180,7 +172,7 @@ class AgentNode(BaseNode[JsonObj, JsonObj]):
             async with self.is_processing_observation_lock:
                 self.is_processing_observation = False
         elif input_channel == f"{self.env_uuid}/end":
-            print("AgentNode: received end message")
+            logger.info(f"AgentNode ({self.node_name}): received end message")
             self.agent.end(result_dir=input_message.data.object["result_dir"])
             for task in self.tasks:
                 task.cancel()

@@ -10,7 +10,7 @@ from aact import NodeFactory, Message
 from knowledge_storm import OpenAIModel
 
 from collaborative_gym import JsonObj
-from collaborative_gym.core import SendTeammateMessage, WaitTeammateContinue
+from collaborative_gym.core import SendTeammateMessage, WaitTeammateContinue, logger
 from collaborative_gym.nodes.base_node import BaseNode
 from collaborative_gym.utils.context_processing import ContextProcessor
 
@@ -262,7 +262,7 @@ class GetActionModule(dspy.Module):
             ).output
         if "1" in plan:
             # Answer the question
-            print("Simulated User: Answering the question")
+            logger.info("Simulated User: Answering the question")
             with dspy.settings.context(lm=self.executing_lm, show_guidelines=False):
                 question = self.answer_question(
                     task_description=task_description,
@@ -277,7 +277,7 @@ class GetActionModule(dspy.Module):
             )
         elif "2" in plan and persona["proactive_feedback"]:
             # Offer feedback
-            print("Simulated User: Offering feedback")
+            logger.info("Simulated User: Offering feedback")
             with dspy.settings.context(lm=self.executing_lm, show_guidelines=False):
                 feedback = self.offer_feedback(
                     task_description=task_description,
@@ -292,7 +292,7 @@ class GetActionModule(dspy.Module):
             )
         elif "3" in plan and persona["proactive_action"]:
             # Take a task action
-            print("Simulated User: Taking a task action")
+            logger.info("Simulated User: Taking a task action")
             with dspy.settings.context(lm=self.executing_lm, show_guidelines=False):
                 action = self.take_task_action(
                     task_description=task_description,
@@ -312,15 +312,14 @@ class GetActionModule(dspy.Module):
             action_str = action
         elif "4" in plan:
             # Finish the task
-            print("Simulated User: Finishing the task")
+            logger.info("Simulated User: Finishing the task")
             action_str = "FINISH()"
         else:
             # Do nothing
-            print(f"Simulated User: Doing nothing (raw plan: {plan})")
+            logger.info(f"Simulated User: Doing nothing (raw plan: {plan})")
             action_str = (
                 self.wait_teammate_continue_action.construct_action_string_from_params()
             )
-        print(f"Simulated User: Action decided: {action_str}")
 
         return dspy.Prediction(plan=plan, action_str=action_str)
 
@@ -587,14 +586,12 @@ class SimulatedUserNode(BaseNode[JsonObj, JsonObj]):
                 private_information=input_message.data.object["additional_task_info"],
             )
         elif input_channel == f"{self.env_uuid}/end":
-            print("SimulatedUserNode: received end message")
             self.simulated_user.end(result_dir=input_message.data.object["result_dir"])
             for task in self.tasks:
                 task.cancel()
             await self.delete_process_record()
             raise asyncio.CancelledError
         elif input_channel == f"{self.env_uuid}/{self.node_name}/observation":
-            print("SimulatedUserNode: received observation message")
             observation = input_message.data.object["observation"]
             chat_history = input_message.data.object["chat_history"]
             action = self.simulated_user.get_action(

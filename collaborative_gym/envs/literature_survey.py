@@ -824,15 +824,15 @@ class CoLitSurveyEnv(CoEnv):
                 max_tokens=500,
             )[0].strip()
             if "the final score is 1" in output:
-                performance["performance_rating"] = 1
+                performance["performance_rating"] = 1 / 5  # Normalize to [0, 1]
             elif "the final score is 2" in output:
-                performance["performance_rating"] = 2
+                performance["performance_rating"] = 2 / 5
             elif "the final score is 3" in output:
-                performance["performance_rating"] = 3
+                performance["performance_rating"] = 3 / 5
             elif "the final score is 4" in output:
-                performance["performance_rating"] = 4
+                performance["performance_rating"] = 4 / 5
             elif "the final score is 5" in output:
-                performance["performance_rating"] = 5
+                performance["performance_rating"] = 5 / 5
             else:
                 performance["performance_rating"] = ""
             performance["evaluation_output"] = output

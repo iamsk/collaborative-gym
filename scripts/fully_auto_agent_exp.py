@@ -29,7 +29,7 @@ LIT_SURVEY_CONFIG_TEMPLATE = """env_class = "lit_survey"
 
     [env_args]
     use_simulated_dataset = true
-    data_point_idx = {idx}"""
+    simulated_data_point_idx = {idx}"""
 
 
 def main():

@@ -7,6 +7,7 @@ from prompt_toolkit.formatted_text import HTML
 from prompt_toolkit.key_binding import KeyBindings
 from prompt_toolkit.patch_stdout import patch_stdout
 
+from collaborative_gym.core import logger
 from collaborative_gym.nodes.base_node import BaseNode
 from collaborative_gym.nodes.commons import JsonObj
 from collaborative_gym.spaces import UnicodeWithRegexPattern
@@ -16,6 +17,7 @@ from collaborative_gym.utils.string import (
     print_highlighted_text,
     make_string_green,
 )
+
 
 class CommandLineUserProxy:
     """
@@ -257,7 +259,6 @@ class CmdUserNode(BaseNode[JsonObj, JsonObj]):
             asyncio.CancelledError: When task completes or cleanup is needed
         """
         if input_channel == f"{self.env_uuid}/start":
-            # print("UserNode: received start message")
             action_space = input_message.data.object["action_space"]
             self.user_proxy = CommandLineUserProxy(
                 task_description=input_message.data.object["task_description"],

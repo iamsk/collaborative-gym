@@ -72,6 +72,10 @@ def main():
         "avg_user_message_cnt": sum(message_cnt["user"]) / total_cnt,
     }
 
+    print(f"Delivery rate: {aggregated_result['delivery_rate']}")
+    print(f"Task performance: {aggregated_result['task_performance']}")
+    print(f"Collaboration score: {aggregated_result['collaboration_score']}")
+
     json.dump(
         aggregated_result,
         open(os.path.join(args.result_dir, "aggregated_result.json"), "w"),

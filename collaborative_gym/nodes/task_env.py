@@ -7,7 +7,7 @@ from typing import AsyncIterator, Literal, Union
 
 from aact import NodeFactory, Node, Message
 
-from collaborative_gym.core import SendTeammateMessage, WaitTeammateContinue
+from collaborative_gym.core import SendTeammateMessage, WaitTeammateContinue, logger
 from collaborative_gym.envs import EnvConfig, EnvFactory
 from collaborative_gym.nodes.base_node import BaseNode
 from collaborative_gym.nodes.commons import JsonObj
@@ -287,7 +287,6 @@ class TaskEnvNode(BaseNode[JsonObj, JsonObj]):
             info = {}
             action_str = input_message.data.object["action"]
             role = input_message.data.object["role"]
-            # print(f'EnvNode: received action: {action_str}')
             message_sender_role = None
 
             if not self.disable_collaboration and self.collaboration_acts[
@@ -357,7 +356,9 @@ class TaskEnvNode(BaseNode[JsonObj, JsonObj]):
                             "info": info,
                             "chat_history": self.chat_history,
                         }
-                        print(f"EnvNode: sending observation to {role}")
+                        logger.info(
+                            f"EnvNode ({self.env_uuid}): sending notification to {role} with new observation"
+                        )
                         yield f"{self.env_uuid}/{role}/observation", Message[JsonObj](
                             data=JsonObj(object=payload)
                         )
@@ -369,7 +370,9 @@ class TaskEnvNode(BaseNode[JsonObj, JsonObj]):
                         "info": info,
                         "chat_history": self.chat_history,
                     }
-                    print(f"EnvNode: sending observation to {role}")
+                    logger.info(
+                        f"EnvNode ({self.env_uuid}): sending observation to {role} with new observation"
+                    )
                     yield f"{self.env_uuid}/{role}/observation", Message[JsonObj](
                         data=JsonObj(object=payload)
                     )
@@ -391,7 +394,9 @@ class TaskEnvNode(BaseNode[JsonObj, JsonObj]):
                         )
                     )
                     raise asyncio.CancelledError
-                print(f"EnvNode: sending tick message")
+                logger.info(
+                    f"EnvNode ({self.env_uuid}): notifying team members due to inactivity"
+                )
                 self.add_message_to_chat_history(
                     role="environment",
                     message="Idle for a long time. The agent should take an action. The user can also send a message.",

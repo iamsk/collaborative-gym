@@ -1,5 +1,6 @@
 import argparse
 import json
+import logging
 import os
 import re
 from typing import Dict, Union, List
@@ -15,6 +16,11 @@ from knowledge_storm.lm import VLLMClient, OpenAIModel, ClaudeModel, TogetherCli
 from collaborative_gym.core import SendTeammateMessage, WaitTeammateContinue
 from collaborative_gym.utils.context_processing import ContextProcessor
 from demo_agent.utils.memory import Scratchpad
+
+logging.basicConfig(
+    level=logging.INFO, format="%(name)s : %(levelname)-8s : %(message)s"
+)
+logger = logging.getLogger(__name__)
 
 
 class CollaborativeAgent:
@@ -183,7 +189,7 @@ class CollaborativeAgent:
                 ]
             )
 
-        print("Agent started.")  # TODO: better logging
+        logger.info("Collaborative Agent with Situational Planning started.")
 
     def get_action(self, observation: Dict, chat_history: list):
         """Get the next action from the agent.
@@ -251,6 +257,7 @@ class CollaborativeAgent:
             action = action.replace("\(", "(").replace("\)", ")")
 
             # Claude tend to generate code that leads to syntax error in jupyter notebook
+            # Handle notebook code transformations
             action = action.replace('print("\n', 'print("').replace(
                 'print("\\n', 'print("'
             )
@@ -259,7 +266,7 @@ class CollaborativeAgent:
                 "wait_teammate_continue"
             ].construct_action_string_from_params()
 
-        print(f"Agent action: {action}")
+        logger.info(f"Collaboratie Agent with Situational Planning action: {action}")
         self.action_history.append(action)
 
         return action
@@ -279,6 +286,7 @@ class CollaborativeAgent:
         ) as f:
             for call in self.lm.history:
                 f.write(json.dumps(call) + "\n")
+        logger.info("Collaborative Agent with Situational Planning ended.")
 
     def get_token_usage(self):
         return {
