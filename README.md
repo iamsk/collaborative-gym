@@ -120,7 +120,7 @@ Co-Gym analyze the collaboration process along the following dimensions:
 - **Initiative Entropy:** This metric quantifies the distribution of initiative in the human-agent team, where a uniform distribution results in high score (with maximum as 1) and a skewed distribution results in a low score.
   - To compute, run: `python -m collaborative_gym.eval.initiative_analysis --result-dir {result_dir_that_include_result_folder_for_each_instance}`
 - **Controlled Autonomy:** We measure this dimention by (1) counting the agent's confirmation questions that effectively eleicit a human responsee and (2) counting instances where the human verbally intervenes to halt the agent's actions.
-  - To compute, run `python -m collaborative_gym.eval.controlled_autonomy --result-dir {result_dir_that_include_result_folder_for_each_instance}`
+  - To compute, run: `python -m collaborative_gym.eval.controlled_autonomy --result-dir {result_dir_that_include_result_folder_for_each_instance}`
 
 
 ## Add a New Agent
