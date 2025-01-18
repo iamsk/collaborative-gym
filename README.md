@@ -8,6 +8,10 @@
   <img src="assets/teaser-image-github.png" style="width: 100%; height: auto;">
 </p>
 
+**Latest News** 🔥
+
+- [2025/01] Initial release with arXiv [preprint](https://arxiv.org/abs/2412.15701) (check out our [Twitter thread](https://x.com/EchoShao8899/status/1880291718496670097) for walkthrough video). We are working on releasing Co-Gym (real) web preview for in-the-wild study, alongside tools for developing collaborative agents locally.
+
 ## What is Collaborative Gym (Co-Gym)?
 Collaborative Gym (Co-Gym) is a framework for enabling and evaluating **Human-Agent Collaboration**. It is designed to facilitate the development of collaborative agents that can act as teammates rather than mere tools. Specifically, Co-Gym provides API to support asynchronous tripartite interaction between agents, humans, and task environments, as well as a series of metrics to evaluate the human-agent collaboration outcome and processes.
 
