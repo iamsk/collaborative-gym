@@ -26,7 +26,7 @@ For SearchPaper in Co-Gym
 (Simulated), we index papers from the arXiv CS category
 published prior to October 2024 using the `voyage-3` text embedding model and retrieve top 10 papers for each search query. Please refer to [`documentation/indexing`](documentation/indexing) on how to set up the arXiv retriever locally.
 
-This is a newly curated dataset associated with [our paper](https://arxiv.org/abs/2412.15701). Please contact [Vinay Samuel]((mailto:vsamuel@andrew.cmu.edu)) if you have any question about it.
+This is a newly curated dataset associated with [our paper](https://arxiv.org/abs/2412.15701). Please contact [Vinay Samuel](mailto:vsamuel@andrew.cmu.edu) if you have any question about it.
 
 
 ## Tabular Analysis
