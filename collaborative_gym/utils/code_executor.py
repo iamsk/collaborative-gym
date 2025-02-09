@@ -329,6 +329,28 @@ class CustomJupyterCodeExecutor(CodeExecutor):
 
         return cleaned_output
 
+    @staticmethod
+    def clean_code(code_string):
+        """Clean machine-generated code by:
+        1. Converting double backslashes to single backslashes
+        2. Converting \\n to actual newlines
+        3. Removing extra escapes from quotes
+        4. Fixing path separators
+        """
+        # Convert \\\\ to \\ (in case of quadruple backslashes)
+        code_string = code_string.replace("\\\\", "\\")
+        # Convert \\n to actual newlines
+        code_string = code_string.replace("\\n", "\n")
+        # Remove unnecessary escapes from quotes
+        code_string = code_string.replace("\\'", "'")
+        code_string = code_string.replace('\\"', '"')
+        # Fix path separators
+        code_string = code_string.replace("\\/", "/")
+        # Handle any remaining double backslashes
+        code_string = code_string.replace("\\\\", "\\")
+
+        return code_string
+
     def _save_image(self, image_data_base64: str) -> str:
         """Save image data to a file."""
         image_data = base64.b64decode(image_data_base64)
@@ -356,6 +378,7 @@ class CustomJupyterCodeExecutor(CodeExecutor):
         output_files = []
 
         for code_block in code_blocks:
+            code_block.code = self.clean_code(code_block.code)
             code = silence_pip(code_block.code, code_block.language)
             try:
                 result = self._execute_with_retry(code)

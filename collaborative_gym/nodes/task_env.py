@@ -7,7 +7,16 @@ from typing import AsyncIterator, Literal, Union
 
 from aact import NodeFactory, Node, Message
 
-from collaborative_gym.core import SendTeammateMessage, WaitTeammateContinue, logger
+from collaborative_gym.core import (
+    SendTeammateMessage,
+    WaitTeammateContinue,
+    logger,
+    RequestTeammateConfirm,
+    AcceptConfirmation,
+    RejectConfirmation,
+    PutAgentAsleep,
+    WakeAgentUp,
+)
 from collaborative_gym.envs import EnvConfig, EnvFactory
 from collaborative_gym.nodes.base_node import BaseNode
 from collaborative_gym.nodes.commons import JsonObj
@@ -37,6 +46,7 @@ class TaskEnvNode(BaseNode[JsonObj, JsonObj]):
         team_members: List of team member names/roles
         event_log: List of action records with timestamps and outcomes
         chat_history: List of communication messages between team members
+        pending_confirmations: Dictionary of pending confirmation requests
         result_dir: Directory for storing task results and logs
         collaboration_acts: Available collaboration actions (message, wait)
         disable_collaboration: Flag to disable collaboration features
@@ -100,6 +110,8 @@ class TaskEnvNode(BaseNode[JsonObj, JsonObj]):
         self.event_log = []
         # [{'role': ..., 'timestamp': ..., 'message': ...}, ...]
         self.chat_history = []
+        # request_id -> {requester, timestamp, pending_action}
+        self.pending_confirmations: dict[str, dict] = {}
         self.result_dir = result_dir
         os.makedirs(os.path.join(self.result_dir, self.env_uuid), exist_ok=True)
         with open(
@@ -110,8 +122,14 @@ class TaskEnvNode(BaseNode[JsonObj, JsonObj]):
         self.collaboration_acts = {
             "send_teammate_message": SendTeammateMessage(),
             "wait_teammate_continue": WaitTeammateContinue(),
+            "request_teammate_confirm": RequestTeammateConfirm(),
+            "accept_confirmation": AcceptConfirmation(),
+            "reject_confirmation": RejectConfirmation(),
+            "put_agent_asleep": PutAgentAsleep(),
+            "wake_agent_up": WakeAgentUp(),
         }
         self.disable_collaboration = disable_collaboration
+        self.agent_asleep = False
 
         self.task_completed = False
 
@@ -174,6 +192,20 @@ class TaskEnvNode(BaseNode[JsonObj, JsonObj]):
 
         return history
 
+    def add_pending_confirmation(
+        self, request_id: str, requester: str, pending_action: str
+    ):
+        self.pending_confirmations[request_id] = {
+            "requester": requester,
+            "timestamp": get_formatted_local_time(),
+            "pending_action": pending_action,
+        }
+
+    def remove_pending_confirmation(self, request_id: str):
+        if request_id in self.pending_confirmations:
+            return self.pending_confirmations.pop(request_id)
+        return None
+
     def process_observation(self, obs: dict) -> dict[str, dict]:
         """
         Process raw environment observations into per-team-member observations.
@@ -223,8 +255,10 @@ class TaskEnvNode(BaseNode[JsonObj, JsonObj]):
         obs, info = self.env.reset()
         action_space = self.env.dump_action_space()
         if not self.disable_collaboration:
+            # Add two core collaboration actions to the action space
             action_space += [
-                action.dump_json() for action in self.collaboration_acts.values()
+                self.collaboration_acts["send_teammate_message"].dump_json(),
+                self.collaboration_acts["wait_teammate_continue"].dump_json(),
             ]
 
         # Indicate the start of the task
@@ -236,6 +270,20 @@ class TaskEnvNode(BaseNode[JsonObj, JsonObj]):
             "example_trajectory": self.env.example_trajectory,  # For agent
             "additional_task_info": self.env.additional_task_info,  # For simulated user
         }
+        try:
+            start_action = f"START(task_description={self.env.task_description}, query={self.env.query})"
+            for role in self.team_members:
+                if "user" in role:
+                    self.add_message_to_chat_history(role=role, message=self.env.query)
+                    break
+        except Exception as e:
+            start_action = f"START(task_description={self.env.task_description})"
+        self.add_record_to_event_log(
+            role="environment",
+            action=start_action,
+            action_status="succeeded",
+            action_type="environment",
+        )
         await self.r.publish(
             f"{self.env_uuid}/start",
             Message[JsonObj](data=JsonObj(object=payload)).model_dump_json(),
@@ -250,6 +298,8 @@ class TaskEnvNode(BaseNode[JsonObj, JsonObj]):
                 "reward": 0,
                 "info": info,
                 "chat_history": self.chat_history,
+                "pending_confirmations": self.pending_confirmations,
+                "agent_asleep": self.agent_asleep,
             }
             await self.r.publish(
                 f"{self.env_uuid}/{role}/observation",
@@ -281,108 +331,156 @@ class TaskEnvNode(BaseNode[JsonObj, JsonObj]):
         Raises:
             asyncio.CancelledError: When task completes or times out
         """
-        if input_channel == f"{self.env_uuid}/step":
-            terminated = False
-            reward = 0
-            info = {}
-            action_str = input_message.data.object["action"]
-            role = input_message.data.object["role"]
-            message_sender_role = None
+        try:
+            if input_channel == f"{self.env_uuid}/step":
+                terminated = False
+                reward = 0
+                info = {}
+                action_str = input_message.data.object["action"]
+                role = input_message.data.object["role"]
+                notify_others_only = False
 
-            if not self.disable_collaboration and self.collaboration_acts[
-                "send_teammate_message"
-            ].contains(action_str):
-                self.add_record_to_event_log(
-                    role=role,
-                    action=action_str,
-                    action_status="succeeded",
-                    action_type="collaborative",
-                )
-                message = self.collaboration_acts["send_teammate_message"].parse(
-                    action_str
-                )["message"]
-                self.add_message_to_chat_history(role=role, message=message)
-                obs = self.env.get_obs()
-                private = False
-                message_sender_role = role
-            elif not self.disable_collaboration and self.collaboration_acts[
-                "wait_teammate_continue"
-            ].contains(action_str):
-                return
-            else:
-                obs, reward, terminated, private, info = self.env.step(
-                    role=role, action=action_str
-                )
-                action_status = "succeeded" if reward >= 0 else "failed"
-                if reward < 0 and "action_error" in info:
-                    action_status += f' (action_error: {info["action_error"]})'
-                    self.add_message_to_chat_history(
-                        role="environment",
-                        message=f'[{role}] takes an action but fails: {info["action_error"]}',
+                # Process collaborative actions
+                if not self.disable_collaboration and self.collaboration_acts[
+                    "send_teammate_message"
+                ].contains(action_str):
+                    self.add_record_to_event_log(
+                        role=role,
+                        action=action_str,
+                        action_status="succeeded",
+                        action_type="collaborative",
                     )
-                self.add_record_to_event_log(
-                    role=role,
-                    action=action_str,
-                    action_status=action_status,
-                    action_type="environment",
-                )
-
-            if (
-                self.count_agent_action() >= self.max_steps
-                or self.count_user_action() >= self.max_steps
-            ):
-                terminated = True
-
-            if terminated:
-                await self.end()
-                yield f"{self.env_uuid}/end", Message[JsonObj](
-                    data=JsonObj(
-                        object={
-                            "result_dir": os.path.join(self.result_dir, self.env_uuid),
-                        }
+                    message = self.collaboration_acts["send_teammate_message"].parse(
+                        action_str
+                    )["message"]
+                    self.add_message_to_chat_history(role=role, message=message)
+                    obs = self.env.get_obs()
+                    private = False
+                    notify_others_only = True  # Only notify recipients of the message
+                elif not self.disable_collaboration and self.collaboration_acts[
+                    "wait_teammate_continue"
+                ].contains(action_str):
+                    return
+                elif not self.disable_collaboration and self.collaboration_acts[
+                    "request_teammate_confirm"
+                ].contains(action_str):
+                    parsed_action = self.collaboration_acts[
+                        "request_teammate_confirm"
+                    ].parse(action_str)
+                    self.add_pending_confirmation(
+                        request_id=parsed_action["request_id"],
+                        requester=role,
+                        pending_action=parsed_action["pending_action"],
                     )
-                )
-                raise asyncio.CancelledError
-            else:
-                processed_obs = self.process_observation(obs)
-                if not private:
-                    for role in self.team_members:
-                        # if message_sender_role and role == message_sender_role:
-                        #     continue  # Do not broadcast the message to the sender
-                        payload = {
-                            "observation": processed_obs[role],
-                            "observation_type": self.env.obs_type(),
-                            "reward": reward,
-                            "info": info,
-                            "chat_history": self.chat_history,
-                        }
-                        logger.info(
-                            f"EnvNode ({self.env_uuid}): sending notification to {role} with new observation"
-                        )
-                        yield f"{self.env_uuid}/{role}/observation", Message[JsonObj](
-                            data=JsonObj(object=payload)
-                        )
+                    self.add_record_to_event_log(
+                        role=role,
+                        action=action_str,
+                        action_status="succeeded",
+                        action_type="collaborative",
+                    )
+                    obs = self.env.get_obs()
+                    private = False
+                    notify_others_only = (
+                        True  # The requester shall wait for the confirmation response
+                    )
+                elif not self.disable_collaboration and self.collaboration_acts[
+                    "accept_confirmation"
+                ].contains(action_str):
+                    parsed_action = self.collaboration_acts[
+                        "accept_confirmation"
+                    ].parse(action_str)
+                    confirmation = self.remove_pending_confirmation(
+                        request_id=parsed_action["request_id"]
+                    )
+                    self.add_record_to_event_log(
+                        role=role,
+                        action=action_str,
+                        action_status="succeeded",
+                        action_type="collaborative",
+                    )
+                    # Execute the pending action
+                    obs, reward, terminated, private, info = self.env.step(
+                        role=confirmation["requester"],
+                        action=confirmation["pending_action"],
+                    )
+                    self.add_record_to_event_log(
+                        role=confirmation["requester"],
+                        action=confirmation["pending_action"],
+                        action_status="succeeded",
+                        action_type="environment",
+                    )
+                elif not self.disable_collaboration and self.collaboration_acts[
+                    "reject_confirmation"
+                ].contains(action_str):
+                    parsed_action = self.collaboration_acts[
+                        "reject_confirmation"
+                    ].parse(action_str)
+                    self.remove_pending_confirmation(
+                        request_id=parsed_action["request_id"]
+                    )
+                    self.add_record_to_event_log(
+                        role=role,
+                        action=action_str,
+                        action_status="succeeded",
+                        action_type="collaborative",
+                    )
+                    obs = self.env.get_obs()
+                    private = False
+                elif not self.disable_collaboration and self.collaboration_acts[
+                    "put_agent_asleep"
+                ].contains(action_str):
+                    if self.agent_asleep:  # Already asleep
+                        return
+                    self.agent_asleep = True
+                    self.add_record_to_event_log(
+                        role=role,
+                        action=action_str,
+                        action_status="succeeded",
+                        action_type="collaborative",
+                    )
+                    obs = self.env.get_obs()
+                    private = False
+                elif not self.disable_collaboration and self.collaboration_acts[
+                    "wake_agent_up"
+                ].contains(action_str):
+                    if not self.agent_asleep:  # Already awake
+                        return
+                    self.agent_asleep = False
+                    self.add_record_to_event_log(
+                        role=role,
+                        action=action_str,
+                        action_status="succeeded",
+                        action_type="collaborative",
+                    )
+                    obs = self.env.get_obs()
+                    private = False
+                    print("Agent is awake now.")
                 else:
-                    payload = {
-                        "observation": processed_obs[role],
-                        "observation_type": self.env.obs_type(),
-                        "reward": reward,
-                        "info": info,
-                        "chat_history": self.chat_history,
-                    }
-                    logger.info(
-                        f"EnvNode ({self.env_uuid}): sending observation to {role} with new observation"
+                    # Process environment actions
+                    obs, reward, terminated, private, info = self.env.step(
+                        role=role, action=action_str
                     )
-                    yield f"{self.env_uuid}/{role}/observation", Message[JsonObj](
-                        data=JsonObj(object=payload)
+                    action_status = "succeeded" if reward >= 0 else "failed"
+                    if reward < 0 and "action_error" in info:
+                        action_status += f' (action_error: {info["action_error"]})'
+                        self.add_message_to_chat_history(
+                            role="environment",
+                            message=f'[{role}] takes an action but fails: {info["action_error"]}',
+                        )
+                    self.add_record_to_event_log(
+                        role=role,
+                        action=action_str,
+                        action_status=action_status,
+                        action_type="environment",
                     )
-            self.last_step_timestamp = time.time()
-            await self.update_last_active_time()
-        elif input_channel == f"{self.env_uuid}/tick":
-            if time.time() - self.last_step_timestamp > self.tick_interval:
-                self.tick_cnt += 1
-                if self.tick_cnt > self.max_tick_cnt:
-                    # Terminate the task environment if no action is taken for a long time
+
+                if (
+                    self.count_agent_action() >= self.max_steps
+                    or self.count_user_action() >= self.max_steps
+                ):
+                    terminated = True
+
+                if terminated:
                     await self.end()
                     yield f"{self.env_uuid}/end", Message[JsonObj](
                         data=JsonObj(
@@ -394,46 +492,112 @@ class TaskEnvNode(BaseNode[JsonObj, JsonObj]):
                         )
                     )
                     raise asyncio.CancelledError
-                logger.info(
-                    f"EnvNode ({self.env_uuid}): notifying team members due to inactivity"
-                )
-                self.add_message_to_chat_history(
-                    role="environment",
-                    message="Idle for a long time. The agent should take an action. The user can also send a message.",
-                )
-                # If no action is taken for a long time, send a tick message
-                processed_obs = self.process_observation(self.env.get_obs())
-                for role in self.team_members:
-                    payload = {
-                        "observation": processed_obs[role],
-                        "observation_type": self.env.obs_type(),
-                        "reward": 0,
-                        "info": {},
-                        "chat_history": self.chat_history,
-                    }
-                    yield f"{self.env_uuid}/{role}/observation", Message[JsonObj](
-                        data=JsonObj(object=payload)
-                    )
+                else:
+                    processed_obs = self.process_observation(obs)
+                    if not private:
+                        for team_member in self.team_members:
+                            if (notify_others_only and team_member == role) or (
+                                self.agent_asleep and "agent" in team_member
+                            ):
+                                continue
+                            payload = {
+                                "observation": processed_obs[team_member],
+                                "observation_type": self.env.obs_type(),
+                                "reward": reward,
+                                "info": info,
+                                "chat_history": self.chat_history,
+                                "pending_confirmations": self.pending_confirmations,
+                                "agent_asleep": self.agent_asleep,
+                            }
+                            logger.info(
+                                f"EnvNode ({self.env_uuid}): sending notification to {team_member} with new observation"
+                            )
+                            yield f"{self.env_uuid}/{team_member}/observation", Message[
+                                JsonObj
+                            ](data=JsonObj(object=payload))
+                    else:
+                        payload = {
+                            "observation": processed_obs[role],
+                            "observation_type": self.env.obs_type(),
+                            "reward": reward,
+                            "info": info,
+                            "chat_history": self.chat_history,
+                            "pending_confirmations": self.pending_confirmations,
+                            "agent_asleep": self.agent_asleep,
+                        }
+                        logger.info(
+                            f"EnvNode ({self.env_uuid}): sending observation to {role} with new observation"
+                        )
+                        yield f"{self.env_uuid}/{role}/observation", Message[JsonObj](
+                            data=JsonObj(object=payload)
+                        )
                 self.last_step_timestamp = time.time()
                 await self.update_last_active_time()
-        elif "request_state" in input_channel:  # For frontend update
-            role = input_channel.split("/")[-2]
-            action_space = self.env.dump_action_space()
-            if not self.disable_collaboration:
-                action_space += [
-                    action.dump_json() for action in self.collaboration_acts.values()
-                ]
-            payload = {
-                "observation": self.process_observation(self.env.get_obs())[role],
-                "observation_type": self.env.obs_type(),
-                "task_description": self.env.task_description,
-                "action_space": action_space,
-                "chat_history": self.chat_history,
-            }
-            await self.update_last_active_time()
-            yield f"{self.env_uuid}/{role}/answer_state", Message[JsonObj](
-                data=JsonObj(object=payload)
-            )
+            elif input_channel == f"{self.env_uuid}/tick":
+                if time.time() - self.last_step_timestamp > self.tick_interval:
+                    self.tick_cnt += 1
+                    if self.tick_cnt > self.max_tick_cnt:
+                        # Terminate the task environment if no action is taken for a long time
+                        await self.end()
+                        yield f"{self.env_uuid}/end", Message[JsonObj](
+                            data=JsonObj(
+                                object={
+                                    "result_dir": os.path.join(
+                                        self.result_dir, self.env_uuid
+                                    ),
+                                }
+                            )
+                        )
+                        raise asyncio.CancelledError
+                    logger.info(
+                        f"EnvNode ({self.env_uuid}): notifying team members due to inactivity"
+                    )
+                    self.add_message_to_chat_history(
+                        role="environment",
+                        message="Idle for a long time. The agent should take an action. The user can also send a message.",
+                    )
+                    # If no action is taken for a long time, send a tick message
+                    processed_obs = self.process_observation(self.env.get_obs())
+                    for team_member in self.team_members:
+                        if self.agent_asleep and "agent" in team_member:
+                            continue
+                        payload = {
+                            "observation": processed_obs[team_member],
+                            "observation_type": self.env.obs_type(),
+                            "reward": 0,
+                            "info": {},
+                            "chat_history": self.chat_history,
+                            "pending_confirmations": self.pending_confirmations,
+                            "agent_asleep": self.agent_asleep,
+                        }
+                        yield f"{self.env_uuid}/{team_member}/observation", Message[
+                            JsonObj
+                        ](data=JsonObj(object=payload))
+                    self.last_step_timestamp = time.time()
+                    await self.update_last_active_time()
+            elif "request_state" in input_channel:  # For frontend update
+                role = input_channel.split("/")[-2]
+                action_space = self.env.dump_action_space()
+                if not self.disable_collaboration:
+                    action_space += [
+                        action.dump_json()
+                        for action in self.collaboration_acts.values()
+                    ]
+                payload = {
+                    "observation": self.process_observation(self.env.get_obs())[role],
+                    "observation_type": self.env.obs_type(),
+                    "task_description": self.env.task_description,
+                    "action_space": action_space,
+                    "chat_history": self.chat_history,
+                    "pending_confirmations": self.pending_confirmations,
+                    "agent_asleep": self.agent_asleep,
+                }
+                await self.update_last_active_time()
+                yield f"{self.env_uuid}/{role}/answer_state", Message[JsonObj](
+                    data=JsonObj(object=payload)
+                )
+        except Exception as e:
+            logger.error(f"Error in EnvNode ({self.env_uuid}): {e}")
 
 
 @NodeFactory.register("env_tick")

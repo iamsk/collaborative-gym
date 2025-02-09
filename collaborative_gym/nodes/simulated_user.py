@@ -441,7 +441,10 @@ class SimulatedUserProxy:
             os.path.join(result_dir, "simulated_user", "llm_call_history.jsonl"), "w"
         ) as f:
             for call in self.planning_lm.history:
-                f.write(json.dumps(call) + "\n")
+                f.write(
+                    json.dumps({"prompt": call["prompt"], "response": call["response"]})
+                    + "\n"
+                )
             for call in self.executing_lm.history:
                 f.write(json.dumps(call) + "\n")
         with open(

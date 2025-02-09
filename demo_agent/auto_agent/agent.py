@@ -3,17 +3,18 @@ import json
 import logging
 import os
 import re
-from typing import Dict, Union, List
+from typing import Dict, List
 
-import dspy
+import knowledge_storm
 import toml
 import yaml
 from aact.cli.launch.launch import _sync_run_node
 from aact.cli.reader import NodeConfig
 from aact.cli.reader.dataflow_reader import NodeArgs
-from knowledge_storm.lm import VLLMClient, OpenAIModel, ClaudeModel, TogetherClient
+from knowledge_storm.lm import LitellmModel
 
 from collaborative_gym.utils.context_processing import ContextProcessor
+from collaborative_gym.utils.utils import prepare_lm_kwargs
 from demo_agent.utils.memory import Scratchpad
 
 logging.basicConfig(
@@ -31,7 +32,7 @@ class ReactAutoAgent:
 
     def __init__(
         self,
-        lm: Union[dspy.dsp.LM, dspy.dsp.HFModel],
+        lm: knowledge_storm.lm.LM,
         add_task_demo,
         prompt_path="demo_agent/auto_agent/prompts.yaml",
     ):
@@ -169,7 +170,7 @@ class ReactAutoAgent:
         os.makedirs(os.path.join(result_dir, self.name), exist_ok=True)
         with open(os.path.join(result_dir, self.name, "info.json"), "w") as f:
             info = {
-                "lm": self.lm.kwargs["model"],
+                "lm": self.lm.model,
                 "token_usage": self.get_token_usage(),
             }
             json.dump(info, f, indent=4)
@@ -179,7 +180,10 @@ class ReactAutoAgent:
             os.path.join(result_dir, self.name, "llm_call_history.jsonl"), "w"
         ) as f:
             for call in self.lm.history:
-                f.write(json.dumps(call) + "\n")
+                f.write(
+                    json.dumps({"prompt": call["prompt"], "response": call["response"]})
+                    + "\n"
+                )
         logger.info("Fully Autonomous Agent ended.")
 
     def get_token_usage(self):
@@ -191,20 +195,13 @@ class ReactAutoAgent:
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--model-name", type=str, default="gpt-4o-2024-08-06")
     parser.add_argument(
-        "--prompt-path", type=str, default="demo_agent/auto_agent/prompts.yaml"
-    )
-    parser.add_argument("--use-vllm", action="store_true", default=False)
-    parser.add_argument("--use-together", action="store_true", default=False)
-    parser.add_argument(
-        "--lm-url",
+        "--model-name",
         type=str,
-        default="http://localhost",
-        help="URL to the language model server.",
-    )
-    parser.add_argument(
-        "--lm-port", type=int, default=8000, help="Port to the language model server."
+        default="gpt-4o-2024-08-06",
+        help="We use LiteLLM to dispatch the request to the correct model."
+        "Please ensure the model name matches the naming convention in LiteLLM."
+        "https://docs.litellm.ai/docs/providers",
     )
     parser.add_argument(
         "--wait-time",
@@ -215,6 +212,7 @@ if __name__ == "__main__":
     parser.add_argument("--node-name", type=str, required=True)
     parser.add_argument("--env-uuid", type=str, required=True)
     parser.add_argument("--redis-url", type=str, default="redis://localhost:6379/0")
+    parser.add_argument("--add-task-demo", action="store_true")
     parser.add_argument("--debug", action="store_true")
     args = parser.parse_args()
 
@@ -222,25 +220,13 @@ if __name__ == "__main__":
     for k in secrets:
         os.environ[k] = secrets[k]
 
-    if args.use_vllm:
-        lm = VLLMClient(model=args.model_name, url=args.lm_url, port=args.lm_port)
-    elif args.use_together:
-        lm = TogetherClient(
-            model=args.model_name, api_key=os.environ["TOGETHER_API_KEY"]
-        )
-        lm.kwargs["model"] = args.model_name
-    elif "gpt" in args.model_name:
-        lm = OpenAIModel(
-            model=args.model_name,
-            api_key=os.environ["OPENAI_API_KEY"],
-        )
-    elif "claude" in args.model_name:
-        lm = ClaudeModel(model=args.model_name, api_key=os.environ["ANTHROPIC_API_KEY"])
-    else:
-        raise ValueError(f"Unsupported model name: {args.model_name}")
+    lm_kwargs = prepare_lm_kwargs(args.model_name)
+    lm = LitellmModel(**lm_kwargs)
 
     if args.debug:
-        agent = ReactAutoAgent(lm=lm, add_task_demo=True, prompt_path=args.prompt_path)
+        agent = ReactAutoAgent(
+            lm=lm, add_task_demo=args.add_task_demo, prompt_path=args.prompt_path
+        )
 
         import pdb
 
@@ -254,7 +240,9 @@ if __name__ == "__main__":
                     env_uuid=args.env_uuid,
                     node_name=args.node_name,
                     agent=ReactAutoAgent(
-                        lm=lm, add_task_demo=True, prompt_path=args.prompt_path
+                        lm=lm,
+                        add_task_demo=args.add_task_demo,
+                        prompt_path=args.prompt_path,
                     ),
                     wait_time=args.wait_time,
                 ),

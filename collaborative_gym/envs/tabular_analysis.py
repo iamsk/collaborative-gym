@@ -186,6 +186,8 @@ class CoAnalysisEnv(CoEnv):
             ].values[0]
 
             try:
+                # The evaluator could be changed to a different model.
+                # Use OpenAI GPT to match the Collaborative Gym paper.
                 self.evaluator_lm = OpenAIModel(
                     model="gpt-4o-2024-08-06",
                     api_key=os.environ["OPENAI_API_KEY"],

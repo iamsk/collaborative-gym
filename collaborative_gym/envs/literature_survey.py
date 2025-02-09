@@ -9,10 +9,11 @@ from typing import Any, Union, Optional
 
 import arxiv
 import dspy
+import knowledge_storm
 import requests
 from PyPDF2 import PdfReader
 from knowledge_storm import ArticleTextProcessing
-from knowledge_storm.lm import OpenAIModel
+from knowledge_storm.lm import OpenAIModel, LitellmModel
 
 from collaborative_gym.core import CoEnv, ObservationTypes, logger
 from collaborative_gym.envs.registry import EnvFactory
@@ -24,6 +25,7 @@ from collaborative_gym.spaces import (
 from collaborative_gym.utils.retriever import ArxivRetriever
 from collaborative_gym.utils.string import post_process_parsed_function_arg
 from collaborative_gym.utils.text_editor import TextEditor
+from collaborative_gym.utils.utils import prepare_lm_kwargs
 
 
 class LitSurveyActions(Enum):
@@ -76,7 +78,7 @@ class WritingRelatedWorksModule(dspy.Module):
 
     def __init__(
         self,
-        lm: Union[dspy.dsp.LM, dspy.dsp.HFModel],
+        lm: Union[dspy.dsp.LM, dspy.dsp.HFModel, knowledge_storm.lm.LM],
     ):
         super().__init__()
         self.create_related_works = dspy.Predict(WriteRelatedWorks)
@@ -148,7 +150,7 @@ class PolishingRelatedWorksModule(dspy.Module):
 
     def __init__(
         self,
-        lm: Union[dspy.dsp.LM, dspy.dsp.HFModel],
+        lm: Union[dspy.dsp.LM, dspy.dsp.HFModel, knowledge_storm.lm.LM],
     ):
         super().__init__()
         self.polish_related_work = dspy.Predict(PolishRelatedWorks)
@@ -214,7 +216,7 @@ class ExtractNotesModule(dspy.Module):
 
     def __init__(
         self,
-        lm: Union[dspy.dsp.LM, dspy.dsp.HFModel],
+        lm: Union[dspy.dsp.LM, dspy.dsp.HFModel, knowledge_storm.lm.LM],
     ):
         super().__init__()
         self.extract_notes = dspy.Predict(ExtractNotes)
@@ -288,6 +290,8 @@ class CoLitSurveyEnv(CoEnv):
         self.use_simulated_dataset = use_simulated_dataset
         self.rubric_path = rubric_path
         try:
+            # The evaluator could be changed to a different model.
+            # Use OpenAI GPT to match the Collaborative Gym paper.
             self.evaluator_lm = OpenAIModel(
                 model="gpt-4-0613",
                 api_key=os.environ["OPENAI_API_KEY"],
@@ -381,21 +385,21 @@ class CoLitSurveyEnv(CoEnv):
         )
 
         try:
-            self.parsing_model = OpenAIModel(
-                model=parsing_model,
-                api_key=os.environ["OPENAI_API_KEY"],
+            parsing_model_kwargs = prepare_lm_kwargs(parsing_model)
+            self.parsing_model = LitellmModel(
+                **parsing_model_kwargs,
                 max_tokens=2000,
             )
-            self.writing_model = OpenAIModel(
-                model=writing_model,
-                api_key=os.environ["OPENAI_API_KEY"],
+            writing_model_kwargs = prepare_lm_kwargs(writing_model)
+            self.writing_model = LitellmModel(
+                **writing_model_kwargs,
                 max_tokens=10000,
             )
         except KeyError:
             self.parsing_model = None
             self.writing_model = None
             logger.error(
-                "Please provide your OpenAI API key in the environment variable OPENAI_API_KEY to enable the writing models."
+                "Please provide api key that matches your choice of model to enable the parsing and writing models."
             )
 
         self.extract_notes = ExtractNotesModule(lm=self.parsing_model)

@@ -3,18 +3,23 @@ import json
 import logging
 import os
 import re
-from typing import Dict, Union, List
+from typing import Dict, List
 
-import dspy
+import knowledge_storm.lm
 import toml
 import yaml
 from aact.cli.launch.launch import _sync_run_node
 from aact.cli.reader import NodeConfig
 from aact.cli.reader.dataflow_reader import NodeArgs
-from knowledge_storm.lm import VLLMClient, OpenAIModel, ClaudeModel, TogetherClient
+from knowledge_storm.lm import LitellmModel
 
-from collaborative_gym.core import SendTeammateMessage, WaitTeammateContinue
+from collaborative_gym.core import (
+    SendTeammateMessage,
+    WaitTeammateContinue,
+    RequestTeammateConfirm,
+)
 from collaborative_gym.utils.context_processing import ContextProcessor
+from collaborative_gym.utils.utils import prepare_lm_kwargs
 from demo_agent.utils.memory import Scratchpad
 
 logging.basicConfig(
@@ -32,9 +37,10 @@ class CollaborativeAgent:
 
     def __init__(
         self,
-        lm: Union[dspy.dsp.LM, dspy.dsp.HFModel],
+        lm: knowledge_storm.lm.LM,
         add_plan_next_step_demo,
         add_task_demo,
+        enhance_user_control,
         prompt_path="demo_agent/collaborative_agent_with_situational_planning/prompts.yaml",
     ):
         self.name = None
@@ -47,10 +53,12 @@ class CollaborativeAgent:
         self.collaboration_acts = {
             "send_teammate_message": SendTeammateMessage(),
             "wait_teammate_continue": WaitTeammateContinue(),
+            "request_teammate_confirm": RequestTeammateConfirm(),
         }
         self.add_plan_next_step_demo = add_plan_next_step_demo
         self.add_task_demo = add_task_demo
         self.task_demo = None
+        self.enhance_user_control = enhance_user_control
 
         with open(prompt_path, "r") as f:
             prompts = yaml.safe_load(f)
@@ -197,76 +205,93 @@ class CollaborativeAgent:
         This function will be called by collaborative_gym.nodes_agent_interface when the node receives a new observation from
         the environment.
         """
-        # Update the scratchpad
-        scratchpad_update_prompt = self.format_update_scratchpad_prompt(
-            obs=observation, chat_history=chat_history
-        )
-        scratchpad_update_prompt_response = self.lm(
-            prompt=scratchpad_update_prompt, temperature=0, max_tokens=4000
-        )
-        scratchpad_update = scratchpad_update_prompt_response[0].strip()
-        scratchpad_update = scratchpad_update[
-            scratchpad_update.find("Action:") + len("Action:") :
-        ].strip()
-        self.scratchpad.execute_action(scratchpad_update)
-
-        # Take the next action
-        plan_prompt = self.format_plan_prompt(
-            obs=observation, chat_history=chat_history
-        )
-        plan_prompt_response = self.lm(
-            prompt=plan_prompt, temperature=0, max_tokens=100
-        )
-        plan = plan_prompt_response[0].strip()
-        if "Plan:" in plan:
-            plan = plan[plan.find("Plan:") + len("Plan:") :].strip()
-        else:
-            plan = "2"
-        if "1" in plan:
-            message_prompt = self.format_message_prompt(
+        try:
+            # Update the scratchpad
+            scratchpad_update_prompt = self.format_update_scratchpad_prompt(
                 obs=observation, chat_history=chat_history
             )
-            message_prompt_response = self.lm(
-                prompt=message_prompt, temperature=0, max_tokens=4000
+            scratchpad_update_prompt_response = self.lm(
+                prompt=scratchpad_update_prompt, temperature=0, max_tokens=4000
             )
-            message = message_prompt_response[0].strip()
-            message = message[message.find("Message:") + len("Message:") :].strip()
-            action = self.collaboration_acts[
-                "send_teammate_message"
-            ].construct_action_string_from_params(message=message)
-        elif "2" in plan:
-            act_prompt = self.format_act_prompt(
-                obs=observation,
-                action_space_description=self.task_action_space_description,
-                chat_history=chat_history,
-            )
-            act_prompt_response = self.lm(
-                prompt=act_prompt, temperature=0, max_tokens=4000
-            )
-            action = act_prompt_response[0].strip()
-            action = action[action.find("Action:") + len("Action:") :].strip()
-            # Hacky post-processing:
-            # Assume the action is in a function call format and the function name starts with a capital letter.
-            if "\nThought:" in action:
-                action = action[: action.find("\nThought:")].strip()
-            match = re.search(r"[A-Z]", action)
-            if match:
-                action = action[match.start() :]
-            if action[-1] != ")":
-                action = action[: action.rfind(")") + 1]
-            action = action.replace("\(", "(").replace("\)", ")")
+            scratchpad_update = scratchpad_update_prompt_response[0].strip()
+            scratchpad_update = scratchpad_update[
+                scratchpad_update.find("Action:") + len("Action:") :
+            ].strip()
+            self.scratchpad.execute_action(scratchpad_update)
 
-            # Claude tend to generate code that leads to syntax error in jupyter notebook
-            # Handle notebook code transformations
-            action = action.replace('print("\n', 'print("').replace(
-                'print("\\n', 'print("'
+            # Take the next action
+            plan_prompt = self.format_plan_prompt(
+                obs=observation, chat_history=chat_history
             )
-        else:
+            plan_prompt_response = self.lm(
+                prompt=plan_prompt, temperature=0, max_tokens=100
+            )
+            plan = plan_prompt_response[0].strip()
+            if "Plan:" in plan:
+                plan = plan[plan.find("Plan:") + len("Plan:") :].strip()
+            else:
+                plan = "2"
+            if "1" in plan:
+                message_prompt = self.format_message_prompt(
+                    obs=observation, chat_history=chat_history
+                )
+                message_prompt_response = self.lm(
+                    prompt=message_prompt, temperature=0, max_tokens=4000
+                )
+                message = message_prompt_response[0].strip()
+                message = message[message.find("Message:") + len("Message:") :].strip()
+                action = self.collaboration_acts[
+                    "send_teammate_message"
+                ].construct_action_string_from_params(message=message)
+            elif "2" in plan:
+                act_prompt = self.format_act_prompt(
+                    obs=observation,
+                    action_space_description=self.task_action_space_description,
+                    chat_history=chat_history,
+                )
+                act_prompt_response = self.lm(
+                    prompt=act_prompt, temperature=0, max_tokens=4000
+                )
+                action = act_prompt_response[0].strip()
+                action = action[action.find("Action:") + len("Action:") :].strip()
+                # Hacky post-processing:
+                # Assume the action is in a function call format and the function name starts with a capital letter.
+                if "\nThought:" in action:
+                    action = action[: action.find("\nThought:")].strip()
+                match = re.search(r"[A-Z]", action)
+                if match:
+                    action = action[match.start() :]
+                if action[-1] != ")":
+                    action = action[: action.rfind(")") + 1]
+                action = action.replace("\(", "(").replace("\)", ")")
+
+                # Claude tend to generate code that leads to syntax error in jupyter notebook
+                # Handle notebook code transformations
+                action = action.replace('print("\n', 'print("').replace(
+                    'print("\\n', 'print("'
+                )
+                if self.enhance_user_control:
+                    if action == "FINISH()":
+                        action = self.collaboration_acts[
+                            "wait_teammate_continue"
+                        ].construct_action_string_from_params()  # Don't allow the agent to finish
+                    if "EDITOR_UPDATE" in action:
+                        action = self.collaboration_acts[
+                            "request_teammate_confirm"
+                        ].construct_action_string_from_params(
+                            request_id="editor_update", pending_action=action
+                        )
+            else:
+                action = self.collaboration_acts[
+                    "wait_teammate_continue"
+                ].construct_action_string_from_params()
+        except Exception as e:
+            logger.error(f"Error generating action: {e}")
             action = self.collaboration_acts[
                 "wait_teammate_continue"
             ].construct_action_string_from_params()
 
-        logger.info(f"Collaboratie Agent with Situational Planning action: {action}")
+        logger.info(f"Collaborative Agent with Situational Planning action: {action}")
         self.action_history.append(action)
 
         return action
@@ -275,7 +300,7 @@ class CollaborativeAgent:
         os.makedirs(os.path.join(result_dir, self.name), exist_ok=True)
         with open(os.path.join(result_dir, self.name, "info.json"), "w") as f:
             info = {
-                "lm": self.lm.kwargs["model"],
+                "lm": self.lm.model,
                 "token_usage": self.get_token_usage(),
             }
             json.dump(info, f, indent=4)
@@ -285,7 +310,10 @@ class CollaborativeAgent:
             os.path.join(result_dir, self.name, "llm_call_history.jsonl"), "w"
         ) as f:
             for call in self.lm.history:
-                f.write(json.dumps(call) + "\n")
+                f.write(
+                    json.dumps({"prompt": call["prompt"], "response": call["response"]})
+                    + "\n"
+                )
         logger.info("Collaborative Agent with Situational Planning ended.")
 
     def get_token_usage(self):
@@ -297,22 +325,18 @@ class CollaborativeAgent:
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--model-name", type=str, default="gpt-4o-2024-08-06")
+    parser.add_argument(
+        "--model-name",
+        type=str,
+        default="gpt-4o-2024-08-06",
+        help="We use LiteLLM to dispatch the request to the correct model."
+        "Please ensure the model name matches the naming convention in LiteLLM."
+        "https://docs.litellm.ai/docs/providers",
+    )
     parser.add_argument(
         "--prompt-path",
         type=str,
         default="demo_agent/collaborative_agent_with_situational_planning/prompts.yaml",
-    )
-    parser.add_argument("--use-vllm", action="store_true", default=False)
-    parser.add_argument("--use-together", action="store_true", default=False)
-    parser.add_argument(
-        "--lm-url",
-        type=str,
-        default="http://localhost",
-        help="URL to the language model server.",
-    )
-    parser.add_argument(
-        "--lm-port", type=int, default=8000, help="Port to the language model server."
     )
     parser.add_argument(
         "--wait-time",
@@ -324,34 +348,28 @@ if __name__ == "__main__":
     parser.add_argument("--env-uuid", type=str, required=True)
     parser.add_argument("--redis-url", type=str, default="redis://localhost:6379/0")
     parser.add_argument("--debug", action="store_true")
+    parser.add_argument("--add-task-demo", action="store_true")
+    parser.add_argument(
+        "--enhance-user-control",
+        action="store_true",
+        help="If set, the agent cannot choose to finish the task proactively and will always ask for confirmation "
+        "before updating the editor.",
+    )
     args = parser.parse_args()
 
     secrets = toml.load("secrets.toml")
     for k in secrets:
         os.environ[k] = secrets[k]
 
-    if args.use_vllm:
-        lm = VLLMClient(model=args.model_name, url=args.lm_url, port=args.lm_port)
-    elif args.use_together:
-        lm = TogetherClient(
-            model=args.model_name, api_key=os.environ["TOGETHER_API_KEY"]
-        )
-        lm.kwargs["model"] = args.model_name
-    elif "gpt" in args.model_name:
-        lm = OpenAIModel(
-            model=args.model_name,
-            api_key=os.environ["OPENAI_API_KEY"],
-        )
-    elif "claude" in args.model_name:
-        lm = ClaudeModel(model=args.model_name, api_key=os.environ["ANTHROPIC_API_KEY"])
-    else:
-        raise ValueError(f"Unsupported model name: {args.model_name}")
+    lm_kwargs = prepare_lm_kwargs(args.model_name)
+    lm = LitellmModel(**lm_kwargs)
 
     if args.debug:
         agent = CollaborativeAgent(
             lm=lm,
             add_plan_next_step_demo=True,
-            add_task_demo=True,
+            add_task_demo=args.add_task_demo,
+            enhance_user_control=args.enhance_user_control,
             prompt_path=args.prompt_path,
         )
 
@@ -369,7 +387,8 @@ if __name__ == "__main__":
                     agent=CollaborativeAgent(
                         lm=lm,
                         add_plan_next_step_demo=True,
-                        add_task_demo=True,
+                        add_task_demo=args.add_task_demo,
+                        enhance_user_control=args.enhance_user_control,
                         prompt_path=args.prompt_path,
                     ),
                     wait_time=args.wait_time,

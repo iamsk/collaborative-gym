@@ -1,4 +1,4 @@
 [[team_member]]
 name = "basic_auto_agent"
 type = "agent"
-start_node_base_command = "python -m demo_agent.auto_agent.agent --use-together --model-name meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo"
+start_node_base_command = "python -m demo_agent.auto_agent.agent --add-task-demo -model-name together_ai/meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo"

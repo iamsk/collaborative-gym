@@ -6,7 +6,6 @@ import sys
 from typing import AsyncIterator, Self
 
 from aact import NodeFactory, Message
-from aact.messages import Zero
 from websocket import WebSocket
 
 from collaborative_gym.core import ObservationTypes, logger
@@ -14,15 +13,6 @@ from collaborative_gym.nodes.agent_interface import AGENT_TO_PID_KEY
 from collaborative_gym.nodes.base_node import BaseNode
 from collaborative_gym.nodes.commons import JsonObj
 from collaborative_gym.utils.code_executor import JupyterManager
-
-
-"""
-WebSocket-based GUI interface implementation for human user interaction in collaborative environments.
-
-This module provides a WebSocket-based interface for human users to interact with the
-collaborative environment through a graphical interface. It supports real-time updates,
-team member status tracking, and various observation type formatting.
-"""
 
 
 def reformat_observation(raw_observation, obs_type):
@@ -94,6 +84,7 @@ def reformat_observation(raw_observation, obs_type):
                 location_match = re.search(r"location:\s*([^,]+)", query)
                 query = term_match.group(1).strip() if term_match else ""
                 location = location_match.group(1).strip() if location_match else ""
+
                 content = {
                     "mode": "places",
                     "query": query,
@@ -102,7 +93,12 @@ def reformat_observation(raw_observation, obs_type):
                         {
                             "title": r["name"],
                             "url": r["url"],
-                            "snippet": f"Rating: {r['rating']}, Price: {r['price']}, Address: {r['address']}",
+                            "address": r["address"],
+                            **{
+                                k: r[k]
+                                for k in ["rating", "price"]
+                                if r[k] != "No information"
+                            },
                         }
                         for r in output
                     ],
@@ -121,6 +117,29 @@ def reformat_observation(raw_observation, obs_type):
             }
         )
     return observation_space
+
+
+def reformat_confirmations(confirmations):
+    """Format confirmations into a structured format for GUI display.
+
+    Args:
+        confirmations: dict, request_id -> {requester, timestamp, pending_action}
+
+    Returns:
+        list: List of formatted confirmations, sorted by timestamp in ascending order
+    """
+    return sorted(
+        [
+            {
+                "id": request_id,
+                "requester": confirmation["requester"],
+                "timestamp": confirmation["timestamp"],
+                "action": confirmation["pending_action"],
+            }
+            for request_id, confirmation in confirmations.items()
+        ],
+        key=lambda x: x["timestamp"],
+    )
 
 
 @NodeFactory.register("gui_user_listen")
@@ -296,7 +315,7 @@ class GUIUserListenNode(BaseNode[JsonObj, JsonObj]):
                 self.team_member_state[team_member]["status"] = "failed"
                 self.team_member_state[team_member][
                     "action"
-                ] = "The agent process is not running."
+                ] = "The agent process terminates. Please finish the session and try again."
 
     async def event_handler(
         self, input_channel: str, input_message: Message[JsonObj]
@@ -327,18 +346,22 @@ class GUIUserListenNode(BaseNode[JsonObj, JsonObj]):
             # await asyncio.sleep(5)
             observation = input_message.data.object["observation"]
             obs_type = input_message.data.object["observation_type"]
+            pending_confirmations = input_message.data.object["pending_confirmations"]
             payload = {
                 "type": "observation",
                 "observation_space": reformat_observation(
                     raw_observation=observation, obs_type=obs_type
                 ),
                 "chat_history": input_message.data.object["chat_history"],
+                "pending_confirmations": reformat_confirmations(pending_confirmations),
+                "agent_asleep": input_message.data.object["agent_asleep"],
             }
             await self.update_last_active_time()
             await self.websocket_send_message(payload)
         elif input_channel == f"{self.env_uuid}/{self.node_name}/answer_state":
             observation = input_message.data.object["observation"]
             obs_type = input_message.data.object["observation_type"]
+            pending_confirmations = input_message.data.object["pending_confirmations"]
             await self.check_team_member_process()
             payload = {
                 "type": "answer_state",
@@ -347,7 +370,9 @@ class GUIUserListenNode(BaseNode[JsonObj, JsonObj]):
                     raw_observation=observation, obs_type=obs_type
                 ),
                 "chat_history": input_message.data.object["chat_history"],
+                "pending_confirmations": reformat_confirmations(pending_confirmations),
                 "team_member_state": self.team_member_state,
+                "agent_asleep": input_message.data.object["agent_asleep"],
             }
             await self.update_last_active_time()
             await self.websocket_send_message(payload)
@@ -357,7 +382,9 @@ class GUIUserListenNode(BaseNode[JsonObj, JsonObj]):
                 action_str = input_message.data.object["action"]
                 if action_str.startswith("WAIT_TEAMMATE_CONTINUE"):
                     self.team_member_state[role]["status"] = "idle"
-                    self.team_member_state[role]["action"] = ""
+                    self.team_member_state[role][
+                        "action"
+                    ] = "Agent is waiting for your message/action..."
                 elif action_str.startswith("FINISH"):
                     self.team_member_finished = True
                     self.team_member_state[role]["status"] = "idle"
@@ -368,53 +395,53 @@ class GUIUserListenNode(BaseNode[JsonObj, JsonObj]):
                     if action_str.startswith("EXECUTE_JUPYTER_CELL"):
                         self.team_member_state[role][
                             "action"
-                        ] = "Writing code in Jupyter Notebook..."
+                        ] = "Agent is writing code in Jupyter Notebook..."
                     elif action_str.startswith(
                         "EDITOR_UPDATE"
                     ) or action_str.startswith("POLISH_DRAFT_WITH_LIBRARY"):
                         self.team_member_state[role][
                             "action"
-                        ] = "Updating the editor..."
+                        ] = "Agent is updating the editor..."
                     elif action_str.startswith("ADD_PAPER_TO_LIBRARY"):
                         self.team_member_state[role][
                             "action"
-                        ] = "Adding papers to the library..."
+                        ] = "Agent is adding papers to the library..."
                     elif action_str.startswith("DROP_PAPER_FROM_LIBRARY"):
                         self.team_member_state[role][
                             "action"
-                        ] = "Dropping papers from the library..."
+                        ] = "Agent is dropping papers from the library..."
                     elif action_str.startswith("LIBRARY_TO_DRAFT"):
                         self.team_member_state[role][
                             "action"
-                        ] = "Writing draft based on the current library..."
+                        ] = "Agent is writing draft based on the current library..."
                     elif action_str.startswith("SEARCH_ARXIV"):
                         self.team_member_state[role][
                             "action"
-                        ] = "Searching papers on arXiv..."
+                        ] = "Agent is searching papers on arXiv..."
                     elif action_str.startswith("FLIGHT_SEARCH"):
                         self.team_member_state[role][
                             "action"
-                        ] = "Searching for flights..."
+                        ] = "Agent is searching for flights..."
                     elif action_str.startswith("ACCOMMODATION_SEARCH"):
                         self.team_member_state[role][
                             "action"
-                        ] = "Searching for accommodations..."
+                        ] = "Agent is searching for accommodations..."
                     elif action_str.startswith("RESTAURANT_SEARCH"):
                         self.team_member_state[role][
                             "action"
-                        ] = "Searching for restaurants..."
+                        ] = "Agent is searching for restaurants..."
                     elif action_str.startswith("ATTRACTION_SEARCH"):
                         self.team_member_state[role][
                             "action"
-                        ] = "Searching for attractions..."
+                        ] = "Agent is searching for attractions..."
                     elif action_str.startswith("DISTANCE_MATRIX"):
                         self.team_member_state[role][
                             "action"
-                        ] = "Calculating distance matrix..."
+                        ] = "Agent is calculating distance matrix..."
                     elif action_str.startswith("BUSINESS_SEARCH"):
                         self.team_member_state[role][
                             "action"
-                        ] = "Searching for places/businesses..."
+                        ] = "Agent is searching for places/businesses..."
                     elif action_str.startswith("INTERNET_SEARCH"):
                         self.team_member_state[role]["action"] = "Searching the web..."
                 await self.check_team_member_process()

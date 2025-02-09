@@ -85,7 +85,7 @@ class CoEnv:
             observation (ObsType): An element of the environment's observation_space as the current observation due to the agent actions.
             reward (SupportsFloat): The reward as a result of taking the action. 0 for success, -1 for failure unless otherwise specified.
             terminated (bool): Whether the agent reaches the terminal state.
-            private (bool): Whether the change shall notify the action taker or be broadcasted to all team members.
+            private (bool): Whether the change shall notify the action taker or be broadcast to all team members.
             info (dict): Contains auxiliary diagnostic information (helpful for debugging, learning, and logging).
         """
         raise NotImplementedError
@@ -272,4 +272,98 @@ class WaitTeammateContinue(UnicodeWithRegexPattern):
             human_readable_description="Skip your turn and wait for your teammate(s) to continue. This action is useful"
             " for collaboration, especially when you need to wait for your teammate(s) to "
             "provide information, complete certain parts before you can proceed, etc.",
+        )
+
+
+class RequestTeammateConfirm(UnicodeWithRegexPattern):
+    """Request confirmation before the action is executed.
+
+    This primitive action is useful to protect shared components in the shared environment.
+    """
+
+    def __init__(self):
+        super().__init__(
+            min_length=0,
+            max_length=MAX_UNICODE_LENGTH,
+            regex_pattern=re.compile(
+                r"^REQUEST_TEAMMATE_CONFIRM\(request_id=(.*), pending_action=(.*)\)$",
+                re.DOTALL,
+            ),
+            params=["request_id", "pending_action"],
+            machine_readable_identifier="REQUEST_TEAMMATE_CONFIRM",
+            human_readable_name="Request confirmation from your teammate(s).",
+            human_readable_description="For the pending action, request confirmation from your teammate(s) before "
+            "executing the action.",
+        )
+
+
+class AcceptConfirmation(UnicodeWithRegexPattern):
+    """Accept the confirmation request from the teammate."""
+
+    def __init__(self):
+        super().__init__(
+            min_length=0,
+            max_length=MAX_UNICODE_LENGTH,
+            regex_pattern=re.compile(
+                r"^ACCEPT_CONFIRMATION\(request_id=(.*)\)$", re.DOTALL
+            ),
+            params=["request_id"],
+            machine_readable_identifier="ACCEPT_CONFIRMATION",
+            human_readable_name="Accept the confirmation request from your teammate(s).",
+            human_readable_description="Accept the confirmation request from your teammate(s) for the pending action.",
+        )
+
+
+class RejectConfirmation(UnicodeWithRegexPattern):
+    """Reject the confirmation request from the teammate."""
+
+    def __init__(self):
+        super().__init__(
+            min_length=0,
+            max_length=MAX_UNICODE_LENGTH,
+            regex_pattern=re.compile(
+                r"^REJECT_CONFIRMATION\(request_id=(.*)\)$", re.DOTALL
+            ),
+            params=["request_id"],
+            machine_readable_identifier="REJECT_CONFIRMATION",
+            human_readable_name="Reject the confirmation request from your teammate(s).",
+            human_readable_description="Reject the confirmation request from your teammate(s) for the pending action.",
+        )
+
+
+class PutAgentAsleep(UnicodeWithRegexPattern):
+    """Put the agent to sleep.
+
+    The action can be used by the human to control the usage of the agent.
+    """
+
+    def __init__(self):
+        super().__init__(
+            min_length=0,
+            max_length=MAX_UNICODE_LENGTH,
+            regex_pattern=re.compile(r"^PUT_AGENT_ASLEEP\(\)$", re.DOTALL),
+            params=[],
+            machine_readable_identifier="PUT_AGENT_ASLEEP",
+            human_readable_name="Put the agent to sleep.",
+            human_readable_description="Put the agent to sleep. After this action, the agent will not be notified of "
+            "any new notifications and cannot take any actions until it is woken up.",
+        )
+
+
+class WakeAgentUp(UnicodeWithRegexPattern):
+    """Wake the agent up.
+
+    The action can be used by the human to control the usage of the agent.
+    """
+
+    def __init__(self):
+        super().__init__(
+            min_length=0,
+            max_length=MAX_UNICODE_LENGTH,
+            regex_pattern=re.compile(r"^WAKE_AGENT_UP\(\)$", re.DOTALL),
+            params=[],
+            machine_readable_identifier="WAKE_AGENT_UP",
+            human_readable_name="Wake the agent up.",
+            human_readable_description="Wake the agent up. After this action, the agent will be notified of new "
+            "notifications and can take actions again.",
         )
