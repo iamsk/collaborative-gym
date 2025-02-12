@@ -10,15 +10,27 @@
 
 **Latest News** 🔥
 
+- [2025/02] 🎉 Co-Gym (real) is now publicly available! **Visit [our website](https://cogym.saltlab.stanford.edu/) to use collaborative agents for travel planning and tabular analysis.** We've also open-sourced our UI components for developers to build upon.
 - [2025/01] Initial release with arXiv [preprint](https://arxiv.org/abs/2412.15701) (check out our [Twitter thread](https://x.com/EchoShao8899/status/1880291718496670097) for walkthrough video). We are working on releasing Co-Gym (real) web preview for in-the-wild study, alongside tools for developing collaborative agents locally.
 
-## What is Collaborative Gym (Co-Gym)?
-Collaborative Gym (Co-Gym) is a framework for enabling and evaluating **Human-Agent Collaboration**. It is designed to facilitate the development of collaborative agents that can act as teammates rather than mere tools. Specifically, Co-Gym provides API to support asynchronous tripartite interaction between agents, humans, and task environments, as well as a series of metrics to evaluate the human-agent collaboration outcome and processes.
+## What is Collaborative Gym? [(Use Collaborative Agents Now!)](https://cogym.saltlab.stanford.edu/)
+Collaborative Gym (Co-Gym) is a framework for enabling and evaluating **Human-Agent Collaboration**. Unlike traditional chatbots, Co-Gym allows both human users and AI agents to not only exchange messages but also take actions in a shared workspace. Additionally, unlike autonomous agents that take a sequence of actions on its own, Co-Gym expects the agents to engage in the collaboration process where the human user can intervene in real-time.
+
+Our vision is to leverage Co-Gym for improving collaborative agents and evaluating human-agent collaboration.
+
+- [Setup](#setup)
+- [API](#api)
+- [Simulated and Real Conditions](#simulated-and-real-conditions)
+- [Evaluation](#evaluation)
+- [Add a New Agent](#add-a-new-agent)
+- [Add a New Task Environment](#add-a-new-task-environment)
+- [Contributions](#contributions)
+- [Acknowledgement](#acknowledgement)
+- [Citation](#citation)
+
 
 ## Setup
-**We view Co-Gym as a framework for building and evaluating collaborative agents that take initiative at the correct time and work together with humans in parallel. We are working on enhancing our codebase to increase its extensibility. Stay tuned!**
-
-Below, we provide a quick start guide to run Co-Gym locally to reproduce our experiments.
+**We view Co-Gym as a framework for building and evaluating collaborative agents that take initiative at the correct time and work together with humans in parallel.** Below, we provide a quick start guide to run Co-Gym locally to reproduce our experiments.
 
 1. Install the required packages:
    ```shell
@@ -65,7 +77,7 @@ To support asynchronous interaction between agents, humans, and task environment
 
 We provide a [`Runner`](collaborative_gym/runner.py) class to handle the lifecycle of human-agent collaboration sessions, including launching these node processes and ensuring proper cleanup on exit.
 
-## Supported Conditions
+## Simulated and Real Conditions
 Co-Gym supports two experimental conditions: Co-Gym (Simulated) and Co-Gym (Real)
 - Co-Gym (Simulated) experiments with simulated humans and pre-collected task instances, allowing controlled, iterative development.
 - Co-Gym (Real) experiments with real humans and user-provided task instances, allowing deploying and evaluating collaborative agents in the wild.
@@ -104,7 +116,9 @@ To reproduce our paper experiments:
     - The result will be saved in `work_dir/{task}/{result-dir-tag}/results`.
 
 ### Co-Gym (Real)
-**We plan to release Co-Gym (Real) as a web research preview to the general public to better understand the strengths and weaknesses of current LM agents as a teammate. The release is currently under review by the Stanford Institutional Review Board (IRB). Stay tuned!**
+**You can try out collaborative agents directly through our [live research preview](https://cogym.saltlab.stanford.edu/). Each session randomly pairs you with collaborative agent. Help us evaluate different agents by sharing your ratings and feedback - and discover some surprises along the way!**
+
+We've open-sourced our collaborative interface in `frontend/workbench`. For setup instructions, please refer to [frontend/workbench/README.md](frontend/workbench/README.md).
 
 ## Evaluation
 Co-Gym supports the evaluation of collaborative agents across both collaboration outcomes and processes.
@@ -161,8 +175,22 @@ The simplest way to integrate an agent into Co-Gym is by ensuring compatibility 
 
 The agent can be implemented using any framework of your choice. Feel free to check out our example agents for reference.
 
+## Add a New Task Environment
+The supported task environments are under `collaborative_gym/envs`. To add a new task environment:
+1. Create a new file under `collaborative_gym/envs` that inherits from [`CoEnv`](collaborative_gym/core.py). Register your environment class with `@EnvFactory.register("id_for_your_task")`.
+2. Configure the environment settings:
+    - Define `self.task_description` in natural language.
+    - Specify action space, private and public observation spaces.
+    - Optionally specify `self.example_question` and `self.example_trajectory` if you want to add task demo when running demo agents.
+3. Implement `self.step()` to define the environment logic.
+4. Add your environment class to [collaborative_gym/envs/__init__.py](collaborative_gym/envs/__init__.py). You can now use your environment by referencing its registered ID.
+
+To integrate your task into the user interface, see [frontend/workbench/README.md](frontend/workbench/README.md).
+
 ## Contributions
 If you have any questions or suggestions, please feel free to open an issue or pull request. We welcome contributions to add more task environments & agents and improve the codebase!
+- Contributed collaborative agents can be deployed on [our research preview](https://cogym.saltlab.stanford.edu/) for evaluation once we verify its functionalities.
+- Besides contributing task environments directly, you can also [request a new task](https://github.com/SALT-NLP/collaborative-gym/issues/new?template=task_environment_request.md) you would like to see officially supported in Co-Gym or vote for existing requests.
 
 Contact person: [Yijia Shao](mailto:shaoyj@stanford.edu), [Vinay Samuel](mailto:vsamuel@andrew.cmu.edu), and [Yucheng Jiang](mailto:yuchengj@stanford.edu)
 
@@ -179,10 +207,10 @@ We are very grateful to the following amazing designers who have contributed to 
 ## Citation
 Please cite our paper if you use this code or part of it in your work:
 ```
-@misc{shao2024collaborativegym,
+@misc{shao2025collaborativegym,
       title={Collaborative Gym: A Framework for Enabling and Evaluating Human-Agent Collaboration}, 
       author={Yijia Shao and Vinay Samuel and Yucheng Jiang and John Yang and Diyi Yang},
-      year={2024},
+      year={2025},
       eprint={2412.15701},
       archivePrefix={arXiv},
       primaryClass={cs.AI},
