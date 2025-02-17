@@ -44,7 +44,7 @@ export const markdownStyles: Components = {
     );
   },
   p: ({ children }: MarkdownComponentProps) => (
-    <p className="my-1 leading-normal">{children}</p>
+    <p className="my-1 leading-normal inline">{children}</p>
   ),
   blockquote: ({ children }: MarkdownComponentProps) => (
     <blockquote className="border-l-4 border-gray-300 pl-4 my-1 italic">{children}</blockquote>
