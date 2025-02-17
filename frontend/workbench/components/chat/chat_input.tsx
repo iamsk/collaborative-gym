@@ -25,10 +25,10 @@ const ChatInput = ({
   const [content, setContent] = useState("");
   const [imageUrls] = useState<string[]>([]);
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
-
-  agentAction = agentAsleep
-    ? "Agent is asleep. It will not take any actions until it is woken up."
-    : agentAction;
+  const [internalAgentAction, setInternalAgentAction] = useState(agentAsleep 
+    ? "Agent is asleep. It will not take any actions until it is woken up." 
+    : agentAction
+  );
 
   const adjustTextAreaHeight = () => {
     const textArea = textAreaRef.current;
@@ -43,6 +43,13 @@ const ChatInput = ({
     adjustTextAreaHeight();
   }, [content]);
 
+  useEffect(() => { 
+    setInternalAgentAction(agentAsleep 
+      ? "Agent is asleep. It will not take any actions until it is woken up." 
+      : agentAction
+    );
+  }, [agentAsleep, agentAction]);
+
   const handleInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.target.value);
   };
@@ -50,6 +57,7 @@ const ChatInput = ({
   const handleSubmit = () => {
     if (content.trim()) {
       onSendMessage(content.trim(), imageUrls);
+      setInternalAgentAction("The agent has received your message and is deciding on its next action.");
       setContent("");
     }
   };
@@ -58,7 +66,6 @@ const ChatInput = ({
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       handleSubmit();
-      agentAction = "Agent is planning...";
     }
   };
 
@@ -74,9 +81,9 @@ const ChatInput = ({
 
   return (
     <div className="relative w-full p-4 pb-5 bg-neutral-50">
-      {agentAction && (
+      {internalAgentAction && (
         <div className="text-neutral-500 mb-2 ml-2">
-          <p className="text-sm">{agentAction}</p>
+          <p className="text-sm">{internalAgentAction}</p>
         </div>
       )}
       <div className="flex gap-2 mb-2">

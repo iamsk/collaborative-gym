@@ -198,8 +198,8 @@ class GUIUserListenNode(BaseNode[JsonObj, JsonObj]):
         self.node_name = node_name
         self.team_member_state = {
             team_member: {
-                "status": "idle",
-                "action": "",
+                "status": "working",
+                "action": "Agent starts working on the task...",
             }
             for team_member in team_members
         }
@@ -340,6 +340,7 @@ class GUIUserListenNode(BaseNode[JsonObj, JsonObj]):
         if input_channel == f"{self.env_uuid}/start":
             payload = {
                 "type": "start",
+                "team_member_state": self.team_member_state,
             }
             await self.websocket_send_message(payload)
         elif input_channel == f"{self.env_uuid}/{self.node_name}/observation":

@@ -13,10 +13,10 @@ import MenuItem from '@mui/material/MenuItem';
 import Paper from '@mui/material/Paper';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import { Paperclip } from 'lucide-react';
+import { Paperclip, X } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import * as React from 'react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import toast from './toast';
 
 const pages = ['Travel Planning', 'Literature Survey', 'Tabular Analysis'];
@@ -147,8 +147,24 @@ function MainContent({ selectedTab }: { selectedTab: string }) {
   const [attachedFiles, setAttachedFiles] = useState<File[]>([]);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const files = Array.from(event.target.files || []);
-    setAttachedFiles(files);
+    const newFiles = Array.from(event.target.files || []) as File[];
+    const updatedFiles = [...attachedFiles, ...newFiles];
+    // Remove duplicates based on file name
+    const uniqueFiles = updatedFiles.filter(
+      (file, index, self) =>
+        index === self.findIndex((f) => f.name === file.name)
+    );
+    setAttachedFiles(uniqueFiles);
+  };
+
+  const handleDeleteFile = (fileToDelete: File) => {
+    const newFileList = new DataTransfer();
+    Array.from(attachedFiles).forEach(file => {
+      if (file !== fileToDelete) {
+        newFileList.items.add(file);
+      }
+    });
+    setAttachedFiles(Array.from(newFileList.files));
   };
 
   const handleStart = async () => {
@@ -252,21 +268,21 @@ function MainContent({ selectedTab }: { selectedTab: string }) {
               <Box component="span" sx={{ color: 'primary.main' }}>
                 Plan your trip
               </Box>
-              {' with AI agent together'}
+              {' together with AI agent'}
             </>
           ) : selectedTab === 'Literature Survey' ? (
             <>
               <Box component="span" sx={{ color: 'primary.main' }}>
                 Write Related Work section
               </Box>
-              {' with AI agent together'}
+              {' together with AI agent'}
             </>
           ) : (
             <>
               <Box component="span" sx={{ color: 'primary.main' }}>
                 Analyze your tabular data
               </Box>
-              {' with AI agent together'}
+              {' together with AI agent'}
             </>
           )}
         </Typography>
@@ -301,43 +317,78 @@ function MainContent({ selectedTab }: { selectedTab: string }) {
                 placeholder="Attach the CSV file and describe how you want to analyze your data..."
                 style={{ minHeight: '200px', fontFamily: 'monospace', fontSize: '16px' }}
                 className={cn(
-                  'block w-full h-full resize-none bg-gray-100 p-4 rounded-md focus:outline-none focus:ring-0 border-none font-mono'
+                  "block w-full min-h-[200px] resize-none bg-gray-100 p-4",
+                  "rounded-md focus:outline-none focus:ring-0 border-none font-mono text-base"
                 )}
               />
-              <Box display="flex" alignItems="center" ml={1} mb={1}>
-                <button
-                  style={{
-                    position: 'relative',
-                    right: 0,
-                    background: 'none',
-                    border: 'none',
-                    cursor: 'pointer',
-                    transition: 'transform 0.2s, opacity 0.2s',
-                  }}
-                  onMouseOver={(e) => {
-                    e.currentTarget.style.transform = 'scale(1.1)';
-                    e.currentTarget.style.opacity = '0.8';
-                  }}
-                  onMouseOut={(e) => {
-                    e.currentTarget.style.transform = 'scale(1)';
-                    e.currentTarget.style.opacity = '1';
-                  }}
-                >
-                  <label style={{ cursor: 'pointer' }}>
-                    <Paperclip />
-                    <input type="file" hidden multiple onChange={handleFileChange} />
-                  </label>
-                </button>
-                {attachedFiles.length > 0 ? (
-                  <Typography variant="body2" sx={{ ml: 2, color: 'green' }}>
-                    {attachedFiles.length} file(s) attached
-                  </Typography>
-                ) : (
-                  <Typography variant="body2" sx={{ ml: 2, color: 'gray' }}>
-                    Please attach at least one CSV file
-                  </Typography>
+              {/* File attachment */}
+              <div className="flex flex-col mt-4">
+                <Box display="flex" alignItems="center" ml={1} mb={1}>
+                  <button
+                    style={{
+                      position: 'relative',
+                      right: 0,
+                      background: 'none',
+                      border: 'none',
+                      cursor: 'pointer',
+                      transition: 'transform 0.2s, opacity 0.2s',
+                    }}
+                    onMouseOver={(e) => {
+                      e.currentTarget.style.transform = 'scale(1.1)';
+                      e.currentTarget.style.opacity = '0.8';
+                    }}
+                    onMouseOut={(e) => {
+                      e.currentTarget.style.transform = 'scale(1)';
+                      e.currentTarget.style.opacity = '1';
+                    }}
+                  >
+                    <label className="cursor-pointer">
+                      <Paperclip className="text-gray-600" />
+                      <input
+                        type="file"
+                        hidden
+                        multiple
+                        onChange={handleFileChange}
+                        accept=".csv,.xlsx,.xls"
+                      />
+                    </label>
+                  </button>
+                  {attachedFiles.length > 0 && (
+                    <Typography variant="body2" sx={{ ml: 2, color: 'green' }}>
+                      {attachedFiles.length} file(s) attached
+                    </Typography>
+                  )}
+                  {attachedFiles.length === 0 && (
+                    <Typography variant="body2" sx={{ ml: 2, color: 'gray' }}>
+                      Please attach at least one CSV file
+                    </Typography>
+                  )}
+                </Box>
+                {/* File list with delete buttons */}
+                {attachedFiles.length > 0 && (
+                  <div className="h-16 overflow-x-auto overflow-y-hidden mx-2 mb-1">
+                    <div className="flex flex-row gap-2 h-full py-2">
+                      {Array.from(attachedFiles).map((file, index) => (
+                        <div
+                          key={`${file.name}-${index}`}
+                          className="flex items-center bg-white px-3 rounded-md whitespace-nowrap shadow-sm"
+                        >
+                          <span className="text-sm text-gray-700 max-w-[200px] truncate">
+                            {file.name}
+                          </span>
+                          <button
+                            onClick={() => handleDeleteFile(file)}
+                            className="p-1 hover:bg-gray-100 rounded-full transition-colors flex-shrink-0"
+                            aria-label={`Delete ${file.name}`}
+                          >
+                            <X className="w-4 h-4 text-gray-500" />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 )}
-              </Box>
+              </div>
             </Box>
           )}
           <Box display="flex" justifyContent="flex-start" gap={2}>
@@ -355,7 +406,7 @@ function MainContent({ selectedTab }: { selectedTab: string }) {
                 sx={{ mt: 2, alignSelf: 'flex-start' }}
                 onClick={setPredefinedTabularAnalysisData}
               >
-                Explore given table(s)
+                Explore example query
               </Button>
             )}
           </Box>

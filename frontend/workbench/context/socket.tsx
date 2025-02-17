@@ -36,6 +36,7 @@ interface ObservationMessage extends BaseMessage {
 
 interface StartMessage extends BaseMessage {
   type: 'start';
+  team_member_state: Record<string, TeamMemberState>;
 }
 
 interface AnswerStateMessage extends BaseMessage {
@@ -140,6 +141,7 @@ export function WebSocketProvider({ children }: WebSocketProviderProps) {
             setState((prev) => ({
               ...prev,
               envStarted: true,
+              agentState: data.team_member_state["agent"],
             }));
             break;
           case 'update_team_member_state':

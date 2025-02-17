@@ -21,7 +21,7 @@ export default function TextEditor({
 }: TextEditorProps): JSX.Element {
   const [editingText, setEditingText] = useState(content);
   const [isSaving, setIsSaving] = useState(false);
-  const [isPreviewMode, setIsPreviewMode] = useState(false);
+  const [isPreviewMode, setIsPreviewMode] = useState(true);
   const { envId, session } = useTaskSessionContext();
 
   useEffect(() => {
