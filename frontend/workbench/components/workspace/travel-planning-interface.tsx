@@ -14,7 +14,7 @@ import {
   import TravelSearchInterface from '../tools/travel-search/travel-search-interface';
   import { TravelSearchResultCardProps } from '../tools/travel-search/travel-search-result';
   import { TravelSearchInputProps } from '../tools/travel-search/travel-search-input';
-  
+
   export interface TravelPlanningWorkspaceInterfaceProps {
     textEditorContent: string;
     travelSearchInput: TravelSearchInputProps;
@@ -22,7 +22,7 @@ import {
     distanceMatrixResults: DistanceMatrixResults | null;
     textEditorUpdateTrigger: number;
   }
-  
+
   export default function TravelPlanningWorkspaceInterface({
     textEditorContent,
     travelSearchInput,
@@ -37,7 +37,7 @@ import {
       distanceMatrix: distanceMatrixResults,
     });
     const isInitialized = useRef(false);
-  
+
     useEffect(() => {
       if (!isInitialized.current) {
         lastViewedContent.current = {
@@ -48,7 +48,7 @@ import {
         isInitialized.current = true;
       }
     }, [textEditorContent, travelSearchInput, travelSearchResults, distanceMatrixResults]);
-  
+
     const shouldShowNotification = (tabIndex: number) => {
       if (value === tabIndex) {
         switch (tabIndex) {
@@ -79,11 +79,11 @@ import {
           return false;
       }
     };
-  
+
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
       setValue(newValue);
     };
-  
+
     return (
       <Box sx={{ width: '95%', margin: '0 auto' }}>
         <Box
@@ -97,14 +97,14 @@ import {
             <CustomTab
               label={<TabWithNotification label="Editor" hasUpdate={shouldShowNotification(0)} />}
             />
-            <CustomTab
-              label={<TabWithNotification label="Search" hasUpdate={shouldShowNotification(1)} />}
-            />
-            <CustomTab
-              label={
-                <TabWithNotification label="Map" hasUpdate={shouldShowNotification(2)} />
-              }
-            />
+            {/*<CustomTab*/}
+            {/*  label={<TabWithNotification label="Search" hasUpdate={shouldShowNotification(1)} />}*/}
+            {/*/>*/}
+            {/*<CustomTab*/}
+            {/*  label={*/}
+            {/*    <TabWithNotification label="Map" hasUpdate={shouldShowNotification(2)} />*/}
+            {/*  }*/}
+            {/*/>*/}
           </CustomTabs>
         </Box>
         <PublicTabPanel value={value} index={0}>
@@ -122,4 +122,3 @@ import {
       </Box>
     );
   }
-  

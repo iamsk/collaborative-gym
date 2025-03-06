@@ -60,7 +60,7 @@ function ChatMessage({ message, isLastMessage }: MessageProps) {
       )}
       {message.role.includes("agent") && (
         <Avatar
-          src="/avatar.svg"
+          src="/avatar.jpg"
           sx={{ height: "6", width: "6", backgroundColor: "white" }}
         />
       )}

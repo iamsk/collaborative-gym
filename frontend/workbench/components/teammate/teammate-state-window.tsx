@@ -50,7 +50,7 @@ export function TeammateStateWindow({ envId, teammateState }: TeammateStateWindo
       <div className="relative h-full flex items-center">
         <Tooltip title="Click to see agent state details.">
           <Avatar
-            src="/avatar.svg"
+            src="/avatar.jpg"
             sx={{
               height: '75%',
               width: 'auto',

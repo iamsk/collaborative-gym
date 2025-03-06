@@ -19,7 +19,7 @@ import * as React from 'react';
 import { useState } from 'react';
 import toast from './toast';
 
-const pages = ['Travel Planning', 'Literature Survey', 'Tabular Analysis'];
+const pages = [];
 
 function ResponsiveAppBar({
   selectedTab,
@@ -56,7 +56,7 @@ function ResponsiveAppBar({
               textDecoration: 'none',
             }}
           >
-            Collaborative Gym
+
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
@@ -416,9 +416,9 @@ function MainContent({ selectedTab }: { selectedTab: string }) {
         elevation={0}
         sx={{
           width: '38%',
-          aspectRatio: '1 / 1',
+          aspectRatio: '1.5 / 1',
           backgroundColor: 'white',
-          backgroundImage: `url(/cogym-logo.svg)`,
+          backgroundImage: `url(/trip_planning.jpg)`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           ml: 4,
@@ -429,7 +429,7 @@ function MainContent({ selectedTab }: { selectedTab: string }) {
 }
 
 export default function LandingPage() {
-  const [selectedTab, setSelectedTab] = React.useState<string>(pages[0]);
+  const [selectedTab, setSelectedTab] = React.useState<string>("Travel Planning");
 
   return (
     <Box>
