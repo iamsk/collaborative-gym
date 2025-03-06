@@ -21,3 +21,4 @@ voyageai
 python-multipart
 anthropic
 apscheduler
+google-api-python-client
