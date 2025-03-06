@@ -19,7 +19,7 @@ import * as React from 'react';
 import { useState } from 'react';
 import toast from './toast';
 
-const pages = [];
+const pages = ["Travel Planning"];
 
 function ResponsiveAppBar({
   selectedTab,
