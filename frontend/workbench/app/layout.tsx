@@ -3,8 +3,8 @@ import { Toaster } from 'react-hot-toast';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Co-Gym UI',
-  description: 'A playground for human-AI collaboration',
+  title: 'Trip Planning',
+  description: 'Trip Planning for human-AI collaboration',
 };
 
 
