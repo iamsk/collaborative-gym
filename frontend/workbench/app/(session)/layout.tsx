@@ -9,7 +9,7 @@ import { cn } from '@/lib/utils'
 
 export const metadata = {
   title: {
-    default: 'Collaborative Gym UI',
+    default: 'Trap Planning',
   },
   description: '',
 }
